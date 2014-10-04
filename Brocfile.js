@@ -10,7 +10,13 @@ js = compileES6(sourceTree, {
         '*.js'
     ],
     legacyFilesToAppend: [
-        '../bower_components/threejs/build/three.js'
+        '../bower_components/threejs/build/three.js',
+        '../vendor/Detector.js',
+        '../vendor/Stats.js',
+        '../vendor/OrbitControls.js',
+        '../vendor/THREEx.KeyboardState.js',
+        '../vendor/THREEx.FullScreen.js',
+        '../vendor/THREEx.WindowResize.js'
     ],
     wrapInEval: false,
     outputFile: '/wizard.js'
