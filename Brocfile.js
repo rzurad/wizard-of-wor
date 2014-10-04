@@ -6,19 +6,19 @@ var compileES6 = require('broccoli-es6-concatenator'),
     sourceTree = 'app',
     js, index, assets;
 
-js = compileES6(sourceTree, {
-    loaderFile: '../bower_components/loader/loader.js',
+js = compileES6(sourceTree + '/js', {
+    loaderFile: '../../bower_components/loader/loader.js',
     inputFiles: [
         '*.js'
     ],
     legacyFilesToAppend: [
-        '../bower_components/threejs/build/three.js',
-        '../vendor/Detector.js',
-        '../vendor/Stats.js',
-        '../vendor/OrbitControls.js',
-        '../vendor/THREEx.KeyboardState.js',
-        '../vendor/THREEx.FullScreen.js',
-        '../vendor/THREEx.WindowResize.js'
+        '../../bower_components/threejs/build/three.js',
+        '../../vendor/Detector.js',
+        '../../vendor/Stats.js',
+        '../../vendor/OrbitControls.js',
+        '../../vendor/THREEx.KeyboardState.js',
+        '../../vendor/THREEx.FullScreen.js',
+        '../../vendor/THREEx.WindowResize.js'
     ],
     wrapInEval: false,
     outputFile: '/wizard.js'

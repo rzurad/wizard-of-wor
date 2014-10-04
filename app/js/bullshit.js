@@ -1,10 +1,5 @@
-/*
-    Three.js "tutorials by example"
-    Author: Lee Stemkoski
-    Date: July 2013 (three.js v59dev)
-*/
+import dungeons from 'dungeons';
 
-// MAIN
 
 // standard global variables
 var container, scene, renderer, controls, stats;
