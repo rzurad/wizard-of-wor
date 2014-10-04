@@ -5,6 +5,7 @@
     "broccoli": "0.13.0",
     "broccoli-es6-concatenator": "~0.1.8",
     "broccoli-merge-trees": "~0.2.0",
-    "broccoli-static-compiler": "~0.2.0"
+    "broccoli-static-compiler": "~0.2.0",
+    "broccoli-less-single": "~0.1.4"
   }
 }

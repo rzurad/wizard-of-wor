@@ -1,6 +1,8 @@
 var compileES6 = require('broccoli-es6-concatenator'),
     mergeTrees = require('broccoli-merge-trees'),
     pickFiles = require('broccoli-static-compiler'),
+    compileLess = require('broccoli-less-single'),
+
     sourceTree = 'app',
     js, index, assets;
 
@@ -22,6 +24,8 @@ js = compileES6(sourceTree, {
     outputFile: '/wizard.js'
 });
 
+css = compileLess([sourceTree], 'styles/base.less', 'wizard.css');
+
 index = pickFiles(sourceTree, {
     srcDir: '',
     files: ['index.html'],
@@ -33,4 +37,4 @@ assets = pickFiles(sourceTree, {
     destDir: 'assets'
 });
 
-module.exports = mergeTrees([index, js, assets]);
+module.exports = mergeTrees([index, css, js, assets]);
