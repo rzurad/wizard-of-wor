@@ -1,0 +1,17 @@
+{
+  "name": "wizard-of-wor",
+  "version": "0.0.0",
+  "private": true,
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDepencencies": {
+    "broccoli": "0.12.3",
+    "broccoli-es6-concatenator": "0.1.7"
+  },
+  "devDependencies": {
+    "broccoli-merge-trees": "~0.2.0"
+  }
+}
