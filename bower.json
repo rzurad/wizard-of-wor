@@ -1,19 +1,8 @@
 {
   "name": "wizard-of-wor",
-  "version": "0.0.0",
-  "authors": [
-    "Richard Zurad <rzurad@gmail.com>"
-  ],
-  "description": "Web browser port of the Bally Astrocade version of Midway Games' 1981 \"Wizard of Wor\"",
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
+  "private": true,
+  "devDependencies": {
+    "loader": "https://github.com/stefanpenner/loader.js.git#1.0.1",
     "threejs": "*"
   }
 }

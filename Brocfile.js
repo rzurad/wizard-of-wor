@@ -1,15 +1,25 @@
-var mergeTrees = require('broccoli-merge-trees'),
-    compileES6 = require('broccoli-es6-concatenator'),
+var compileES6 = require('broccoli-es6-concatenator'),
+    mergeTrees = require('broccoli-merge-trees'),
+    pickFiles = require('broccoli-static-compiler'),
+    sourceTree = 'app',
+    js, index, assets;
 
-    sourceTrees,
-    wizardJS = compileES6(sourceTrees, {
-        loaderFile: 'loader.js',
-        inputFiles: [
-            'app/*.js',
-            'app/**/*.js'
-        ],
-        wrapInEval: true,
-        outputFile: '/assets/wizard.js'
-    });
+js = compileES6(sourceTree, {
+    loaderFile: '../bower_components/loader/loader.js',
+    inputFiles: [
+        '*.js'
+    ],
+    legacyFilesToAppend: [
+        '../bower_components/threejs/build/three.js'
+    ],
+    wrapInEval: false,
+    outputFile: '/wizard.js'
+});
 
-module.exports = mergeTrees([wizardJS, 'app']);
+index = pickFiles(sourceTree, {
+    srcDir: '',
+    files: ['index.html'],
+    destDir: ''
+});
+
+module.exports = mergeTrees([index, js]);
