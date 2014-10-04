@@ -13,52 +13,33 @@ var clock = new THREE.Clock();
 
 // custom global variables
 var MovingCube;
-var perspectiveCamera, topCamera, frontCamera, sideCamera;
+var topCamera;
 
 init();
 animate();
 
 // FUNCTIONS        
-function init() 
-{
+function init() {
     // SCENE
     scene = new THREE.Scene();
     // CAMERA
     var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
     var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
 
-    // perspective cameras
-    perspectiveCamera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
-    perspectiveCamera.position.set(0,200,550);
-    perspectiveCamera.lookAt(scene.position);
-    scene.add(perspectiveCamera);
-
     // orthographic cameras
     topCamera = new THREE.OrthographicCamera(
-    window.innerWidth / -4,     // Left
-    window.innerWidth / 4,      // Right
-    window.innerHeight / 4,     // Top
-    window.innerHeight / -4,    // Bottom
-    -5000,                      // Near 
-    10000 );                    // Far -- enough to see the skybox
+        window.innerWidth / -4, // Left
+        window.innerWidth / 4, // Right
+        window.innerHeight / 4, // Top
+        window.innerHeight / -4, // Bottom
+        -5000, // Near 
+        10000 // far
+    );
+
     topCamera.up = new THREE.Vector3(0,0,-1);
     topCamera.lookAt( new THREE.Vector3(0,-1,0) );
     scene.add(topCamera);
-    
-    frontCamera = new THREE.OrthographicCamera(
-    window.innerWidth / -4, window.innerWidth / 4,      
-    window.innerHeight / 4, window.innerHeight / -4,    
-    -5000, 10000 );                     
-    frontCamera.lookAt( new THREE.Vector3(0,0,-1) );
-    scene.add(frontCamera);
-    
-    sideCamera = new THREE.OrthographicCamera(
-    window.innerWidth / -4, window.innerWidth / 4,      
-    window.innerHeight / 4, window.innerHeight / -4,    
-    -5000, 10000 );                     
-    sideCamera.lookAt( new THREE.Vector3(1,0,0) );
-    scene.add(sideCamera);
-    
+
     // RENDERER
     if ( Detector.webgl )
         renderer = new THREE.WebGLRenderer( {antialias:true} );
@@ -80,10 +61,6 @@ function init()
     stats.domElement.style.bottom = '0px';
     stats.domElement.style.zIndex = 100;
     container.appendChild( stats.domElement );
-    // LIGHT
-    var light = new THREE.PointLight(0xffffff);
-    light.position.set(0,250,0);
-    scene.add(light);
     // FLOOR
     var floorTexture = new THREE.ImageUtils.loadTexture( 'assets/textures/checkerboard.jpg' );
     floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
@@ -94,66 +71,23 @@ function init()
     floor.position.y = -0.5;
     floor.rotation.x = Math.PI / 2;
     scene.add(floor);
-    // SKYBOX/FOG
-    var skyBoxGeometry = new THREE.CubeGeometry( 10000, 10000, 10000 );
-    var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0x9999ff, side: THREE.BackSide } );
-    var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
-    scene.add(skyBox);
     
     ////////////
     // CUSTOM //
     ////////////
     
-    scene.add( new THREE.AxisHelper(100) );
-    
-    // create an array with six textures for a cool cube
-    var materialArray = [];
-    materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/xpos.png' ) }));
-    materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/xneg.png' ) }));
-    materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/ypos.png' ) }));
-    materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/yneg.png' ) }));
-    materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/zpos.png' ) }));
-    materialArray.push(new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture( 'images/zneg.png' ) }));
-    var MovingCubeMat = new THREE.MeshFaceMaterial(materialArray);
-    var MovingCubeGeom = new THREE.CubeGeometry( 50, 50, 50, 1, 1, 1, materialArray );
-    MovingCube = new THREE.Mesh( MovingCubeGeom, MovingCubeMat );
+    var MovingCubeGeom = new THREE.BoxGeometry( 50, 50, 50, 1, 1, 1);
+    MovingCube = new THREE.Mesh(MovingCubeGeom);
     MovingCube.position.set(0, 25.1, 0);
-    scene.add( MovingCube );    
+    scene.add(MovingCube);    
     
     // a little bit of scenery...
 
     var ambientlight = new THREE.AmbientLight(0x111111);
     scene.add( ambientlight );
 
-    var wireMaterial = new THREE.MeshBasicMaterial( { color: 0x000000, wireframe: true, transparent: true } ); 
-    
-    // torus knot
-    var colorMaterial = new THREE.MeshPhongMaterial( { color: 0xff3333 } );
-    var shape = THREE.SceneUtils.createMultiMaterialObject( 
-        new THREE.TorusKnotGeometry( 30, 6, 160, 10, 2, 5 ), [ colorMaterial, wireMaterial ] );
-    shape.position.set(-200, 50, -200);
-    scene.add( shape );
-    // torus knot
-    var colorMaterial = new THREE.MeshPhongMaterial( { color: 0x33ff33 } );
-    var shape = THREE.SceneUtils.createMultiMaterialObject( 
-        new THREE.TorusKnotGeometry( 30, 6, 160, 10, 3, 2 ), [ colorMaterial, wireMaterial ] );
-    shape.position.set(200, 50, -200);
-    scene.add( shape );
-    // torus knot
-    var colorMaterial = new THREE.MeshPhongMaterial( { color: 0xffff33 } );
-    var shape = THREE.SceneUtils.createMultiMaterialObject( 
-        new THREE.TorusKnotGeometry( 30, 6, 160, 10, 4, 3 ), [ colorMaterial, wireMaterial ] );
-    shape.position.set(200, 50, 200);
-    scene.add( shape );
-    // torus knot
-    var colorMaterial = new THREE.MeshPhongMaterial( { color: 0x3333ff } );
-    var shape = THREE.SceneUtils.createMultiMaterialObject( 
-        new THREE.TorusKnotGeometry( 30, 6, 160, 10, 3, 4 ), [ colorMaterial, wireMaterial ] );
-    shape.position.set(-200, 50, 200);
-    scene.add( shape );
-    
     renderer.setSize( window.innerWidth, window.innerHeight );
-    renderer.setClearColorHex( 0x000000, 1 );
+    renderer.setClearColor( 0x000000, 1 );
     renderer.autoClear = false;
 }
 
