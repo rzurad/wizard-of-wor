@@ -22,4 +22,9 @@ index = pickFiles(sourceTree, {
     destDir: ''
 });
 
-module.exports = mergeTrees([index, js]);
+assets = pickFiles(sourceTree, {
+    srcDir: 'assets',
+    destDir: 'assets'
+});
+
+module.exports = mergeTrees([index, js, assets]);
