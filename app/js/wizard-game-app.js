@@ -77,11 +77,22 @@ WizardGameApplication.prototype = {
     },
 
     updateGame: function (elapsedTime, deltaTime) {
-        console.log('`frameMove` called', elapsedTime, deltaTime);
+        if (!this.isRunning) {
+            return;
+        }
+
+        /*
+        if (this.isQuitting) {
+            return;
+        }
+        */
+
+        this.game.update(elapsedTime, deltaTime);
     },
 
     render: function (elapsedTime, deltaTime) {
-        console.log('`frameRender` called', elapsedTime, deltaTime);
+        this.game.render(elapsedTime, deltaTime);
+        // this.game.renderDiagnostics();
     }
 
     // msgProc: function (...) { }, // <-- omit, we don't have a message pump from the OS

@@ -1,12 +1,26 @@
 function WizardGame() {
-    return Object.create(WizardGame.prototype);
+    var game = Object.create(WizardGame.prototype);
+
+    game.views = [];
+
+    return game;
 }
 
 WizardGame.prototype = {
     constructor: WizardGame,
 
     addView: function (view) {
-        console.warn('`WizardGame.addView` not implemented!');
+        this.views.push(view);
+    },
+
+    update: function (elapsedTime, deltaTime) {
+        console.warn('`WizardGame.update` not implemented!');
+    },
+
+    render: function (elapsedTime, deltaTime) {
+        this.views.forEach(function (view) {
+            view.render(elapsedTime, deltaTime);
+        });
     }
 };
 export default WizardGame;
