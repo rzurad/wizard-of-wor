@@ -21,21 +21,24 @@ WizardGameApplication.prototype = {
     // isQuitting
     viewportHeight: 0,
     viewportWidth: 0,
+    viewport: null,
+
     // colorDepth: 32,
     // stringTable: null,
     // hasModalDialog: false,
+    // resourceCache: null,
+    game: null,
+
     // showModal: function (defaultAnswer) { },
     // pumpUntilMessage: function (...) {}, // <-- omit, we don't have a message pump from the OS
     // flashWhileMinimized: function () {}, // <-- omit, probably not needed
                                             //     (if so, is it possible to swap the favicon to attract attention?)
-
-    // constructor: function () { },
     // getGameTitle: function () {
         // return 'The Incredible Wizard of Wor';
     // },
 
     // getGameAppDirectory: function () { },
-    init: function () {
+    init: function (viewportSelector, width, height) {
         // load the string table
 
         // check for appropriate resources
@@ -43,6 +46,9 @@ WizardGameApplication.prototype = {
         // load the resource cache
         
         // create the window (DXUTInit and DXUTCreateWindow calls...)
+        this.viewport = document.querySelector(viewportSelector);
+        this.viewportWidth = width;
+        this.viewportHeight = height;
 
         this.game = this.createGameAndView();
 
@@ -55,13 +61,11 @@ WizardGameApplication.prototype = {
 
         return this;
     },
-
-    // msgProc: function (...) { }, // <-- omit, we don't have a message pump from the OS
-    // ask: function (question) { }, // no fucking idea...
-    // getString: function (key) { },
-    // resourceCache: null,
-    game: null,
     
+    loadGame: function () {
+        console.warn('`loadGame` not implemented!');
+    },
+
     createGameAndView: function () {
         var game = WizardGame(),
             view = WizardGameView(game);
@@ -72,7 +76,17 @@ WizardGameApplication.prototype = {
         return game;
     },
 
-    loadGame: function () { },
+    updateGame: function (elapsedTime, deltaTime) {
+        console.log('`frameMove` called', elapsedTime, deltaTime);
+    },
+
+    render: function (elapsedTime, deltaTime) {
+        console.log('`frameRender` called', elapsedTime, deltaTime);
+    }
+
+    // msgProc: function (...) { }, // <-- omit, we don't have a message pump from the OS
+    // ask: function (question) { }, // no fucking idea...
+    // getString: function (key) { },
 };
 
 export default WizardGameApplication;
