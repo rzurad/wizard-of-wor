@@ -17,7 +17,7 @@ requestAnimationFrame(function main() {
 
     // update FPS stats
 
-    // if a menu is open, render it instaed of the game
+    // if a menu is open, render it instead of the game
     if (false) {
         // deal with menu
     } else {
@@ -28,6 +28,5 @@ requestAnimationFrame(function main() {
             app.render(elapsedTime, deltaTime);
     }
 
-    // check if the app should stop rendering, and if not:
-        requestAnimationFrame(main);
+    requestAnimationFrame(main);
 });

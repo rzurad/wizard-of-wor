@@ -32,7 +32,7 @@ HumanView.prototype = {
     onMessageProcess: function (msg) { },
 
     onUpdate: function (elapsedTime, deltaTime) {
-        console.warn('`HumanView.onUpdate` not implemented');
+        this.processManager.updateProcesses(deltaTime);
     },
 
     initAudio: function () { },
