@@ -16,7 +16,6 @@ js = compileES6(sourceTree + '/js', {
         '../../vendor/Detector.js',
         '../../vendor/Stats.js',
         '../../vendor/OrbitControls.js',
-        '../../vendor/THREEx.KeyboardState.js',
         '../../vendor/THREEx.FullScreen.js',
         '../../vendor/THREEx.WindowResize.js'
     ],
