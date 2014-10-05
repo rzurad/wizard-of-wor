@@ -53,7 +53,7 @@ WizardGameApplication.prototype = {
         this.loadGame();
 
         this.isInitialized = true;
-        // this.isRunning = true;
+        this.isRunning = true;
 
         return this;
     },
@@ -72,7 +72,7 @@ WizardGameApplication.prototype = {
         return game;
     },
 
-    updateGame: function (elapsedTime, deltaTime) {
+    update: function (elapsedTime, deltaTime) {
         if (!this.isRunning) {
             return;
         }
@@ -83,12 +83,12 @@ WizardGameApplication.prototype = {
         }
         */
 
-        this.game.update(elapsedTime, deltaTime);
+        this.game.onUpdate(elapsedTime, deltaTime);
     },
 
     render: function (elapsedTime, deltaTime) {
-        this.game.render(elapsedTime, deltaTime);
-        // this.game.renderDiagnostics();
+        this.game.onRender(elapsedTime, deltaTime);
+        this.game.renderDiagnostics();
     }
 
     // msgProc: function (...) { }, // <-- omit, we don't have a message pump from the OS

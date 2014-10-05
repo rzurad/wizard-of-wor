@@ -1,4 +1,4 @@
-function ProcessMananger() {
+function ProcessManager() {
     this.processes = [];
 }
 
@@ -37,7 +37,7 @@ ProcessManager.prototype = {
         }
     },
 
-    deleteProcessList: function () {
+    deleteAllProcesses: function () {
         while (this.processes.length) {
             this.processes[0].detach();
         }

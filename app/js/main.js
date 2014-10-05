@@ -21,8 +21,8 @@ requestAnimationFrame(function main() {
     if (false) {
         // deal with menu
     } else {
-        // else animate the scene
-        app.updateGame(elapsedTime, deltaTime);
+        // else update the scene the scene
+        app.update(elapsedTime, deltaTime);
 
         // if rendering is not paused
             app.render(elapsedTime, deltaTime);

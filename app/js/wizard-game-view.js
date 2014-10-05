@@ -3,8 +3,12 @@ function WizardGameView() {}
 WizardGameView.prototype = {
     constructor: WizardGameView,
 
-    render: function (elapsedTime, deltaTime) {
-        console.warn('`WizardGameView.render` not implemented!');
+    onRender: function (elapsedTime, deltaTime) {
+        console.warn('`WizardGameView.onRender` not implemented!');
+    },
+
+    onUpdate: function (elapsedTime, deltaTime) {
+        console.warn('`WizardGameView.onUpdate` not implemented!');
     }
 };
 
