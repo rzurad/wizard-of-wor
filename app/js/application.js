@@ -1,5 +1,5 @@
-import WizardGame from 'wizard-game';
-import WizardGameView from 'wizard-game-view';
+import WizardGame from 'game';
+import WizardGameView from 'view';
 
 var DEFAULT_CONFIG = {
     };

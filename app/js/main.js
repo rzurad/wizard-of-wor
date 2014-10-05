@@ -1,4 +1,4 @@
-import WizardGameApp from 'wizard-game-app';
+import WizardGameApp from 'application';
 
 // load data files (string tables, images, sounds, assets, etc...)
 
