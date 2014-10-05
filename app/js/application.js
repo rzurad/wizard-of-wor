@@ -1,5 +1,5 @@
 import WizardGame from 'game';
-import BaseView from 'views/base';
+import HumanView from 'views/human';
 
 var DEFAULT_CONFIG = {
     };
@@ -64,7 +64,7 @@ WizardGameApplication.prototype = {
 
     createGameAndView: function () {
         var game = new WizardGame(),
-            view = new BaseView(game);
+            view = new HumanView(game);
 
         game.addView(view);
         this.game = game;
