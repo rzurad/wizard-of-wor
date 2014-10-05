@@ -11,15 +11,13 @@ var TYPES = {
     };
 
 function Process(type, oder) {
-    var process = Object.create(Process.prototype);
-
-    process.type = type;
-    process.isDead = false;
-    process.isActive = true;
-    process.isPaused = false;
-    process.isInitialized = false;
-    process.next = null;
-    process.flags = 0;
+    this.type = type;
+    this.isDead = false;
+    this.isActive = true;
+    this.isPaused = false;
+    this.isInitialized = false;
+    this.next = null;
+    this.flags = 0;
 }
 
 Process.TYPES = TYPES;
@@ -28,12 +26,7 @@ Process.FLAG_ATTACHED = 1;
 Process.prototype = {
     constructor: Process,
 
-    onUpdate: function (/* deltaTime */) {
-        if (!this.isInitialized) {
-            this.onInitialize();
-            this.isInitialized = true;
-        }
-    },
+    onUpdate: function (/* deltaTime */) {},
 
     onInitialize: function () {},
 

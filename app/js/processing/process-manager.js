@@ -1,9 +1,5 @@
 function ProcessMananger() {
-    var pm = Object.create(ProcessManager);
-
-    pm.processes = [];
-
-    return pm;
+    this.processes = [];
 }
 
 ProcessManager.prototype = {
@@ -31,6 +27,11 @@ ProcessManager.prototype = {
 
                 this.detach(process);
             } else if (process.isActive && !process.isPaused) {
+                if (!process.isInitialized) {
+                    process.onInitialize();
+                    process.isInitialized = true;
+                }
+
                 process.onUpdate(deltaTime);
             }
         }

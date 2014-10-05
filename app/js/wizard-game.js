@@ -1,9 +1,5 @@
 function WizardGame() {
-    var game = Object.create(WizardGame.prototype);
-
-    game.views = [];
-
-    return game;
+    this.views = [];
 }
 
 WizardGame.prototype = {

@@ -1,6 +1,4 @@
-function WizardGameView() {
-    return Object.create(WizardGameView.prototype);
-}
+function WizardGameView() {}
 
 WizardGameView.prototype = {
     constructor: WizardGameView,

@@ -5,11 +5,7 @@ var DEFAULT_CONFIG = {
     };
 
 function WizardGameApplication(config) {
-    var app = Object.create(WizardGameApplication.prototype);
-
-    app.config = /* _.merge({}, DEFAULT_CONFIG, */ config || {} /* ) */;
-
-    return app;
+    this.config = /* _.merge({}, DEFAULT_CONFIG, */ config || {} /* ) */;
 };
 
 WizardGameApplication.prototype = {
@@ -67,8 +63,8 @@ WizardGameApplication.prototype = {
     },
 
     createGameAndView: function () {
-        var game = WizardGame(),
-            view = WizardGameView(game);
+        var game = new WizardGame(),
+            view = new WizardGameView(game);
 
         game.addView(view);
         this.game = game;
