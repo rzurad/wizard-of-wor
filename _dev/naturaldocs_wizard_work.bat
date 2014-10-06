@@ -1,0 +1,1 @@
+"C:\Program Files\Natural Docs\NaturalDocs" -i "G:\Wizard\com\greyboxware" -o HTML "G:\Wizard\Docs"  -p "G:\Wizard" --documented-only --rebuild
