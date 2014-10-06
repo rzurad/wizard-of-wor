@@ -36,7 +36,13 @@ HumanView.prototype = {
 
         // render the scene
 
+        // TODO: screens can probably destroy themselves onRender
+        // TODO: be smarter about inserting and you won't need the sort
+        // TODO: You might not even need any of this at all
         this.screenElements.sort();
+        this.screenElements.forEach(function (screen) {
+            screen.onRender(elapsedTime, deltaTime);
+        });
         
         // walk through all screenElements and call their
         // `onRender` with elapsedTime, deltaTime
@@ -51,8 +57,14 @@ HumanView.prototype = {
     },
 
     // onLostDevice: function () { }, <-- don't think I'll need since I'm not that close to the hardware
-    pushScreen: function (screen) { console.warn('`pushScreen` does not do anything yet.'); },
-    popScreen: function () { console.warn('`popScreen` does not do anything yet.'); },
+    pushScreen: function (screen) {
+        this.screenElements.push(screen);
+    },
+
+    popScreen: function () {
+        this.screenElements.pop();
+    },
+
     onMessageProcess: function (msg) { console.warn('`onMessageProcess` does not do anything yet'); },
 
     onUpdate: function (elapsedTime, deltaTime) {

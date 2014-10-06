@@ -34,7 +34,7 @@ Keyboard.prototype = {
         document.removeEventListener('keyup', this._onKeyUp, false);
     },
 
-    isOressed: function (descriptor) {
+    isPressed: function (descriptor) {
         var keys = descriptor.split('+');
 
         keys.forEach(function (key) {
