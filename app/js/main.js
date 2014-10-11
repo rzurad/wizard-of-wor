@@ -1,16 +1,14 @@
 import WizardGameApp from 'application';
 
-// load data files (string tables, images, sounds, assets, etc...)
+// set up the environment
+// load player options/config/settings files
+// set all callback functions
 
-// check and init the audio system
-
-// check and init the video system
-
-// initialize game/application
+// call WizardGameApp.init()
 var app = new WizardGameApp().init('#container', window.innerWidth, window.innerHeight),
     clock = new THREE.Clock(true);
 
-// execute main loop
+// start the main loop
 requestAnimationFrame(function main() {
     var elapsedTime = clock.getElapsedTime(),
         deltaTime = clock.getDelta();
@@ -30,3 +28,5 @@ requestAnimationFrame(function main() {
 
     requestAnimationFrame(main);
 });
+
+// handle shutdown
