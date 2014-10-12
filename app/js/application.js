@@ -72,7 +72,7 @@ WizardApplication = Ember.Object.extend({
 
         // Create the renderer. Try for WebGL, but fallback to Canvas (if the environment
         // does not at least support Canvas, the detector.isEnvSane assertion would have failed).
-        if (detector.WebGL) {
+        if (detector.WebGL && this.get('options.renderer') === 'WebGL') {
             renderer = new THREE.WebGLRenderer({ antialias: this.get('options.antialias') });
         } else {
             renderer = new THREE.CanvasRenderer();

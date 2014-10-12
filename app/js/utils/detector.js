@@ -21,7 +21,7 @@ detector = {
     }()),
 
     // Detect if the browser suppords a 2d canvas
-    canvas: !!window.CanvasRenderingContext2D,
+    Canvas: !!window.CanvasRenderingContext2D,
 
     // Detect if the browser supports local storage
     localStorage: (function () {
@@ -37,6 +37,6 @@ detector = {
 // of them are neccessary to run the application. We'll add a shortcut key `isEnvSane` that
 // will tell us if all of the "mission critical" features are supported, thus telling us
 // wether or not we can run the game in a minimum working state.
-detector.isEnvSane = detector.WebGL || detector.canvas;
+detector.isEnvSane = detector.WebGL || detector.Canvas;
 
 export default detector;

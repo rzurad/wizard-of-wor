@@ -1,4 +1,5 @@
 export default {
+    renderer: 'WebGL',
     language: 'en',
     level: '',
     antialias: true,
