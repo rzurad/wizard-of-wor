@@ -21,6 +21,9 @@ WizardLogic = Ember.Object.extend({
 
     addView: function (view) {
         this.get('views').push(view);
+
+        view.onAttach();
+        view.onRestore();
     },
 
     onUpdate: function (elapsedTime, deltaTime) {
