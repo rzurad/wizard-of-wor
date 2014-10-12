@@ -61,6 +61,9 @@ requestAnimationFrame(function main() {
             app.onRender(elapsedTime, deltaTime);
     }
 
+    /* update the frame counter */
+    /* check to see if the app should shutdown. do so if needed, otherwise... */
+
     // This frame is finished. Queue up the next frame call, since we have no
     // reason to stop running the main loop
     requestAnimationFrame(main);
