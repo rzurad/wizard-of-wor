@@ -5,10 +5,23 @@
 // together and kicked off.
 import WizardGameApp from 'application';
 
-// Create a new Clock that will be the heartbeat of the game
+// Create a new Clock that will be the heartbeat of the game, and tie a few dependency
+// libraries together. We're loading in only the parts of Ember that we need, so
+// we need to assemble RSVP.js and jQuery onto the Ember namespace manually.
+//
 /* set up the environment */
 var clock = new THREE.Clock(true),
     app;
+
+RSVP.onerrorDefault = function (error) {
+    Ember.Logger.error(error.stack);
+    Ember.Logger.assert(error, false);
+};
+
+RSVP.on('error', RSVP.onerrorDefault);
+
+Ember.$ = jQuery;
+Ember.RSVP = RSVP;
 
 // Next, we load all player options, configuration, and settings files so
 // they can be passed into the application when it is created. This is also

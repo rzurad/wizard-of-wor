@@ -17,7 +17,6 @@ js = compileES6(sourceTree + '/js', {
         '../../node_modules/ember-metal-node/index.js',
         '../../node_modules/ember-runtime-node/index.js',
         '../../node_modules/ember-states-node/index.js',
-        '../../vendor/glue.js',
         '../../bower_components/threejs/build/three.js',
         '../../vendor/Detector.js',
         '../../vendor/Stats.js',
