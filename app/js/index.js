@@ -30,6 +30,9 @@ app = WizardGameApp.create({
 // the `requestAnimationFrame` function.
 /* start the main loop */
 requestAnimationFrame(function main() {
+    /* check to make sure none of the devices have been lost or need to be recovered */
+    /* yield processing if need be */
+
     // At the start of each frame, we need to figure out how much
     // time, in milliseconds, has passed since the last frame was
     // updated and drawn.
