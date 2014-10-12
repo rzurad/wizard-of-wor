@@ -3,9 +3,10 @@
 
 // Application class that encapsulates all of the logic of the Wizard of Wor
 // game.
-import defaultOptions from 'game-options';
 import WizardLogic from 'logic';
 import MainMenuView from 'views/main-menu';
+import detector from 'utils/detector';
+import config from 'default-config';
 
 var WizardApplication;
 
@@ -45,8 +46,8 @@ WizardApplication = Ember.Object.extend({
     renderer: null,
 
     // **(Object)** `options` - Game options for the application, such as sound settings,
-    // graphics settings, network settings, etc
-    options: defaultOptions,
+    // graphics settings, network settings, etc. Defaults to the [default config](config.html)
+    options: config,
 
     /*
     loadGame: function () {
@@ -60,11 +61,7 @@ WizardApplication = Ember.Object.extend({
         var renderer;
 
         /* make sure the browser can handle the game */
-        try {
-            window.WebGLRenderingContext && document.createElement('canvas').getContext('experimental-webgl');
-        } catch (e) {
-            Ember.Logger.assert(false, 'WebGL is not supported in this browser');
-        }
+        Ember.Logger.assert(detector.isEnvSane, 'Browser environment is not sane');
 
         /* RegisterEngineEvents */
         /* VRegisterGameEvents */

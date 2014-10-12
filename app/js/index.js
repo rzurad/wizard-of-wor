@@ -4,15 +4,20 @@
 // This is the entry point for the application. This is where everything is bootstraped
 // together and kicked off.
 import WizardApplication from 'application';
+import defaultConfig from 'default-config';
+import detector from 'utils/detector';
+import parseQueryString from 'utils/querystring';
 
-// Create a new Clock that will be the heartbeat of the game, and tie a few dependency
+// Create a new [Clock](http://threejs.org/docs/#Reference/Core/Clock) that will be
+// the heartbeat of the game, and tie a few dependency
 // libraries together. We're loading in only the parts of Ember that we need, so
 // we need to assemble RSVP.js and jQuery onto the Ember namespace manually.
 //
 /* set up the environment */
 var clock = new THREE.Clock(true),
-    app;
+    app, config;
 
+/* configure a default error handler for RSVP */
 RSVP.onerrorDefault = function (error) {
     Ember.Logger.error(error.stack);
     Ember.Logger.assert(error, false);
@@ -20,13 +25,35 @@ RSVP.onerrorDefault = function (error) {
 
 RSVP.on('error', RSVP.onerrorDefault);
 
+/* alias jQuery and RSVP onto Ember namespace */
 Ember.$ = jQuery;
 Ember.RSVP = RSVP;
 
-// Next, we load all player options, configuration, and settings files so
-// they can be passed into the application when it is created. This is also
-// where all global callback functions are registered.
+// Load all player options, configuration, and settings files so
+// they can be passed into the application when it is created. There are three
+// possible sources for a config option, and their order of precedence is as follows:
+//  - A querystring key/value pair: `index.html?antialiasing=false`
+//  - Local Storage
+//  - the default config
 /* load player options, configs, settings */
+config = (function createConfig() {
+    var ls = {},
+        qs = parseQueryString();
+
+    detector.localStorage && Object.keys(defaultConfig).forEach(function (key) {
+        var item = localStorage.getItem('wizard.' + key);
+        
+        /* TODO: item types :-/ */
+        if (item !== null) {
+            ls[key] = item;
+        }
+    });
+
+    return Ember.$.extend({}, defaultConfig, ls, qs);
+}());
+
+debugger;
+// Register all global callback functions.
 /* register global callback function s*/
 
 // Now that the environment is set up and we have everything we need,
@@ -36,7 +63,8 @@ Ember.RSVP = RSVP;
 app = WizardApplication.create({
     viewportSelector: '#container',
     width: window.innerWidth,
-    height: window.innerHeight
+    height: window.innerHeight,
+    config: config
 });
 
 // The application is initialized, so fire off the main loop using
