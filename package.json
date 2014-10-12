@@ -11,6 +11,7 @@
     "grunt-docco": "~0.3.3",
     "ember-states-node": "~1.0.0-pre.2",
     "ember-metal-node": "~1.0.0-pre.2",
-    "ember-runtime-node": "~1.0.0-pre.2"
+    "ember-runtime-node": "~1.0.0-pre.2",
+    "grunt-shell": "~1.1.1"
   }
 }
