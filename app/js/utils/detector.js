@@ -1,5 +1,3 @@
-var detector;
-
 // Environment Feature Detection module
 // ------------------------------------
 
@@ -7,12 +5,17 @@ var detector;
 // specific features. Other files can then import the results and examine
 // the environment to make decisions based upon the environment they're being
 // run in.
+var detector;
+
 detector = {
     // Detect if the browser supports WebGL
     /* detect WebGL */
     WebGL: (function () {
         try {
-            return !!(window.WebGLRenderingContext && document.createElement('canvas').getContext('experimental-webgl'));
+            return !!(
+                window.WebGLRenderingContext &&
+                document.createElement('canvas').getContext('experimental-webgl')
+            );
         } catch (e) {
             return false;
         }

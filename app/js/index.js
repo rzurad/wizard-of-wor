@@ -15,7 +15,7 @@ import parseQueryString from 'utils/querystring';
 //
 /* set up the environment */
 var clock = new THREE.Clock(true),
-    app, config;
+    app, config, stats;
 
 /* configure a default error handler for RSVP */
 RSVP.onerrorDefault = function (error) {
@@ -52,6 +52,12 @@ config = (function createConfig() {
     return Ember.$.extend({}, defaultConfig, ls, qs);
 }());
 
+// Initialize the Stats helper that will show us FPS and frame render times
+stats = new Stats();
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.bottom = '0px';
+stats.domElement.style.zIndex = 100;
+
 debugger;
 // Register all global callback functions.
 /* register global callback function s*/
@@ -81,8 +87,22 @@ requestAnimationFrame(function main() {
     var elapsedTime = clock.getElapsedTime(),
         deltaTime = clock.getDelta();
 
-    // If there was an FSP counter, it would be updated here.
-    /* Update FSP counter */
+    // Update the FPS counter
+    /* Update FPS counter */
+    if (app.get('options.showFPS')) {
+        if (!stats.attached) {
+            app.get('$viewport').append(stats.domElement);
+            stats.attached = true;
+        }
+
+        stats.update();
+    } else {
+        if (!stats.attached) {
+            Ember.$(stats.domElement).remove();
+            stats.attached = false;
+        }
+    }
+    
 
     // If there is a reason to pause the execution of the application,
     // such as a context menu was in they way or the application has a

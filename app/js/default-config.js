@@ -3,7 +3,9 @@ export default {
     antialias: true,
     soundEffectsVolume: 1,
     musicVolume: 1,
-    screenSize: { width: 1024, height: 768 }
+    height: 768,
+    width: 1024,
+    showFPS: false
 
     /* renderer: 'WebGLRenderer' */
     /* m_runFullSpeed = false; */
