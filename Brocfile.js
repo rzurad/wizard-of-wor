@@ -12,6 +12,11 @@ js = compileES6(sourceTree + '/js', {
         '*.js'
     ],
     legacyFilesToAppend: [
+        '../../bower_components/jquery/dist/jquery.js',
+        '../../bower_components/rsvp/rsvp.js',
+        '../../node_modules/ember-metal/ember-metal.js',
+        '../../node_modules/ember-runtime/ember-runtime.js',
+        '../../vendor/glue.js',
         '../../bower_components/threejs/build/three.js',
         '../../vendor/Detector.js',
         '../../vendor/Stats.js',

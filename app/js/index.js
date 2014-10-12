@@ -3,7 +3,7 @@
 
 // This is the entry point for the application. This is where everything is bootstraped
 // together and kicked off.
-import WizardApplication from 'application';
+import WizardGameApp from 'application';
 
 // Create a new Clock that will be the heartbeat of the game
 /* set up the environment */
@@ -17,10 +17,10 @@ var clock = new THREE.Clock(true),
 /* register global callback function s*/
 
 // Now that the environment is set up and we have everything we need,
-// initialize the app. This is done by creating a [WizardApplication](application.html)
+// initialize the app. This is done by creating a [WizardGameApp](application.html)
 // object
 /* Initialize the application */
-app = WizardApplication.create({
+app = WizardGameApp.create({
     viewportSelector: '#container',
     width: window.innerWidth,
     height: window.innerHeight
