@@ -8,6 +8,8 @@ import defaultOptions from 'default-options';
 import detector from 'utils/detector';
 import parseQueryString from 'utils/querystring';
 
+
+
 // Create a new [Clock](http://threejs.org/docs/#Reference/Core/Clock) that will be
 // the heartbeat of the game, and tie a few dependency
 // libraries together. We're loading in only the parts of Ember that we need, so
@@ -35,6 +37,7 @@ stats = new Stats();
 stats.domElement.style.position = 'absolute';
 stats.domElement.style.bottom = '0px';
 stats.domElement.style.zIndex = 100;
+
 
 
 // Load all player/game options/settings/preferences so
@@ -73,8 +76,12 @@ options = (function () {
     return Ember.$.extend({}, defaultOptions, overrides);
 }());
 
+
+
 // Register all global callback functions.
 /* register global callback function s*/
+
+
 
 // Now that the environment is set up and we have everything we need,
 // initialize the app. This is done by creating a [WizardApplication](application.html)
@@ -86,6 +93,8 @@ app = WizardApplication.create({
     height: window.innerHeight,
     options: options
 });
+
+
 
 // The application is initialized, so fire off the main loop using
 // the `requestAnimationFrame` function.
@@ -116,7 +125,6 @@ requestAnimationFrame(function main() {
             stats.attached = false;
         }
     }
-    
 
     // If there is a reason to pause the execution of the application,
     // such as a context menu was in they way or the application has a
@@ -143,6 +151,8 @@ requestAnimationFrame(function main() {
     // reason to stop running the main loop
     requestAnimationFrame(main);
 });
+
+
 
 // Down here is where we would handle any application shutdown logic,
 // of which we probably wont have much, if any.
