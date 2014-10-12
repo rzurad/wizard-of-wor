@@ -36,7 +36,7 @@ WizardApplication = Ember.Object.extend({
     // **(Object)** `stringTable` - Object which maps all strings/text displayed throughout the game
     stringTable: null,
 
-    // **([WizardLogic](game-logic.html))** `game` - WizardLogic object. Responsible for
+    // **([WizardLogic](logic.html))** `game` - WizardLogic object. Responsible for
     // everything that is not render-related.
     game: null,
 
@@ -74,7 +74,8 @@ WizardApplication = Ember.Object.extend({
         /* load all the resources */
 
         this.set('isRunning', true);
-    }
+    },
+
     // Methods
     // -------
 

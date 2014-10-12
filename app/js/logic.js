@@ -1,22 +1,32 @@
 import ProcessManager from 'processing/process-manager';
 
-function WizardGame() {
-    this.views = [];
-    this.processManager = new ProcessManager();
-    // this.random = new RNG();
-}
+var WizardLogic;
 
-WizardGame.prototype = {
-    constructor: WizardGame,
+WizardLogic = Ember.Object.create({
+    init: function () {
+        this.set('views', []);
+        this.set('processManager', ProcessManager.create());
+
+        /* init random number generator */
+        /* set to initializing state */
+        /* create the level manager */
+        /* initialize the level manager */
+        /* RegisterEngineScriptEvents */
+        /* create game physics */
+        /* RegisterAllDelegates */
+        /* create actor factory */
+        /* create pathing graph */
+        /* add event listener for requestDestroyActor event */
+    },
 
     addView: function (view) {
-        this.views.push(view);
+        this.get('views').push(view);
     },
 
     onUpdate: function (elapsedTime, deltaTime) {
         this.processManager.updateProcesses(deltaTime);
 
-        // TODO: Can a view be destroyed as a result of an `onUpdate` call?
+        /* TODO: Can a view be destroyed as a result of an `onUpdate` call? */
         this.views.forEach(function (view) {
             view.onUpdate(elapsedTime, deltaTime);
         });
@@ -30,13 +40,15 @@ WizardGame.prototype = {
 
     renderDiagnostics: function () { },
 
+    /*
     loadGame: function (name) {
         return true;
     },
+    */
 
     destroy: function () {
-        this.sprocessManager.deleteAllProcesses();
+        this.get('processManager').deleteAllProcesses();
     }
-};
+});
 
-export default WizardGame;
+export default Wizard;
