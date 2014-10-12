@@ -1,4 +1,5 @@
 export default {
+    language: 'en',
     level: '',
     antialias: true,
     soundEffectsVolume: 1,

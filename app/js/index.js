@@ -15,16 +15,20 @@ import parseQueryString from 'utils/querystring';
 
 
 
+// Before we do anything, we want to set up the browser environment and make
+// sure all of the core library's are initialized.
+
 // Create a new [Clock](http://threejs.org/docs/#Reference/Core/Clock) that will be
-// the heartbeat of the game, and tie a few dependency
-// libraries together. We're loading in only the parts of Ember that we need, so
-// we need to assemble RSVP.js and jQuery onto the Ember namespace manually.
-//
-/* set up the environment */
+// the heartbeat of the game, 
 var clock = new THREE.Clock(true),
     app, options, stats;
 
-/* configure a default error handler for RSVP */
+// tie a few dependency libraries together. We're not loading in the Ember.JS framework
+// in a typical fashion. We're loading in only the subpackages that we need. Because of this
+// we need to do a little bit of manual glue to put a few things where we expect the regular
+// Ember.JS framework to put them or handle them.
+
+// Set up a default error handler for RSVP
 RSVP.onerrorDefault = function (error) {
     Ember.Logger.error(error.stack);
     Ember.Logger.assert(error, false);
@@ -32,12 +36,11 @@ RSVP.onerrorDefault = function (error) {
 
 RSVP.on('error', RSVP.onerrorDefault);
 
-/* alias jQuery and RSVP onto Ember namespace */
+// alias jquery and RSVP onto the Ember namespace
 Ember.$ = jQuery;
 Ember.RSVP = RSVP;
 
 // Initialize the Stats helper that will show us FPS and frame render times
-/* initialize Stats.js */
 stats = new Stats();
 stats.domElement.style.position = 'absolute';
 stats.domElement.style.bottom = '0px';
@@ -51,7 +54,6 @@ stats.domElement.style.zIndex = 100;
 //  - A querystring key/value pair: `index.html?antialiasing=false`
 //  - Local Storage
 //  - the default option values
-/* load player/game options/settings settings */
 options = (function () {
     var types = {
             'number': Number,
@@ -84,14 +86,12 @@ options = (function () {
 
 
 // Register all global callback functions.
-/* register global callback function s*/
 
 
 
 // Now that the environment is set up and we have everything we need,
 // initialize the app. This is done by creating a [WizardApplication](application.html)
 // object
-/* Initialize the application */
 app = WizardApplication.create({
     viewportSelector: '#container',
     width: window.innerWidth,
@@ -103,7 +103,6 @@ app = WizardApplication.create({
 
 // The application is initialized, so fire off the main loop using
 // the `requestAnimationFrame` function.
-/* start the main loop */
 requestAnimationFrame(function main() {
     /* check to make sure none of the devices have been lost or need to be recovered */
     /* yield processing if need be */
@@ -111,12 +110,10 @@ requestAnimationFrame(function main() {
     // At the start of each frame, we need to figure out how much
     // time, in milliseconds, has passed since the last frame was
     // updated and drawn.
-    /* how much time has passed since the last frame? (ms) */
     var elapsedTime = clock.getElapsedTime(),
         deltaTime = clock.getDelta();
 
     // Update the FPS counter
-    /* Update FPS counter */
     if (app.get('options.showFPS')) {
         if (!stats.attached) {
             app.get('$viewport').append(stats.domElement);

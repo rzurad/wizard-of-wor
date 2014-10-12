@@ -1,8 +1,8 @@
 // WizardApplication Class
 // -----------------------
 
-// Application class that encapsulates all of the logic of the Wizard of Wor
-// game.
+// Application class that encapsulates all of the logic and rendering of the
+// Wizard of Wor game.
 import WizardLogic from 'logic';
 import MainMenuView from 'views/main-menu';
 import detector from 'utils/detector';
@@ -22,11 +22,6 @@ WizardApplication = Ember.Object.extend({
 
     // **(Number)** `viewportWidth` - width (pixels) of the viewport
     viewportWidth: 0,
-
-    // **(String)** `language` - the language of the string table that the game is using.
-    // This property is observed by `onLanguageChange`, which will reload the string
-    // table with the appropriate language, if it is available
-    language: 'en',
 
     // **(String)** `viewportSelector` - the CSS selector of the element that will be
     // the viewport for the application
@@ -60,26 +55,34 @@ WizardApplication = Ember.Object.extend({
     init: function () {
         var renderer;
 
-        /* make sure the browser can handle the game */
+        // Make sure that the browser environment has all of the required features
         Ember.Logger.assert(detector.isEnvSane, 'Browser environment is not sane');
 
         /* RegisterEngineEvents */
         /* VRegisterGameEvents */
         /* initialize the resource cache */
 
-        /* load the string table */
+        // Load the string table
         this.loadStringTable();
 
         /* create the event manager */
 
-        /* create the window, set the screen size, create the renderer */
-        renderer = new THREE.WebGLRenderer({ antialias: this.get('options.antialias') });
+        // Create the renderer. Try for WebGL, but fallback to Canvas (if the environment
+        // does not at least support Canvas, the detector.isEnvSane assertion would have failed).
+        if (detector.WebGL) {
+            renderer = new THREE.WebGLRenderer({ antialias: this.get('options.antialias') });
+        } else {
+            renderer = new THREE.CanvasRenderer();
+        }
+
+        // set the screen size
         renderer.setSize(this.get('options.width'), this.get('options.height'));
 
-        this.set('viewport', document.querySelector(this.get('viewportSelector')));
+        // Create the main viewport DOM Element
+        this.set('$viewport', Ember.$(this.get('viewportSelector')));
         this.set('renderer', renderer);
 
-        /* create the game and initial view */
+        // Create the game and the initial view.
         this.createGameAndView();
 
         /* load all the resources */
@@ -90,10 +93,10 @@ WizardApplication = Ember.Object.extend({
     // Methods
     // -------
 
-    // `loadStringTable` - reads the application's `language` property and loads the appropriate
+    // `loadStringTable` - reads the application's `language` setting and loads the appropriate
     // string table.
     loadStringTable: function () {
-
+        
     },
 
     // `createGameAndView` - function that initializes the WizardLogic and creates
@@ -113,12 +116,6 @@ WizardApplication = Ember.Object.extend({
 
     // Observers
     // ---------
-
-    // `onLanguageChange` - observer function called whenever the `language` property changes.
-    // Responsible for loading the string table for the newly selected language
-    onLanguageChange: function () {
-        this.loadStringTable();
-    }.observes('language'),
 
     // `onUpdate` - callback function that is executed once every frame. When executed
     // it is given, in milliseconds, the total `elapsedTime` since page load, and the 
