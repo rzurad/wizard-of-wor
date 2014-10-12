@@ -3,28 +3,24 @@ import { BaseView, TYPES } from 'views/base';
 
 TYPES.human = 'human';
 
-function HumanView() {
-    this.initAudio();
+var HumanView;
 
-    BaseView.apply(this, arguments);
+HumanView = BaseView.extend({
+    type: TYPES.human,
+    timeOfLastRender: 0,
 
-    this.type = TYPES.human;
-    this.processManager = new ProcessManager();
-    this.timeOfLastRender;
-    // this.time;
-    // this.isFullspeed;
-    this.screenElements = [];
-    // this.keyboardHandler;
-    // this.audioManager = null;
+    init: function () {
+        /* initialize the audio */
+        this.set('processManager', ProcessManager.create());
+        this.set('screenElements', []);
 
-    // ID3DXFont* m_pFont;
-    // ID3DXSprite* m_pTextSprite;
-
-    // this.initAudio();
-}
-
-HumanView.prototype = {
-    constructor: HumanView,
+        /* register all delegates */
+        /* set base game state to initializing */
+        /* scene.reset(ScreenElementScene.create({ renderer: renderer }) */
+        /* create the camera */
+        /* add the camera as a child to the scene */
+        /* set the camera to be the camera of the scene */
+    },
 
     // onRestore: function () { }, <-- don't think I'll need since I'm not that close to the hardware
     onRender: function (elapsedTime, deltaTime) {
@@ -77,8 +73,6 @@ HumanView.prototype = {
         this.processManager.deleteAllProcesses();
         // g_Audio->VShutdown();
     }
-};
-
-Object.setPrototypeOf(HumanView.prototype, BaseView.prototype);
+});
 
 export default HumanView;

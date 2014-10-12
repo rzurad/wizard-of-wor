@@ -52,10 +52,10 @@ requestAnimationFrame(function main() {
         // update and render, provided that for some reason, the app
         // is in a state or has a flag set that tells us to pause
         // all rendering.
-        app.update(elapsedTime, deltaTime);
+        app.onUpdate(elapsedTime, deltaTime);
 
         /* if rendering is not paused */
-            app.render(elapsedTime, deltaTime);
+            app.onRender(elapsedTime, deltaTime);
     }
 
     // This frame is finished. Queue up the next frame call, since we have no

@@ -127,7 +127,7 @@ WizardApplication = Ember.Object.extend({
     // `onRender` - callback function that is executed once every frame. When executed
     // it is given, in milliseconds, the total `elapsedTime` since page load, and the
     // `deltaTime` since the last frame was executed.
-    render: function (elapsedTime, deltaTime) {
+    onRender: function (elapsedTime, deltaTime) {
         // Call the WizardGameLogic `onRender` callback
         this.get('game').onRender(elapsedTime, deltaTime);
         /* this.get('game').renderDiagnostics(); */
