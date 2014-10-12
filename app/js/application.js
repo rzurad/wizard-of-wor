@@ -3,6 +3,7 @@
 
 // Application class that encapsulates all of the logic of the Wizard of Wor
 // game.
+import defaultOptions from 'game-options';
 import WizardLogic from 'logic';
 import MainMenuView from 'views/main-menu';
 
@@ -40,7 +41,12 @@ WizardApplication = Ember.Object.extend({
     // everything that is not render-related.
     game: null,
 
+    // **(WebGLRenderer)** `renderer` - The THREE.js WebGLRenderer object
     renderer: null,
+
+    // **(Object)** `options` - Game options for the application, such as sound settings,
+    // graphics settings, network settings, etc
+    options: defaultOptions,
 
     /*
     loadGame: function () {
@@ -51,18 +57,30 @@ WizardApplication = Ember.Object.extend({
     // Initialization
     // --------------
     init: function () {
+        var renderer;
+
         /* make sure the browser can handle the game */
+        try {
+            window.WebGLRenderingContext && document.createElement('canvas').getContext('experimental-webgl');
+        } catch (e) {
+            Ember.Logger.assert(false, 'WebGL is not supported in this browser');
+        }
+
         /* RegisterEngineEvents */
         /* VRegisterGameEvents */
         /* initialize the resource cache */
 
         /* load the string table */
-        this.loadStringTable()
+        this.loadStringTable();
 
         /* create the event manager */
+
         /* create the window, set the screen size, create the renderer */
+        renderer = new THREE.WebGLRenderer({ antialias: this.get('options.antialias') });
+        renderer.setSize(this.get('options.width'), this.get('options.height'));
+
         this.set('viewport', document.querySelector(this.get('viewportSelector')));
-        this.set('renderer', null);
+        this.set('renderer', renderer);
 
         /* create the game and initial view */
         this.createGameAndView();

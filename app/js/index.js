@@ -37,7 +37,7 @@ app = WizardApplication.create({
     viewportSelector: '#container',
     width: window.innerWidth,
     height: window.innerHeight
-}),
+});
 
 // The application is initialized, so fire off the main loop using
 // the `requestAnimationFrame` function.
