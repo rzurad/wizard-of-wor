@@ -50,6 +50,8 @@ WizardApplication = Ember.Object.extend({
     },
     */
 
+
+
     // Initialization
     // --------------
     init: function () {
@@ -91,6 +93,8 @@ WizardApplication = Ember.Object.extend({
         this.set('isRunning', true);
     },
 
+
+
     // Methods
     // -------
 
@@ -99,6 +103,8 @@ WizardApplication = Ember.Object.extend({
     loadStringTable: function () {
         
     },
+
+
 
     // `createGameAndView` - function that initializes the WizardLogic and creates
     // the default MainMenu view
@@ -114,6 +120,8 @@ WizardApplication = Ember.Object.extend({
 
         return game;
     },
+
+
 
     // Observers
     // ---------
@@ -139,6 +147,8 @@ WizardApplication = Ember.Object.extend({
             /* socket code I don't understand yet */
             this.get('game').onUpdate(elapsedTime, deltaTime);
     },
+
+
 
     // `onRender` - callback function that is executed once every frame. When executed
     // it is given, in milliseconds, the total `elapsedTime` since page load, and the
