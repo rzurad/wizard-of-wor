@@ -3,8 +3,8 @@ import dungeons from 'dungeons';
 
 // standard global variables
 var container, scene, renderer, controls, stats;
-var keyboard = new THREEx.KeyboardState();
-var clock = new THREE.Clock();
+// var keyboard = new THREEx.KeyboardState();
+// var clock = new THREE.Clock();
 
 // custom global variables
 var MovingCube;
@@ -18,7 +18,7 @@ function init() {
     // SCENE
     scene = new THREE.Scene();
     // CAMERA
-    var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
+    // var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
     var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
 
     // orthographic cameras
@@ -36,11 +36,13 @@ function init() {
     scene.add(topCamera);
 
     // RENDERER
+    /*
     if ( Detector.webgl )
         renderer = new THREE.WebGLRenderer( {antialias:true} );
     else
         renderer = new THREE.CanvasRenderer(); 
     renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+    */
     container = document.getElementById( 'container' );
     container.appendChild( renderer.domElement );
     // EVENTS
@@ -51,11 +53,13 @@ function init() {
     // controls = ...
 
     // STATS
+    /*
     stats = new Stats();
     stats.domElement.style.position = 'absolute';
     stats.domElement.style.bottom = '0px';
     stats.domElement.style.zIndex = 100;
     container.appendChild( stats.domElement );
+    */
     // FLOOR
     var floorTexture = new THREE.ImageUtils.loadTexture( 'assets/textures/checkerboard.jpg' );
     floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping; 
@@ -86,13 +90,14 @@ function init() {
     renderer.autoClear = false;
 }
 
+/*
 function animate() 
 {
     requestAnimationFrame( animate );
     render();       
     update();
 }
-
+*/
 function update()
 {
     var delta = clock.getDelta(); // seconds.
@@ -128,7 +133,7 @@ function update()
         MovingCube.rotation.set(0,0,0);
     }
 
-    stats.update();
+    // stats.update();
 }
 
 function render() 
