@@ -101,7 +101,17 @@ WizardApplication = Ember.Object.extend({
     // `loadStringTable` - reads the application's `language` setting and loads the appropriate
     // string table.
     loadStringTable: function () {
-        
+        // The request for the string table currently is syncronous because it is part of
+        // the initialization routine and I don't want to make it asynchronous with an
+        // `isInitialized` flag or state yet.
+        var request = new XMLHttpRequest();
+
+        request.open('GET', 'assets/strings/' + this.get('options.language') + '.json', false);
+        request.send(null);
+
+        Ember.Logger.assert(request.status === 200, 'Failed to load string table!');
+
+        this.set('stringTable', JSON.parse(request.responseText));
     },
 
 
