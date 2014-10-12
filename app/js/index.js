@@ -29,6 +29,14 @@ RSVP.on('error', RSVP.onerrorDefault);
 Ember.$ = jQuery;
 Ember.RSVP = RSVP;
 
+// Initialize the Stats helper that will show us FPS and frame render times
+/* initialize Stats.js */
+stats = new Stats();
+stats.domElement.style.position = 'absolute';
+stats.domElement.style.bottom = '0px';
+stats.domElement.style.zIndex = 100;
+
+
 // Load all player options, configuration, and settings files so
 // they can be passed into the application when it is created. There are three
 // possible sources for a config option, and their order of precedence is as follows:
@@ -51,12 +59,6 @@ config = (function createConfig() {
 
     return Ember.$.extend({}, defaultConfig, ls, qs);
 }());
-
-// Initialize the Stats helper that will show us FPS and frame render times
-stats = new Stats();
-stats.domElement.style.position = 'absolute';
-stats.domElement.style.bottom = '0px';
-stats.domElement.style.zIndex = 100;
 
 debugger;
 // Register all global callback functions.
