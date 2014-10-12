@@ -1,8 +1,10 @@
-function ProcessManager() {
-    this.processes = [];
-}
+var ProcessManager;
 
-ProcessManager.prototype = {
+ProcessManager = Ember.Object.extend({
+    init: function () {
+        this.set('processes', []);
+    },
+
     detach: function (process) {
         var index = this.processes.indexOf(process);
 
@@ -57,6 +59,6 @@ ProcessManager.prototype = {
     hasProcesses: function () {
         return !!this.processes.length;
     }
-};
+});
 
 export default ProcessManager;

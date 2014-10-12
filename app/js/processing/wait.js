@@ -1,18 +1,13 @@
 import Process from 'process';
 
-function WaitProcess(parent, milliseconds) {
-    Process.apply(this, Process.TYPES.wait, 0, parent);
+var WaitProcess;
 
-    this.start = 0;
-    this.stop = milliseconds;
-}
-
-WaitProcess.prototype = {
-    constructor: WaitProcess,
+WaitProcess = Process.extend({
+    start: 0,
+    stop: 0,
+    type: Process.TYPES.wait,
 
     onUpdate: function (deltaTime) {
-        Process.onUpdate.apply(this, arguments);
-
         if (this.isActive) {
             this.start += deltaTime * 1000;
 
@@ -21,8 +16,6 @@ WaitProcess.prototype = {
             }
         }
     }
-};
-
-Object.setPrototypeOf(WaitProcess.prototype, Process.prototype);
+});
 
 export default WaitProcess;

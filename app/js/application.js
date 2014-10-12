@@ -60,12 +60,8 @@ WizardApplication = Ember.Object.extend({
         this.loadStringTable()
 
         /* create the event manager */
-        this.createEventManager();
-
         /* create the window, set the screen size, create the renderer */
-        this.set('viewport', document.querySelector(viewportSelector));
-        this.set('viewportWidth', width);
-        this.set('viewportHeight', height);
+        this.set('viewport', document.querySelector(this.get('viewportSelector')));
         this.set('renderer', null);
 
         /* create the game and initial view */

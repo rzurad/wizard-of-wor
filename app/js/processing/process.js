@@ -8,23 +8,19 @@ var TYPES = {
         sound: 'sound',
         movement: 'movement',
         game: 'game'
-    };
+    },
 
-function Process(type, oder) {
-    this.type = type;
-    this.isDead = false;
-    this.isActive = true;
-    this.isPaused = false;
-    this.isInitialized = false;
-    this.next = null;
-    this.flags = 0;
-}
+    Process;
 
-Process.TYPES = TYPES;
-Process.FLAG_ATTACHED = 1;
+Process = Ember.Object.extend({
+    isDead: false,
+    isActive: true,
+    isPaused: false,
+    isInitialized: false,
+    next: null,
+    flags: 0,
 
-Process.prototype = {
-    constructor: Process,
+    init: function () {},
 
     onUpdate: function (/* deltaTime */) {},
 
@@ -49,7 +45,10 @@ Process.prototype = {
             this.flags &= ~Process.FLAG_ATTACHED;
         }
     }
-};
+});
+
+Process.TYPES = TYPES;
+Process.FLAG_ATTACHED = 1;
 
 export { Process, TYPES };
 export default Process;

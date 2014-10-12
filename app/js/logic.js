@@ -2,7 +2,7 @@ import ProcessManager from 'processing/process-manager';
 
 var WizardLogic;
 
-WizardLogic = Ember.Object.create({
+WizardLogic = Ember.Object.extend({
     init: function () {
         this.set('views', []);
         this.set('processManager', ProcessManager.create());
@@ -51,4 +51,4 @@ WizardLogic = Ember.Object.create({
     }
 });
 
-export default Wizard;
+export default WizardLogic;
