@@ -4,8 +4,6 @@ export default {
     antialias: true,
     soundEffectsVolume: 1,
     musicVolume: 1,
-    height: 768,
-    width: 1024,
     showFPS: false
 
     /* renderer: 'WebGLRenderer' */
@@ -13,6 +11,7 @@ export default {
     /* expectedPlayers: 1 */
     /* listenPort = -1; */
     /* gameHost: 'MrMike-m1710', */
+    /* screenSize: Point(1024, 768) */
     /* maxPlayers: 2; */
 
     /*

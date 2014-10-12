@@ -2,7 +2,8 @@
 // ----------------------------
 
 // Welcome to an open-source Web Browser clone of the 1981 Midway Games title
-// "Wizard of Wor" for the Bally Astrocade. The goal of the project is to completely
+// "Wizard of Wor" for the [Bally Astrocade](http://en.wikipedia.org/wiki/Bally_Astrocade).
+// The goal of the project is to completely
 // recreate as closely as possible the experience of playing the original title.
 
 // The index.js file is where it all begins.
@@ -23,12 +24,12 @@ import parseQueryString from 'utils/querystring';
 var clock = new THREE.Clock(true),
     app, options, stats;
 
-// tie a few dependency libraries together. We're not loading in the Ember.JS framework
+// tie a few dependency libraries together. We're not loading in the [Ember.JS](http://www.emberjs.com) framework
 // in a typical fashion. We're loading in only the subpackages that we need. Because of this
 // we need to do a little bit of manual glue to put a few things where we expect the regular
 // Ember.JS framework to put them or handle them.
 
-// Set up a default error handler for RSVP
+// Set up a default error handler for [RSVP](https://github.com/tildeio/rsvp.js/)
 RSVP.onerrorDefault = function (error) {
     Ember.Logger.error(error.stack);
     Ember.Logger.assert(error, false);
@@ -36,7 +37,7 @@ RSVP.onerrorDefault = function (error) {
 
 RSVP.on('error', RSVP.onerrorDefault);
 
-// alias jquery and RSVP onto the Ember namespace
+// alias [jQuery](http://www.jquery.org) and RSVP onto the Ember namespace
 Ember.$ = jQuery;
 Ember.RSVP = RSVP;
 
@@ -53,7 +54,7 @@ stats.domElement.style.zIndex = 100;
 // possible sources for an option, and their order of precedence is as follows:
 //  - A querystring key/value pair: `index.html?antialiasing=false`
 //  - Local Storage
-//  - the default option values
+//  - the [default option values](default-options.html)
 options = (function () {
     var types = {
             'number': Number,

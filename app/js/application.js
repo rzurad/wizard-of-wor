@@ -17,11 +17,11 @@ WizardApplication = Ember.Object.extend({
     // **(Boolean)** `isRunning` - tells us if the application has been initialized
     isRunning: false,
 
-    // **(Number)** `viewportHeight` - height (pixels) of the viewport
-    viewportHeight: 0,
+    // **(Number)** `height` - height (pixels) of the viewport
+    height: 0,
 
-    // **(Number)** `viewportWidth` - width (pixels) of the viewport
-    viewportWidth: 0,
+    // **(Number)** `width` - width (pixels) of the viewport
+    width: 0,
 
     // **(String)** `viewportSelector` - the CSS selector of the element that will be
     // the viewport for the application
@@ -56,6 +56,7 @@ WizardApplication = Ember.Object.extend({
         var renderer;
 
         // Make sure that the browser environment has all of the required features
+        // using the [detector](detector.html) utility
         Ember.Logger.assert(detector.isEnvSane, 'Browser environment is not sane');
 
         /* RegisterEngineEvents */
@@ -76,7 +77,7 @@ WizardApplication = Ember.Object.extend({
         }
 
         // set the screen size
-        renderer.setSize(this.get('options.width'), this.get('options.height'));
+        renderer.setSize(this.get('width'), this.get('height'));
 
         // Create the main viewport DOM Element
         this.set('$viewport', Ember.$(this.get('viewportSelector')));
