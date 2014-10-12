@@ -6,7 +6,7 @@
 import WizardLogic from 'logic';
 import MainMenuView from 'views/main-menu';
 import detector from 'utils/detector';
-import config from 'default-config';
+import defaultOptions from 'default-options';
 
 var WizardApplication;
 
@@ -46,8 +46,8 @@ WizardApplication = Ember.Object.extend({
     renderer: null,
 
     // **(Object)** `options` - Game options for the application, such as sound settings,
-    // graphics settings, network settings, etc. Defaults to the [default config](config.html)
-    options: config,
+    // graphics settings, network settings, etc. Defaults to the [default option values](default-options.html)
+    options: defaultOptions,
 
     /*
     loadGame: function () {

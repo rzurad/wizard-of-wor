@@ -4,7 +4,7 @@
 // This is the entry point for the application. This is where everything is bootstraped
 // together and kicked off.
 import WizardApplication from 'application';
-import defaultConfig from 'default-config';
+import defaultOptions from 'default-options';
 import detector from 'utils/detector';
 import parseQueryString from 'utils/querystring';
 
@@ -15,7 +15,7 @@ import parseQueryString from 'utils/querystring';
 //
 /* set up the environment */
 var clock = new THREE.Clock(true),
-    app, config, stats;
+    app, options, stats;
 
 /* configure a default error handler for RSVP */
 RSVP.onerrorDefault = function (error) {
@@ -37,30 +37,42 @@ stats.domElement.style.bottom = '0px';
 stats.domElement.style.zIndex = 100;
 
 
-// Load all player options, configuration, and settings files so
+// Load all player/game options/settings/preferences so
 // they can be passed into the application when it is created. There are three
-// possible sources for a config option, and their order of precedence is as follows:
+// possible sources for an option, and their order of precedence is as follows:
 //  - A querystring key/value pair: `index.html?antialiasing=false`
 //  - Local Storage
-//  - the default config
-/* load player options, configs, settings */
-config = (function createConfig() {
-    var ls = {},
+//  - the default option values
+/* load player/game options/settings settings */
+options = (function () {
+    var types = {
+            'number': Number,
+            'string': function () {},
+            'boolean': function (v) { return v === 'true'; }
+        },
+        overrides = {},
         qs = parseQueryString();
 
-    detector.localStorage && Object.keys(defaultConfig).forEach(function (key) {
-        var item = localStorage.getItem('wizard.' + key);
-        
-        /* TODO: item types :-/ */
-        if (item !== null) {
-            ls[key] = item;
+    Object.keys(defaultOptions).forEach(function (key) {
+        var item;
+
+        // When you read in from querystrings or localStorage, unfortunately all of the
+        // values get converted to strings, so we'll run the value through a converter
+        // function stored in `types` and keyed off of the object's answer to `typeof`.
+        if (qs[key] !== void 0) {
+            overrides[key] = types[typeof defaultOptions[key]](qs[key]);
+        } else if (detector.localStorage) {
+            item = localStorage.getItem('wizard.' + key);
+            
+            if (item !== null) {
+                overrides[key] = types[typeof defaultOptions[key]](item);
+            }
         }
     });
 
-    return Ember.$.extend({}, defaultConfig, ls, qs);
+    return Ember.$.extend({}, defaultOptions, overrides);
 }());
 
-debugger;
 // Register all global callback functions.
 /* register global callback function s*/
 
@@ -72,7 +84,7 @@ app = WizardApplication.create({
     viewportSelector: '#container',
     width: window.innerWidth,
     height: window.innerHeight,
-    config: config
+    options: options
 });
 
 // The application is initialized, so fire off the main loop using
