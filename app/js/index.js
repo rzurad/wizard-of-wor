@@ -1,8 +1,13 @@
-// Application Entry Point
-// -----------------------
+// The Incredible Wizard of Wor
+// ----------------------------
 
-// This is the entry point for the application. This is where everything is bootstraped
-// together and kicked off.
+// Welcome to an open-source Web Browser clone of the 1981 Midway Games title
+// "Wizard of Wor" for the Bally Astrocade. The goal of the project is to completely
+// recreate as closely as possible the experience of playing the original title.
+
+// The index.js file is where it all begins.
+// This is the entry point for the application. This is where everything is
+// bootstraped together and kicked off.
 import WizardApplication from 'application';
 import defaultOptions from 'default-options';
 import detector from 'utils/detector';
