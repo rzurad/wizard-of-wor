@@ -15,16 +15,12 @@ MainMenuView = HumanView.extend({
     type: TYPES.main_menu,
 
     init: function () {
+        var mainMenuUI = MainMenuUI.create();
+
         this._super();
 
-        /* initialize the container */
-        /* create the UI Element and push it into screenElements */
-        /* bind DOM events/delegates
-         *  these delegates will handle clicks and interactions with the menu
-         *  screen: slider bar changes, save settings changes, and send the requestStartGame event
-         *  to the event manager when the user clicks 'new game'
-         */
-        /* render the UI */
+        this.set('mainMenuUI', mainMenuUI);
+        this.pushElement(mainMenuUI);
     },
 
     onRender: function (elapsedTime, deltaTime) {

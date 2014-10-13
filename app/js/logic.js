@@ -41,10 +41,11 @@ WizardLogic = Ember.Object.extend({
         /* add event listener for requestDestroyActor event */
     },
 
-    addView: function (view) {
+    addView: function (view/*, actorId */) {
+        /* generate a new viewId and assign it to view */
         this.get('views').push(view);
 
-        view.onAttach();
+        view.onAttach(/* viewId, actorId */);
         view.onRestore();
     },
 
