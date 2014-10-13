@@ -3,7 +3,6 @@
   "private": true,
   "devDependencies": {
     "loader": "https://github.com/stefanpenner/loader.js.git#1.0.1",
-    "threejs": "https://github.com/mrdoob/three.js.git#r68",
     "stats.js": "https://github.com/mrdoob/stats.js.git",
     "jquery": "~2.1.1",
     "rsvp": "~3.0.13",

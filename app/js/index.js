@@ -83,7 +83,7 @@ options = (function () {
 
     // Make sure that if there is an override option for the `renderer`, it
     // is a valid value, otherwise just revert to WebGL
-    if (!(overrides.renderer in { Canvas: 0, WebGL: 0 })) {
+    if (overrides.renderer && !(overrides.renderer in { Canvas: 0, WebGL: 0 })) {
         Ember.Logger.warn(
             'Unknown value passed to `renderer` option:', overrides.renderer, '- reverting to "WebGL"'
         );

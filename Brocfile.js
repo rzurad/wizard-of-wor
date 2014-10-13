@@ -18,7 +18,7 @@ js = compileES6(sourceTree + '/js', {
         '../../node_modules/ember-metal-node/index.js',
         '../../node_modules/ember-runtime-node/index.js',
         '../../node_modules/ember-states-node/index.js',
-        '../../bower_components/threejs/build/three.js',
+        '../../node_modules/three/three.js',
         '../../bower_components/stats.js/src/Stats.js',
         '../../vendor/OrbitControls.js',
         '../../vendor/THREEx.FullScreen.js',
