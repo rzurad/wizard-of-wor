@@ -101,8 +101,7 @@ WizardLogic = Ember.Object.extend({
                 Ember.assert(false, 'Unknown state!');
         }
 
-        /* TODO: this is not a safe iteration */
-        this.views.forEach(function (view) {
+        this.get('views').forEach(function (view) {
             view.onUpdate(elapsedTime, deltaTime);
         });
 
@@ -110,7 +109,7 @@ WizardLogic = Ember.Object.extend({
     },
 
     onRender: function (elapsedTime, deltaTime) {
-        this.views.forEach(function (view) {
+        this.get('views').forEach(function (view) {
             view.onRender(elapsedTime, deltaTime);
         });
 
