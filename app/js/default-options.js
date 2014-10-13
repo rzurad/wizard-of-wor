@@ -1,4 +1,10 @@
 export default {
+    /* TODO: These keys should be extracted into a "build" config, not a "runtime"
+     * config, which is what this file is closer to
+     */
+    seed: void 0,
+    /* END */
+
     renderer: 'WebGL',
     language: 'en',
     level: '',

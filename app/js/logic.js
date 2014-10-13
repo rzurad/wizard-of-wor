@@ -4,6 +4,7 @@ var WizardLogic;
 
 WizardLogic = Ember.Object.extend({
     elapsedTime: 0,
+    random: null,
 
     state: function () {
         return this.get('stateManager.currentState.name');
@@ -13,7 +14,8 @@ WizardLogic = Ember.Object.extend({
         this.set('views', []);
         this.set('processManager', ProcessManager.create());
 
-        /* init random number generator */
+        // Initialize the random number generator
+        this.set('random', new Math.seedrandom(this.get('options.seed')));
 
         // Create the [state machine](https://github.com/emberjs/ember-states/blob/master/packages/ember-states/lib/state_manager.js#L238) for the game logic
         this.set('stateManager', Ember.StateManager.create({

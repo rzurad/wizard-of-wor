@@ -140,6 +140,8 @@ WizardApplication = Ember.Object.extend({
     // it is given, in milliseconds, the total `elapsedTime` since page load, and the 
     // `deltaTime` since the last frame was executed.
     onUpdate: function (elapsedTime, deltaTime) {
+        var game = this.get('game');
+
         /* prevent the game from updating if need be (modal dialogs and such...) */
         if (!this.isRunning) {
             return;
@@ -152,10 +154,12 @@ WizardApplication = Ember.Object.extend({
         }
         */
 
-        /* if the application is initialized (there is a WizardLogic object on the `game` property */
+        // The game logic is initialized, so call the `onUpdate` callback
+        if (game instanceof WizardLogic) {
             /* let the event manager process for 20 milliseconds */
             /* socket code I don't understand yet */
-            this.get('game').onUpdate(elapsedTime, deltaTime);
+            game.onUpdate(elapsedTime, deltaTime);
+        }
     },
 
 
