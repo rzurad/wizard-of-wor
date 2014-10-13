@@ -7,7 +7,6 @@ export default {
     musicVolume: 1,
     showFPS: false
 
-    /* renderer: 'WebGLRenderer' */
     /* m_runFullSpeed = false; */
     /* expectedPlayers: 1 */
     /* listenPort = -1; */
