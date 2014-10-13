@@ -1,6 +1,18 @@
 // The Incredible Wizard of Wor
 // ----------------------------
 
+//  - [processing/ProcessManager](process-manager.html)
+//  - [processing/Process](process.html)
+//  - [utils/Detector](detector.html)
+//  - [utils/QueryString](querystring.html)
+//  - [views/HumanView](human.html)
+//  - [views/MainMenuView](main-menu.html)
+//  - [Default Options](default-config.html)
+//  - [Dungeons](dungeons.html)
+//  - [Index](index.html)
+//  - [WizardApplication](application.html)
+//  - [WizardLogic](logic.html)
+
 // Welcome to an open-source Web Browser clone of the 1981 Midway Games title
 // "Wizard of Wor" for the [Bally Astrocade](http://en.wikipedia.org/wiki/Bally_Astrocade).
 // The goal of the project is to completely
