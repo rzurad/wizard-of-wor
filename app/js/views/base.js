@@ -1,7 +1,3 @@
-var TYPES = {
-        base: 'base'
-    };
-
 var BaseView;
 
 BaseView = Ember.Object.extend({
@@ -15,7 +11,4 @@ BaseView = Ember.Object.extend({
     */
 });
 
-BaseView.TYPES = TYPES;
-
 export default BaseView;
-export { BaseView, TYPES };

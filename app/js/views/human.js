@@ -1,7 +1,5 @@
 import ProcessManager from 'processing/process-manager';
-import { BaseView, TYPES } from 'views/base';
-
-TYPES.human = 'human';
+import BaseView from 'views/base';
 
 var HumanView;
 
@@ -86,7 +84,6 @@ private:
     void RemoveAllDelegates(void);
  */
 HumanView = BaseView.extend({
-    type: TYPES.human,
     timeOfLastRender: 0,
 
     // TODO: I think this needs access to the WizardApplication.renderer property
