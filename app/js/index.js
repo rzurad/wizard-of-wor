@@ -181,4 +181,7 @@ requestAnimationFrame(function main() {
 
 // Down here is where we would handle any application shutdown logic,
 // of which we probably wont have much, if any.
+/* TODO: Be aware of the state your game needs to be in to correctly attach and
+ * detach onbeforeunload handlers. If the player is in the middle of a match or
+ * a round, we don't want to kill the session like we normaly do for web pages
 /* shutdown logic */
