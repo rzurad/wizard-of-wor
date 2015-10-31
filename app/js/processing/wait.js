@@ -1,13 +1,11 @@
 import Process from 'process';
 
-var WaitProcess;
+export default class WaitProcess extends Process.extend {
+    onUpdate(deltaTime) {
+        this.start = 0;
+        this.stop = 0;
+        this.type = Process.TYPES.wait;
 
-WaitProcess = Process.extend({
-    start: 0,
-    stop: 0,
-    type: Process.TYPES.wait,
-
-    onUpdate: function (deltaTime) {
         if (this.isActive) {
             this.start += deltaTime * 1000;
 
@@ -16,6 +14,4 @@ WaitProcess = Process.extend({
             }
         }
     }
-});
-
-export default WaitProcess;
+}

@@ -1,24 +1,23 @@
 import ProcessManager from 'processing/process-manager';
 
-var WizardLogic;
-
-WizardLogic = Ember.Object.extend({
-    elapsedTime: 0,
-    random: null,
-
+export default class WizardLogic {
+    /*
     state: function () {
         return this.get('stateManager.currentState.name');
     }.property('stateManager.currentState.name'),
+    */
 
-    init: function () {
-        this.set('views', []);
-        this.set('processManager', ProcessManager.create());
+    constructor() {
+        this.elapsedTime = 0;
+        this.views = [];
+        this.processManager = new ProcessManager();
 
         // Initialize the random number generator
-        this.set('random', new Math.seedrandom(this.get('options.seed')));
+        this.random = new Math.seedrandom(this.options.seed);
 
+        /*
         // Create the [state machine](https://github.com/emberjs/ember-states/blob/master/packages/ember-states/lib/state_manager.js#L238) for the game logic
-        this.set('stateManager', Ember.StateManager.create({
+        this.stateManager = Ember.StateManager.create({
             // Set the logic object to the "initializing" state
             initialState: 'initializing',
 
@@ -30,6 +29,7 @@ WizardLogic = Ember.Object.extend({
             waitingForPlayers: Ember.State.create(),
             running: Ember.State.create()
         }));
+        */
 
         /* create the level manager */
         /* initialize the level manager */
@@ -39,25 +39,25 @@ WizardLogic = Ember.Object.extend({
         /* create actor factory */
         /* create pathing graph */
         /* add event listener for requestDestroyActor event */
-    },
+    }
 
-    addView: function (view/*, actorId */) {
+    addView(view/*, actorId */) {
         /* generate a new viewId and assign it to view */
-        this.get('views').push(view);
+        this.views.push(view);
 
         view.onAttach(/* viewId, actorId */);
         view.onRestore();
-    },
+    }
 
-    onUpdate: function (elapsedTime, deltaTime) {
-        var stateManager = this.get('stateManager');
+    onUpdate(elapsedTime, deltaTime) {
+        var stateManager = this.stateManager;
 
         // Update the `elapsedTime`.
-        this.set('elapsedTime', elapsedTime);
+        this.elapsedTime = elapsedTime;
         
         // Every frame, we want to make sure that if we are in a place
         // that requires a state change, we go ahead and make that state change.
-        switch (this.get('state')) {
+        switch (this.state) {
             case 'initializing':
                 // Since initialization is synchronous, we should never actually get to the
                 // `onUpdate` call every frame if the game logic was not done initializing. This
@@ -75,7 +75,7 @@ WizardLogic = Ember.Object.extend({
             /* if WaitingForPlayersToLoadEnvironments, do nothing unless
              *      all players have loaded, in which case SpawnPlayersActors */
             case 'waitingForPlayersToLoadEnvironments':
-                Ember.Logger.error('"watingForPlayersToLoadEnvironments" state not handled!');
+                console.error('"watingForPlayersToLoadEnvironments" state not handled!');
                 break;
 
             // Similarly, processing that needs to happen when in the `"spawnPlayersActors"`
@@ -88,38 +88,38 @@ WizardLogic = Ember.Object.extend({
             /* if WaitingForPlayers state, check if all players are attached and that
              *      we have a level to load from the server, if so, switch to LoadingGameEnvironment */
             case 'waitingForPlayers':
-                Ember.Logger.error('"waitingForPlayers" state not handled!');
+                console.error('"waitingForPlayers" state not handled!');
                 break;
 
             // The game is running, so do fire off all of the processing that needs to happen
             // every frame (updating processes, updating the physics system, etc)
             case 'running':
-                this.get('processManager').updateProcesses(deltaTime);
+                this.processManager.updateProcesses(deltaTime);
 
                 /* update the physics system */
 
                 break;
 
             default:
-                Ember.assert(false, 'Unknown state!');
+                console.assert(false, 'Unknown state!');
         }
 
-        this.get('views').forEach(function (view) {
+        this.views.forEach(function (view) {
             view.onUpdate(elapsedTime, deltaTime);
         });
 
         /* update all of the actors */
-    },
+    }
 
-    onRender: function (elapsedTime, deltaTime) {
-        this.get('views').forEach(function (view) {
+    onRender(elapsedTime, deltaTime) {
+        this.views.forEach(function (view) {
             view.onRender(elapsedTime, deltaTime);
         });
 
         this.renderDiagnostics();
-    },
+    }
 
-    renderDiagnostics: function () { },
+    renderDiagnostics() { }
 
     /*
     loadGame: function (name) {
@@ -127,9 +127,7 @@ WizardLogic = Ember.Object.extend({
     },
     */
 
-    destroy: function () {
-        this.get('processManager').deleteAllProcesses();
+    destroy() {
+        this.processManager.deleteAllProcesses();
     }
-});
-
-export default WizardLogic;
+}

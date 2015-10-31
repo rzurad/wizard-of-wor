@@ -33,8 +33,7 @@ import parseQueryString from 'utils/querystring';
 
 // Create a new [Clock](http://threejs.org/docs/#Reference/Core/Clock) that will be
 // the heartbeat of the game, 
-var clock = new THREE.Clock(true),
-    app, options, stats;
+let clock = new THREE.Clock(true);
 
 // tie a few dependency libraries together. We're not loading in the [Ember.JS](http://www.emberjs.com) framework
 // in a typical fashion. We're loading in only the subpackages that we need. Because of this
@@ -43,18 +42,15 @@ var clock = new THREE.Clock(true),
 
 // Set up a default error handler for [RSVP](https://github.com/tildeio/rsvp.js/)
 RSVP.onerrorDefault = function (error) {
-    Ember.Logger.error(error.stack);
-    Ember.Logger.assert(error, false);
+    console.error(error.stack);
+    console.assert(error, false);
 };
 
 RSVP.on('error', RSVP.onerrorDefault);
 
-// alias [jQuery](http://www.jquery.org) and RSVP onto the Ember namespace
-Ember.$ = jQuery;
-Ember.RSVP = RSVP;
-
 // Initialize the Stats helper that will show us FPS and frame render times
-stats = new Stats();
+let stats = new Stats();
+
 stats.domElement.style.position = 'absolute';
 stats.domElement.style.bottom = '0px';
 stats.domElement.style.zIndex = 100;
@@ -67,8 +63,10 @@ stats.domElement.style.zIndex = 100;
 //  - A querystring key/value pair: `index.html?antialiasing=false`
 //  - Local Storage
 //  - the [default option values](default-options.html)
+let options;
+
 options = (function () {
-    var types = {
+    let types = {
             'number': Number,
             'string': function () {},
             'boolean': function (v) { return v === 'true'; }
@@ -77,7 +75,7 @@ options = (function () {
         qs = parseQueryString();
 
     Object.keys(defaultOptions).forEach(function (key) {
-        var item;
+        let item;
 
         // When you read in from querystrings or localStorage, unfortunately all of the
         // values get converted to strings, so we'll run the value through a converter
@@ -96,14 +94,14 @@ options = (function () {
     // Make sure that if there is an override option for the `renderer`, it
     // is a valid value, otherwise just revert to WebGL
     if (overrides.renderer && !(overrides.renderer in { Canvas: 0, WebGL: 0 })) {
-        Ember.Logger.warn(
-            'Unknown value passed to `renderer` option:', overrides.renderer, '- reverting to "WebGL"'
+        console.warn(
+            `Unknown value passed to 'renderer' option: ${overrides.renderer} - reverting to "WebGL"`
         );
 
         delete overrides.renderer;
     }
 
-    return Ember.$.extend({}, defaultOptions, overrides);
+    return $.extend({}, defaultOptions, overrides);
 }());
 
 
@@ -115,12 +113,7 @@ options = (function () {
 // Now that the environment is set up and we have everything we need,
 // initialize the app. This is done by creating a [WizardApplication](application.html)
 // object
-app = WizardApplication.create({
-    viewportSelector: '#container',
-    width: window.innerWidth,
-    height: window.innerHeight,
-    options: options
-});
+let app = new WizardApplication(window.innerWidth, window.innerHeight, 'body', options);
 
 
 
@@ -133,7 +126,7 @@ requestAnimationFrame(function main() {
     // At the start of each frame, we need to figure out how much
     // time, in milliseconds, has passed since the last frame was
     // updated and drawn.
-    var elapsedTime = clock.getElapsedTime(),
+    let elapsedTime = clock.getElapsedTime(),
         deltaTime = clock.getDelta();
 
     // Update the FPS counter

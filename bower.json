@@ -1,5 +1,5 @@
 {
-    "name": "wizard-of-wor",
+    "name": "wizard",
     "private": true,
     "devDependencies": {
         "requirejs": "https://github.com/jrburke/requirejs.git",

@@ -37,7 +37,7 @@ jsVendor = concat(jsVendor, {
         // glue
         'requirejs/require.js'
     ],
-    outputFile: '/vendor.js',
+    outputFile: '/assets/vendor.js',
 });
 
 js = compileES6(sourceTree + '/js', {
@@ -48,11 +48,11 @@ js = compileES6(sourceTree + '/js', {
 });
 
 js = concat(js, {
-    outputFile: '/' + pkg.name + '.js',
+    outputFile: '/assets/' + pkg.name + '.js',
     inputFiles: ['**/*.js']
 });
 
-css = compileLess([sourceTree], 'styles/base.less', 'wizard.css');
+css = compileLess([sourceTree], 'styles/base.less', 'assets/wizard.css');
 
 index = pickFiles(sourceTree, {
     srcDir: '',

@@ -1,21 +1,19 @@
-var ProcessManager;
+export default class ProcessManager {
+    constructor() {
+        this.processes = [];
+    }
 
-ProcessManager = Ember.Object.extend({
-    init: function () {
-        this.set('processes', []);
-    },
-
-    detach: function (process) {
-        var index = this.processes.indexOf(process);
+    detach(process) {
+        let index = this.processes.indexOf(process);
 
         if (index > -1) {
             this.processes.splice(index, 1);
             process.setAttached(false);
         }
-    },
+    }
 
-    updateProcesses: function (deltaTime) {
-        var i = this.processes.length,
+    updateProcesses(deltaTime) {
+        let i = this.processes.length,
             process;
 
         while (i--) {
@@ -37,28 +35,26 @@ ProcessManager = Ember.Object.extend({
                 process.onUpdate(deltaTime);
             }
         }
-    },
+    }
 
-    deleteAllProcesses: function () {
+    deleteAllProcesses() {
         while (this.processes.length) {
             this.processes[0].detach();
         }
-    },
+    }
 
-    isProcessActive: function (type) {
+    isProcessActive(type) {
         return this.processes.some(function (process) {
             return process.type = type && (!process.isDead || process.next);
         });
-    },
+    }
 
-    attach: function (process) {
+    attach(process) {
         this.processes.shift(process);
         process.setAttached(true);
-    },
+    }
 
-    hasProcesses: function () {
+    hasProcesses() {
         return !!this.processes.length;
     }
-});
-
-export default ProcessManager;
+}

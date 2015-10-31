@@ -1,8 +1,6 @@
 import ProcessManager from 'processing/process-manager';
 import BaseView from 'views/base';
 
-var HumanView;
-
 /*
 class HumanView : public IGameView
 {
@@ -83,15 +81,18 @@ private:
     void RegisterAllDelegates(void);
     void RemoveAllDelegates(void);
  */
-HumanView = BaseView.extend({
-    timeOfLastRender: 0,
+export default class HumanView extends BaseView {
 
     // TODO: I think this needs access to the WizardApplication.renderer property
     // (and know about when it changes)
-    init: function () {
+    constructor() {
+        super();
+
+        this.timeOfLastRender = 0;
+
         /* initialize the audio */
-        this.set('processManager', ProcessManager.create());
-        this.set('screenElements', []);
+        this.processManager = new ProcessManager();
+        this.screenElements = [];
 
         /* register all delegates */
         /* set base game state to initializing */
@@ -125,10 +126,10 @@ HumanView = BaseView.extend({
         m_pScene->SetCamera(m_pCamera);
     }
         */
-    },
+    }
 
     // onRestore: function () { }, <-- don't think I'll need since I'm not that close to the hardware
-    onRender: function (elapsedTime, deltaTime) {
+    onRender(elapsedTime, deltaTime) {
         if (elapsedTime === this.timeOfLastRender) {
             return;
         }
@@ -155,29 +156,27 @@ HumanView = BaseView.extend({
          */
 
         this.timeOfLastRender = elapsedTime;
-    },
+    }
 
     // onLostDevice: function () { }, <-- don't think I'll need since I'm not that close to the hardware
-    pushScreen: function (screen) {
+    pushScreen(screen) {
         this.screenElements.push(screen);
-    },
+    }
 
-    popScreen: function () {
+    popScreen() {
         this.screenElements.pop();
-    },
+    }
 
-    onMessageProcess: function (msg) { console.warn('`onMessageProcess` does not do anything yet'); },
+    onMessageProcess(msg) { console.warn('`onMessageProcess` does not do anything yet'); }
 
-    onUpdate: function (elapsedTime, deltaTime) {
+    onUpdate(elapsedTime, deltaTime) {
         this.processManager.updateProcesses(deltaTime);
-    },
+    }
 
-    initAudio: function () { console.warn('`initAudio` does not do anything yet.'); },
+    initAudio() { console.warn('`initAudio` does not do anything yet.'); }
 
-    destroy: function () {
+    destroy() {
         this.processManager.deleteAllProcesses();
         // g_Audio->VShutdown();
     }
-});
-
-export default HumanView;
+}

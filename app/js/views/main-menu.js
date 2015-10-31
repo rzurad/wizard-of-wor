@@ -5,28 +5,19 @@ import HumanView from 'views/human';
 // TODO: screenElements can probably go away. If a view can be simple enough
 // to handle everything about its container and DOM Event bindings,
 // but that depends on how the EventSystem works
+export default class MainMenuView extends HumanView {
+    constructor() {
+        super();
 
-var MainMenuView;
-
-MainMenuView = HumanView.extend({
-    type: TYPES.main_menu,
-
-    init: function () {
-        var mainMenuUI = MainMenuUI.create();
-
-        this._super();
-
-        this.set('mainMenuUI', mainMenuUI);
+        this.mainMenuUI = new MainMenuUI();
         this.pushElement(mainMenuUI);
-    },
+    }
 
-    onRender: function (elapsedTime, deltaTime) {
+    onRender(elapsedTime, deltaTime) {
         console.warn('`MainMenuView.onRender` not implemented');
-    },
+    }
 
-    onUpdate: function (elapsedTime, deltaTime) {
+    onUpdate(elapsedTime, deltaTime) {
         console.warn('`MainMenuView.onUpdate` not implemented');
     }
-});
-
-export default MainMenuView;
+}

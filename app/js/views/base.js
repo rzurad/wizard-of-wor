@@ -1,14 +1,10 @@
-var BaseView;
-
-BaseView = Ember.Object.extend({
-    onRender: function (elapsedTime, deltaTime) {},
-    onUpdate: function (elapsedTime, deltaTime) {},
-    onAttach: function (viewId, actorId) {},
+export default class BaseView {
+    onRender(elapsedTime, deltaTime) {}
+    onUpdate(elapsedTime, deltaTime) {}
+    onAttach(viewId, actorId) {}
 
     /*
     onRestore: function () {},
     onLostDevice: function () {}
     */
-});
-
-export default BaseView;
+}

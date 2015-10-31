@@ -1,48 +1,14 @@
 // WizardApplication Class
 // -----------------------
 
-// Application class that encapsulates all of the logic and rendering of the
-// Wizard of Wor game.
 import WizardLogic from 'logic';
 import MainMenuView from 'views/main-menu';
 import detector from 'utils/detector';
 import defaultOptions from 'default-options';
 
-let WizardApplication;
-
-WizardApplication = Ember.Object.extend({
-    // Properties
-    // ----------
-
-    // **(Boolean)** `isRunning` - tells us if the application has been initialized
-    isRunning: false,
-
-    // **(Number)** `height` - height (pixels) of the viewport
-    height: 0,
-
-    // **(Number)** `width` - width (pixels) of the viewport
-    width: 0,
-
-    // **(String)** `viewportSelector` - the CSS selector of the element that will be
-    // the viewport for the application
-    viewportSelector: 'body',
-
-    // **(jQueryElement)** `$viewport` - jQuery wrapped DOM element that is the application viewport
-    $viewport: null,
-
-    // **(Object)** `stringTable` - Object which maps all strings/text displayed throughout the game
-    stringTable: null,
-
-    // **([WizardLogic](logic.html))** `game` - WizardLogic object. Responsible for
-    // everything that is not render-related.
-    game: null,
-
-    // **(WebGLRenderer)** `renderer` - The THREE.js WebGLRenderer object
-    renderer: null,
-
-    // **(Object)** `options` - Game options for the application, such as sound settings,
-    // graphics settings, network settings, etc. Defaults to the [default option values](default-options.html)
-    options: defaultOptions,
+// Application class that encapsulates all of the logic and rendering of the
+// Wizard of Wor game.
+export default class WizardApplication {
 
     /*
      * at some point, you need to make sure that save games can be loaded and created
@@ -55,10 +21,38 @@ WizardApplication = Ember.Object.extend({
 
     // Initialization
     // --------------
-    init() {
+    constructor(width = 0, height = 0, viewportSelector = 'body', options = defaultOptions) {
         // Make sure that the browser environment has all of the required features
         // using the [detector](detector.html) utility
-        Ember.Logger.assert(detector.isEnvSane, 'Browser environment is not sane');
+        console.assert(detector.isEnvSane, 'Browser environment is not sane');
+
+        // Properties
+        // ----------
+        // **(Boolean)** `isRunning` - tells us if the application has been initialized
+        this.isRunning = false;
+
+        // TODO: why is height and width on the application object?
+        // **(Number)** `height` - height (pixels) of the viewport
+        this.height = height;
+
+        // **(Number)** `width` - width (pixels) of the viewport
+        this.width = width;
+
+        // **(String)** `viewportSelector` - the CSS selector of the element that will be
+        // the viewport for the application
+        this.viewportSelector = viewportSelector;
+
+        // **(Object)** `options` - Game options for the application, such as sound settings,
+        // graphics settings, network settings, etc. Defaults to the [default option values](default-options.html)
+        this.options = options;
+
+        // "Private" properties
+        // --------------------
+        // **(Object)** `_stringTable` - Object which maps all strings/text displayed throughout the game
+        // **([WizardLogic](logic.html))** `_game` - WizardLogic object. Responsible for
+        // everything that is not render-related.
+        // **(WebGLRenderer)** `_renderer` - The THREE.js WebGLRenderer object
+        // **(jQueryElement)** `_$viewport` - jQuery wrapped DOM element that is the application viewport
 
         /* RegisterEngineEvents */
         /* VRegisterGameEvents */
@@ -79,18 +73,18 @@ WizardApplication = Ember.Object.extend({
         // does not at least support Canvas, the detector.isEnvSane assertion would have failed).
         let renderer;
 
-        if (detector.WebGL && this.get('options.renderer') === 'WebGL') {
-            renderer = new THREE.WebGLRenderer({ antialias: this.get('options.antialias') });
+        if (detector.WebGL && this.options.renderer === 'WebGL') {
+            renderer = new THREE.WebGLRenderer({ antialias: this.options.antialias });
         } else {
             renderer = new THREE.CanvasRenderer();
         }
 
         // set the screen size
-        renderer.setSize(this.get('width'), this.get('height'));
+        renderer.setSize(this.width, this.height);
 
         // Create the main viewport DOM Element
-        this.set('$viewport', Ember.$(this.get('viewportSelector')));
-        this.set('renderer', renderer);
+        this.$viewport = $(this.viewportSelector);
+        this.renderer = renderer;
 
         // Create the game and the initial view.
         this.createGameAndView();
@@ -100,8 +94,8 @@ WizardApplication = Ember.Object.extend({
          * we'd need to preload only the things we care about and intelligently load
          * other resources as we need them */
 
-        this.set('isRunning', true);
-    },
+        this.isRunning = true;
+    }
 
 
 
@@ -116,42 +110,40 @@ WizardApplication = Ember.Object.extend({
         // `isInitialized` flag or state yet.
         let request = new XMLHttpRequest();
 
-        request.open('GET', 'assets/strings/' + this.get('options.language') + '.json', false);
+        request.open('GET', `assets/strings/${this.options.language}.json`, false);
         request.send(null);
 
-        Ember.Logger.assert(request.status === 200, 'Failed to load string table!');
+        console.assert(request.status === 200, 'Failed to load string table!');
 
-        this.set('stringTable', JSON.parse(request.responseText));
-    },
+        this.stringTable = JSON.parse(request.responseText);
+    }
 
 
 
     // `getString`- extracts a given string from the currently loaded string table based on id,
     getString(id) {
-        Ember.Logger.assert(this.get('stringTable'), 'Cannot get string. String table is not initialized!');
+        console.assert(this.stringTable, 'Cannot get string. String table is not initialized!');
 
-        let string = this.get('stringTable')[id];
+        let string = this.stringTable[id];
 
-        Ember.Logger.assert(string, 'String with id "' + id + '" not found in string table!');
+        console.assert(string, `String with id "${id}" not found in string table!`);
 
         return string;
-    },
+    }
 
 
     // `createGameAndView` - function that initializes the WizardLogic and creates
     // the default MainMenu view
     createGameAndView() {
-        let game = WizardLogic.create(),
-            view = MainMenuView.create({
-                game: game
-            });
+        let game = new WizardLogic(),
+            view = new MainMenuView(game);
 
         game.addView(view);
 
-        this.set('game', game);
+        this.game = game;
 
         return game;
-    },
+    }
 
 
 
@@ -162,7 +154,7 @@ WizardApplication = Ember.Object.extend({
     // it is given, in milliseconds, the total `elapsedTime` since page load, and the 
     // `deltaTime` since the last frame was executed.
     onUpdate(elapsedTime, deltaTime) {
-        let game = this.get('game');
+        let game = this.game;
 
         /* prevent the game from updating if need be (modal dialogs and such...) */
         if (!this.isRunning) {
@@ -182,7 +174,7 @@ WizardApplication = Ember.Object.extend({
             /* socket code I don't understand yet */
             game.onUpdate(elapsedTime, deltaTime);
         }
-    },
+    }
 
 
 
@@ -200,9 +192,7 @@ WizardApplication = Ember.Object.extend({
     // `deltaTime` since the last frame was executed.
     onRender(elapsedTime, deltaTime) {
         // Call the WizardGameLogic `onRender` callback
-        this.get('game').onRender(elapsedTime, deltaTime);
-        /* this.get('game').renderDiagnostics(); */
+        this.game.onRender(elapsedTime, deltaTime);
+        /* this.game.renderDiagnostics(); */
     }
-});
-
-export default WizardApplication;
+}

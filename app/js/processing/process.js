@@ -1,4 +1,4 @@
-var TYPES = {
+let TYPES = {
         none: 'none',
         wait: 'wait',
         sprite: 'sprite',
@@ -8,47 +8,44 @@ var TYPES = {
         sound: 'sound',
         movement: 'movement',
         game: 'game'
-    },
+    };
 
-    Process;
+export default class Process {
+    construct() {
+        this.isDead = false;
+        this.isActive = true;
+        this.isPaused = false;
+        this.isInitialized = false;
+        this.next = null;
+        this.flags = 0;
+    }
 
-Process = Ember.Object.extend({
-    isDead: false,
-    isActive: true,
-    isPaused: false,
-    isInitialized: false,
-    next: null,
-    flags: 0,
+    onUpdate(/* deltaTime */) {}
 
-    init: function () {},
+    onInitialize() {}
 
-    onUpdate: function (/* deltaTime */) {},
-
-    onInitialize: function () {},
-
-    kill: function () {
+    kill() {
         this.isDead = true;
-    },
+    }
 
-    togglePause: function () {
+    togglePause() {
         this.isPaused = !this.isPaused;
-    },
+    }
 
-    isAttached: function () {
+    isAttached() {
         return this.flags & Process.FLAG_ATTACHED ? true : false;
-    },
+    }
 
-    setAttached: function (attach) {
+    setAttached(attach) {
         if (attach) {
             this.flags |= Process.FLAG_ATTACHED;
         } else {
             this.flags &= ~Process.FLAG_ATTACHED;
         }
     }
-});
+}
 
 Process.TYPES = TYPES;
 Process.FLAG_ATTACHED = 1;
 
 export { Process, TYPES };
-export default Process;
