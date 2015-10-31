@@ -1,31 +1,50 @@
-var compileES6 = require('broccoli-es6-concatenator'),
+var compileES6 = require('broccoli-babel-transpiler'),
+    funnel = require('broccoli-funnel'),
+    concat = require('broccoli-concat'),
     mergeTrees = require('broccoli-merge-trees'),
     pickFiles = require('broccoli-static-compiler'),
     compileLess = require('broccoli-less-single'),
+    unwatchedTree = require('broccoli-unwatched-tree'),
+    pkg = require('./package.json'),
 
     sourceTree = 'app',
-    js, index, assets;
+    js, jsVendor, index, assets;
+
+jsVendor = mergeTrees([
+    unwatchedTree('bower_components'),
+    unwatchedTree('vendor')
+]);
+
+jsVendor = concat(jsVendor, {
+    inputFiles: [
+        // bower
+        'seedrandom/seedrandom.js',
+        'jquery/dist/jquery.js',
+        'rsvp/rsvp.js',
+        'three.js/build/three.js',
+        'stats.js/build/stats.min.js',
+
+        // vendor
+        'OrbitControls.js',
+        'THREEx.FullScreen.js',
+        'THREEx.WindowResize.js',
+
+        // glue
+        'requirejs/require.js'
+    ],
+    outputFile: '/vendor.js',
+});
 
 js = compileES6(sourceTree + '/js', {
-    loaderFile: '../../bower_components/loader/loader.js',
-    inputFiles: [
-        '*.js'
-    ],
-    legacyFilesToAppend: [
-        '../../bower_components/seedrandom/seedrandom.js',
-        '../../bower_components/jquery/dist/jquery.js',
-        '../../bower_components/rsvp/rsvp.js',
-        '../../node_modules/ember-metal-node/index.js',
-        '../../node_modules/ember-runtime-node/index.js',
-        '../../node_modules/ember-states-node/index.js',
-        '../../node_modules/three/three.js',
-        '../../bower_components/stats.js/src/Stats.js',
-        '../../vendor/OrbitControls.js',
-        '../../vendor/THREEx.FullScreen.js',
-        '../../vendor/THREEx.WindowResize.js'
-    ],
-    wrapInEval: false,
-    outputFile: '/wizard.js'
+    browserPolyfill: true,
+    stage: 0,
+    moduleIds: true,
+    modules: 'amd'
+});
+
+js = concat(js, {
+    outputFile: '/' + pkg.name + '.js',
+    inputFiles: ['**/*.js']
 });
 
 css = compileLess([sourceTree], 'styles/base.less', 'wizard.css');
@@ -41,4 +60,4 @@ assets = pickFiles(sourceTree, {
     destDir: 'assets'
 });
 
-module.exports = mergeTrees([index, css, js, assets]);
+module.exports = mergeTrees([index, css, jsVendor, js, assets]);

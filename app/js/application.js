@@ -8,7 +8,7 @@ import MainMenuView from 'views/main-menu';
 import detector from 'utils/detector';
 import defaultOptions from 'default-options';
 
-var WizardApplication;
+let WizardApplication;
 
 WizardApplication = Ember.Object.extend({
     // Properties
@@ -55,9 +55,7 @@ WizardApplication = Ember.Object.extend({
 
     // Initialization
     // --------------
-    init: function () {
-        var renderer;
-
+    init() {
         // Make sure that the browser environment has all of the required features
         // using the [detector](detector.html) utility
         Ember.Logger.assert(detector.isEnvSane, 'Browser environment is not sane');
@@ -79,6 +77,8 @@ WizardApplication = Ember.Object.extend({
 
         // Create the renderer. Try for WebGL, but fallback to Canvas (if the environment
         // does not at least support Canvas, the detector.isEnvSane assertion would have failed).
+        let renderer;
+
         if (detector.WebGL && this.get('options.renderer') === 'WebGL') {
             renderer = new THREE.WebGLRenderer({ antialias: this.get('options.antialias') });
         } else {
@@ -110,11 +110,11 @@ WizardApplication = Ember.Object.extend({
 
     // `loadStringTable` - reads the application's `language` setting and loads the appropriate
     // string table.
-    loadStringTable: function () {
+    loadStringTable() {
         // The request for the string table currently is syncronous because it is part of
         // the initialization routine and I don't want to make it asynchronous with an
         // `isInitialized` flag or state yet.
-        var request = new XMLHttpRequest();
+        let request = new XMLHttpRequest();
 
         request.open('GET', 'assets/strings/' + this.get('options.language') + '.json', false);
         request.send(null);
@@ -127,12 +127,12 @@ WizardApplication = Ember.Object.extend({
 
 
     // `getString`- extracts a given string from the currently loaded string table based on id,
-    getString: function (id) {
+    getString(id) {
         Ember.Logger.assert(this.get('stringTable'), 'Cannot get string. String table is not initialized!');
 
-        var string = this.get('stringTable')[id];
+        let string = this.get('stringTable')[id];
 
-        Ember.Logger.assert(string, 'String with id "' + id + "' not found in string table!');
+        Ember.Logger.assert(string, 'String with id "' + id + '" not found in string table!');
 
         return string;
     },
@@ -140,8 +140,8 @@ WizardApplication = Ember.Object.extend({
 
     // `createGameAndView` - function that initializes the WizardLogic and creates
     // the default MainMenu view
-    createGameAndView: function () {
-        var game = WizardLogic.create(),
+    createGameAndView() {
+        let game = WizardLogic.create(),
             view = MainMenuView.create({
                 game: game
             });
@@ -161,8 +161,8 @@ WizardApplication = Ember.Object.extend({
     // `onUpdate` - callback function that is executed once every frame. When executed
     // it is given, in milliseconds, the total `elapsedTime` since page load, and the 
     // `deltaTime` since the last frame was executed.
-    onUpdate: function (elapsedTime, deltaTime) {
-        var game = this.get('game');
+    onUpdate(elapsedTime, deltaTime) {
+        let game = this.get('game');
 
         /* prevent the game from updating if need be (modal dialogs and such...) */
         if (!this.isRunning) {
@@ -198,7 +198,7 @@ WizardApplication = Ember.Object.extend({
     // `onRender` - callback function that is executed once every frame. When executed
     // it is given, in milliseconds, the total `elapsedTime` since page load, and the
     // `deltaTime` since the last frame was executed.
-    onRender: function (elapsedTime, deltaTime) {
+    onRender(elapsedTime, deltaTime) {
         // Call the WizardGameLogic `onRender` callback
         this.get('game').onRender(elapsedTime, deltaTime);
         /* this.get('game').renderDiagnostics(); */

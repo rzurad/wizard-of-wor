@@ -1,11 +1,12 @@
 {
-  "name": "wizard-of-wor",
-  "private": true,
-  "devDependencies": {
-    "loader": "https://github.com/stefanpenner/loader.js.git#1.0.1",
-    "stats.js": "https://github.com/mrdoob/stats.js.git",
-    "jquery": "~2.1.1",
-    "rsvp": "~3.0.13",
-    "seedrandom": "~2.3.10"
-  }
+    "name": "wizard-of-wor",
+    "private": true,
+    "devDependencies": {
+        "requirejs": "https://github.com/jrburke/requirejs.git",
+        "stats.js": "https://github.com/mrdoob/stats.js.git#r14",
+        "jquery": "2.1.4",
+        "rsvp": "3.1.0",
+        "seedrandom": "2.4.2",
+        "three.js": "threejs#r73"
+    }
 }
