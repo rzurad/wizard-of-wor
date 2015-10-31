@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 import ScreenElement from 'screen-element';
 
 function MessageBox(msg, title, buttonFlags) {

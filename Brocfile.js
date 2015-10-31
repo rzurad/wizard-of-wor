@@ -1,12 +1,10 @@
 var compileES6 = require('broccoli-babel-transpiler'),
-    funnel = require('broccoli-funnel'),
     concat = require('broccoli-concat'),
     mergeTrees = require('broccoli-merge-trees'),
     pickFiles = require('broccoli-static-compiler'),
     compileLess = require('broccoli-less-single'),
     unwatchedTree = require('broccoli-unwatched-tree'),
     testBuilder = require('broccoli-test-builder'),
-    pkg = require('./package.json'),
 
     sourceTree = 'app',
     js, jsVendor, index, assets, tests;
@@ -26,6 +24,7 @@ jsVendor = concat(jsVendor, {
         'seedrandom/seedrandom.js',
         'jquery/dist/jquery.js',
         'rsvp/rsvp.js',
+        'javascript-state-machine/state-machine.js',
         'three.js/build/three.js',
         'stats.js/build/stats.min.js',
 
@@ -48,7 +47,7 @@ js = compileES6(sourceTree + '/js', {
 });
 
 js = concat(js, {
-    outputFile: '/assets/' + pkg.name + '.js',
+    outputFile: '/assets/wizard.js',
     inputFiles: ['**/*.js']
 });
 

@@ -11,8 +11,7 @@ module.exports = function (grunt) {
                 command: [
                     'rm -rf dist',
                     'broccoli build dist',
-                    'grunt docco',
-                    'ls -la dist'
+                    'grunt docco'
                 ].join('&&')
             },
 

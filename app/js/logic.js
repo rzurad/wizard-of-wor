@@ -1,35 +1,35 @@
 import ProcessManager from 'processing/process-manager';
 
-export default class WizardLogic {
-    /*
-    state: function () {
-        return this.get('stateManager.currentState.name');
-    }.property('stateManager.currentState.name'),
-    */
+/* globals StateMachine */
 
-    constructor() {
+export default class WizardLogic {
+    get state() {
+        return this.stateManager.current;
+    }
+
+    constructor(seed = 0) {
         this.elapsedTime = 0;
         this.views = [];
         this.processManager = new ProcessManager();
 
         // Initialize the random number generator
-        this.random = new Math.seedrandom(this.options.seed);
+        this.random = new Math.seedrandom(seed);
 
-        /*
-        // Create the [state machine](https://github.com/emberjs/ember-states/blob/master/packages/ember-states/lib/state_manager.js#L238) for the game logic
-        this.stateManager = Ember.StateManager.create({
+        // Create the state machine for the game logic
+        this.stateManager = StateMachine.create({
             // Set the logic object to the "initializing" state
-            initialState: 'initializing',
-
-            initializing: Ember.State.create(),
-            mainMenu: Ember.State.create(),
-            loadingGameEnvironment: Ember.State.create(),
-            waitingForPlayersToLoadEnvironments: Ember.State.create(),
-            spawnPlayersActors: Ember.State.create(),
-            waitingForPlayers: Ember.State.create(),
-            running: Ember.State.create()
-        }));
-        */
+            initial: 'initializing',
+            events: [
+                { name: 'initialized', from: 'initializing', to: 'mainMenu' },
+                /*
+                { name: 'mainMenu' },
+                { name: 'loadingGameEnvironment' },
+                { name: 'spawnPlayersActors' },
+                { name: 'waitingForPlayers' },
+                */
+                { name: 'run', from: 'spawnPlayersActors', to: 'running' }
+            ]
+        });
 
         /* create the level manager */
         /* initialize the level manager */
@@ -50,7 +50,7 @@ export default class WizardLogic {
     }
 
     onUpdate(elapsedTime, deltaTime) {
-        var stateManager = this.stateManager;
+        let stateManager = this.stateManager;
 
         // Update the `elapsedTime`.
         this.elapsedTime = elapsedTime;
@@ -62,7 +62,7 @@ export default class WizardLogic {
                 // Since initialization is synchronous, we should never actually get to the
                 // `onUpdate` call every frame if the game logic was not done initializing. This
                 // means we want to transition to the default state: the `"mainMenu"` state
-                stateManager.transitionTo('mainMenu');
+                stateManager.initialized();
                 break;
 
             // If we are in a frame callback and we are in either the `"mainMenu"` state or
@@ -82,7 +82,7 @@ export default class WizardLogic {
             // state should be happening within one Frame, so if we're in the `"spawnPlayersActors"`
             // state, assume we don't need to be in it anymore and switch to the `"running"` state.
             case 'spawnPlayersActors':
-                stateManager.transitionTo('running');
+                stateManager.run();
                 break;
 
             /* if WaitingForPlayers state, check if all players are attached and that
@@ -122,9 +122,9 @@ export default class WizardLogic {
     renderDiagnostics() { }
 
     /*
-    loadGame: function (name) {
+    loadGame(name) {
         return true;
-    },
+    }
     */
 
     destroy() {

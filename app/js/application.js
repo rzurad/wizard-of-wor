@@ -6,6 +6,8 @@ import MainMenuView from 'views/main-menu';
 import detector from 'utils/detector';
 import defaultOptions from 'default-options';
 
+/* globals THREE, $ */
+
 // Application class that encapsulates all of the logic and rendering of the
 // Wizard of Wor game.
 export default class WizardApplication {
@@ -135,7 +137,7 @@ export default class WizardApplication {
     // `createGameAndView` - function that initializes the WizardLogic and creates
     // the default MainMenu view
     createGameAndView() {
-        let game = new WizardLogic(),
+        let game = new WizardLogic(this.options.seed),
             view = new MainMenuView(game);
 
         game.addView(view);

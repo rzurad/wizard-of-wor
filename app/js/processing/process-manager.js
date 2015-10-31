@@ -21,7 +21,7 @@ export default class ProcessManager {
 
             if (process.isDead) {
                 if (process.next) {
-                    this.attach(next);
+                    this.attach(process.next);
                     process.next = null;
                 }
 

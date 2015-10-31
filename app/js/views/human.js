@@ -167,7 +167,7 @@ export default class HumanView extends BaseView {
         this.screenElements.pop();
     }
 
-    onMessageProcess(msg) { console.warn('`onMessageProcess` does not do anything yet'); }
+    onMessageProcess(msg) { console.warn('`onMessageProcess` does not do anything yet', msg); }
 
     onUpdate(elapsedTime, deltaTime) {
         this.processManager.updateProcesses(deltaTime);

@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 function Message() {}
 
 //NOTE: This is an interface in the source material

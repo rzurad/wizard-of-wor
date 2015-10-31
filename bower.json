@@ -1,12 +1,13 @@
 {
-    "name": "wizard",
-    "private": true,
-    "devDependencies": {
-        "requirejs": "https://github.com/jrburke/requirejs.git",
-        "stats.js": "https://github.com/mrdoob/stats.js.git#r14",
-        "jquery": "2.1.4",
-        "rsvp": "3.1.0",
-        "seedrandom": "2.4.2",
-        "three.js": "threejs#r73"
-    }
+  "name": "wizard",
+  "private": true,
+  "devDependencies": {
+    "requirejs": "https://github.com/jrburke/requirejs.git",
+    "stats.js": "https://github.com/mrdoob/stats.js.git#r14",
+    "jquery": "2.1.4",
+    "rsvp": "3.1.0",
+    "seedrandom": "2.4.2",
+    "three.js": "threejs#r73",
+    "javascript-state-machine": "2.3.5"
+  }
 }

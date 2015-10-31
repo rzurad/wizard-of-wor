@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 import dungeons from 'dungeons';
 
 

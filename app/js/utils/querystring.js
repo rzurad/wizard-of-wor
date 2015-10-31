@@ -16,4 +16,4 @@ export default function parseQueryString() {
     }
 
     return qs;
-};
+}

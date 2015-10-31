@@ -9,15 +9,15 @@ export default class MainMenuView extends HumanView {
     constructor() {
         super();
 
-        this.mainMenuUI = new MainMenuUI();
-        this.pushElement(mainMenuUI);
+        //this.mainMenuUI = new MainMenuUI();
+        //this.pushElement(mainMenuUI);
     }
 
     onRender(elapsedTime, deltaTime) {
-        console.warn('`MainMenuView.onRender` not implemented');
+        console.warn('`MainMenuView.onRender` not implemented', elapsedTime, deltaTime);
     }
 
     onUpdate(elapsedTime, deltaTime) {
-        console.warn('`MainMenuView.onUpdate` not implemented');
+        console.warn('`MainMenuView.onUpdate` not implemented', elapsedTime, deltaTime);
     }
 }

@@ -26,7 +26,7 @@ import defaultOptions from 'default-options';
 import detector from 'utils/detector';
 import parseQueryString from 'utils/querystring';
 
-
+/* globals THREE, RSVP, Stats, $ */
 
 // Before we do anything, we want to set up the browser environment and make
 // sure all of the core library's are initialized.
@@ -34,11 +34,6 @@ import parseQueryString from 'utils/querystring';
 // Create a new [Clock](http://threejs.org/docs/#Reference/Core/Clock) that will be
 // the heartbeat of the game, 
 let clock = new THREE.Clock(true);
-
-// tie a few dependency libraries together. We're not loading in the [Ember.JS](http://www.emberjs.com) framework
-// in a typical fashion. We're loading in only the subpackages that we need. Because of this
-// we need to do a little bit of manual glue to put a few things where we expect the regular
-// Ember.JS framework to put them or handle them.
 
 // Set up a default error handler for [RSVP](https://github.com/tildeio/rsvp.js/)
 RSVP.onerrorDefault = function (error) {
@@ -130,16 +125,16 @@ requestAnimationFrame(function main() {
         deltaTime = clock.getDelta();
 
     // Update the FPS counter
-    if (app.get('options.showFPS')) {
+    if (app.options.showFPS) {
         if (!stats.attached) {
-            app.get('$viewport').append(stats.domElement);
+            app.$viewport.append(stats.domElement);
             stats.attached = true;
         }
 
         stats.update();
     } else {
         if (!stats.attached) {
-            Ember.$(stats.domElement).remove();
+            $(stats.domElement).remove();
             stats.attached = false;
         }
     }
