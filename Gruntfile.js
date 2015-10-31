@@ -12,7 +12,7 @@ module.exports = function (grunt) {
                     'rm -rf dist',
                     'broccoli build dist',
                     'grunt docco',
-                    'tree dist'
+                    'ls -la'
                 ].join('&&')
             },
 
@@ -25,7 +25,7 @@ module.exports = function (grunt) {
             debug: {
                 src: ['app/js/**/*.js'],
                 options: {
-                    output: 'docs/'
+                    output: 'dist/docs/'
                 }
             }
         }
