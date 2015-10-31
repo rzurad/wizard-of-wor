@@ -4,14 +4,9 @@ var compileES6 = require('broccoli-babel-transpiler'),
     pickFiles = require('broccoli-static-compiler'),
     compileLess = require('broccoli-less-single'),
     unwatchedTree = require('broccoli-unwatched-tree'),
-    testBuilder = require('broccoli-test-builder'),
 
     sourceTree = 'app',
-    js, jsVendor, index, assets, tests;
-
-tests = testBuilder.build({
-    libDirName: 'app/js'
-});
+    js, jsVendor, index, assets;
 
 jsVendor = mergeTrees([
     unwatchedTree('bower_components'),
@@ -64,4 +59,4 @@ assets = pickFiles(sourceTree, {
     destDir: 'assets'
 });
 
-module.exports = mergeTrees([index, css, jsVendor, js, assets, tests]);
+module.exports = mergeTrees([index, css, jsVendor, js, assets]);

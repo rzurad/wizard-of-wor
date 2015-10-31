@@ -1,5 +1,5 @@
-import ProcessManager from 'processing/process-manager';
-import BaseView from 'views/base';
+import ProcessManager from '../processing/process-manager';
+import BaseView from './base';
 
 /*
 class HumanView : public IGameView

@@ -1,10 +1,10 @@
 // WizardApplication Class
 // -----------------------
 
-import WizardLogic from 'logic';
-import MainMenuView from 'views/main-menu';
-import detector from 'utils/detector';
-import defaultOptions from 'default-options';
+import WizardLogic from './logic';
+import MainMenuView from './views/main-menu';
+import detector from './utils/detector';
+import defaultOptions from './default-options';
 
 /* globals THREE, $ */
 

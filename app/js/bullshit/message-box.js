@@ -1,5 +1,5 @@
 /* jshint ignore:start */
-import ScreenElement from 'screen-element';
+import ScreenElement from './screen-element';
 
 function MessageBox(msg, title, buttonFlags) {
     ScreenElement.apply(this, arguments);

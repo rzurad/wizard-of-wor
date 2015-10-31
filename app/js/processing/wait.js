@@ -1,4 +1,4 @@
-import Process from 'process';
+import Process from './process';
 
 export default class WaitProcess extends Process.extend {
     onUpdate(deltaTime) {

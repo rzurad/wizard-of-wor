@@ -21,10 +21,10 @@
 // The index.js file is where it all begins.
 // This is the entry point for the application. This is where everything is
 // bootstraped together and kicked off.
-import WizardApplication from 'application';
-import defaultOptions from 'default-options';
-import detector from 'utils/detector';
-import parseQueryString from 'utils/querystring';
+import WizardApplication from './application';
+import defaultOptions from './default-options';
+import detector from './utils/detector';
+import parseQueryString from './utils/querystring';
 
 /* globals THREE, RSVP, Stats, $ */
 

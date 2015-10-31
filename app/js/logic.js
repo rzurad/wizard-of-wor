@@ -1,4 +1,4 @@
-import ProcessManager from 'processing/process-manager';
+import ProcessManager from './processing/process-manager';
 
 /* globals StateMachine */
 

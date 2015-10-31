@@ -17,6 +17,10 @@ module.exports = function (grunt) {
 
             serve: {
                 command: 'broccoli serve'
+            },
+
+            test: {
+                command: 'mocha'
             }
         },
 
@@ -36,4 +40,5 @@ module.exports = function (grunt) {
     grunt.registerTask('build', ['shell:build']);
     grunt.registerTask('tree', ['shell:tree']);
     grunt.registerTask('serve', ['shell:serve']);
+    grunt.registerTask('test', ['shell:test']);
 };

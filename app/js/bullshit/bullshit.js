@@ -1,5 +1,5 @@
 /* jshint ignore:start */
-import dungeons from 'dungeons';
+import dungeons from '../dungeons';
 
 
 // standard global variables
