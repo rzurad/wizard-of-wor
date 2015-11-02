@@ -1,6 +1,9 @@
 {
   "name": "wizard",
   "private": true,
+  "scripts": {
+    "test": "mocha"
+  },
   "devDependencies": {
     "babel": "^5.0.0",
     "broccoli": "0.16.8",

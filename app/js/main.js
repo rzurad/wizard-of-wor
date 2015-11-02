@@ -110,7 +110,7 @@ options = (function () {
 // object
 let app = new WizardApplication(window.innerWidth, window.innerHeight, 'body', options);
 
-
+app.init();
 
 // The application is initialized, so fire off the main loop using
 // the `requestAnimationFrame` function.

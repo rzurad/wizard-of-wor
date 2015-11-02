@@ -20,7 +20,7 @@ module.exports = function (grunt) {
             },
 
             test: {
-                command: 'mocha'
+                command: 'npm test'
             }
         },
 

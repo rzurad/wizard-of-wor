@@ -11,15 +11,12 @@ import defaultOptions from './default-options';
 // Application class that encapsulates all of the logic and rendering of the
 // Wizard of Wor game.
 export default class WizardApplication {
-
     /*
      * at some point, you need to make sure that save games can be loaded and created
-    loadGame: function () {
-        Ember.Logger.warn('`loadGame` not implemented!');
-    },
+    loadGame() {
+        console.warn('`loadGame` not implemented!');
+    }
     */
-
-
 
     // Initialization
     // --------------
@@ -55,7 +52,13 @@ export default class WizardApplication {
         // everything that is not render-related.
         // **(WebGLRenderer)** `_renderer` - The THREE.js WebGLRenderer object
         // **(jQueryElement)** `_$viewport` - jQuery wrapped DOM element that is the application viewport
+    }
 
+
+
+    // Methods
+    // -------
+    init() {
         /* RegisterEngineEvents */
         /* VRegisterGameEvents */
         /* initialize the resource cache */
@@ -75,18 +78,20 @@ export default class WizardApplication {
         // does not at least support Canvas, the detector.isEnvSane assertion would have failed).
         let renderer;
 
-        if (detector.WebGL && this.options.renderer === 'WebGL') {
+        if (detector.webGL && this.options.renderer === 'WebGL') {
             renderer = new THREE.WebGLRenderer({ antialias: this.options.antialias });
         } else {
             renderer = new THREE.CanvasRenderer();
         }
 
-        // set the screen size
-        renderer.setSize(this.width, this.height);
+        if (renderer) {
+            // set the screen size
+            renderer.setSize(this.width, this.height);
 
-        // Create the main viewport DOM Element
-        this.$viewport = $(this.viewportSelector);
-        this.renderer = renderer;
+            // Create the main viewport DOM Element
+            this.$viewport = $(this.viewportSelector);
+            this.renderer = renderer;
+        }
 
         // Create the game and the initial view.
         this.createGameAndView();
@@ -99,20 +104,15 @@ export default class WizardApplication {
         this.isRunning = true;
     }
 
-
-
-    // Methods
-    // -------
-
     // `loadStringTable` - reads the application's `language` setting and loads the appropriate
     // string table.
-    loadStringTable() {
+    loadStringTable(language) {
         // The request for the string table currently is syncronous because it is part of
         // the initialization routine and I don't want to make it asynchronous with an
         // `isInitialized` flag or state yet.
         let request = new XMLHttpRequest();
 
-        request.open('GET', `assets/strings/${this.options.language}.json`, false);
+        request.open('GET', `assets/strings/${language || this.options.language}.json`, false);
         request.send(null);
 
         console.assert(request.status === 200, 'Failed to load string table!');
@@ -156,8 +156,6 @@ export default class WizardApplication {
     // it is given, in milliseconds, the total `elapsedTime` since page load, and the 
     // `deltaTime` since the last frame was executed.
     onUpdate(elapsedTime, deltaTime) {
-        let game = this.game;
-
         /* prevent the game from updating if need be (modal dialogs and such...) */
         if (!this.isRunning) {
             return;
@@ -171,7 +169,9 @@ export default class WizardApplication {
         */
 
         // The game logic is initialized, so call the `onUpdate` callback
-        if (game instanceof WizardLogic) {
+        let game = this.game;
+
+        if (game && typeof game.onUpdate === 'function') {
             /* let the event manager process for 20 milliseconds */
             /* socket code I don't understand yet */
             game.onUpdate(elapsedTime, deltaTime);
@@ -182,7 +182,7 @@ export default class WizardApplication {
 
     /* handler for doing game app shutdown logic. This usually involves destroying
      * systems in the reverse order that they were initialized
-    onClose: function () {
+    onClose() {
 
     },
     */
@@ -194,7 +194,11 @@ export default class WizardApplication {
     // `deltaTime` since the last frame was executed.
     onRender(elapsedTime, deltaTime) {
         // Call the WizardGameLogic `onRender` callback
-        this.game.onRender(elapsedTime, deltaTime);
-        /* this.game.renderDiagnostics(); */
+        let game = this.game;
+
+        if (game && typeof game.onRender === 'function') {
+            game.onRender(elapsedTime, deltaTime);
+            /* game.renderDiagnostics(); */
+        }
     }
 }
