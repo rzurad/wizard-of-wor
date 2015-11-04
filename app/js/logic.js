@@ -37,8 +37,14 @@ export default class WizardLogic {
         /* create game physics */
         /* RegisterAllDelegates */
         /* create actor factory */
+        this.actors = {};
+
         /* create pathing graph */
         /* add event listener for requestDestroyActor event */
+    }
+
+    getActor(actor) {
+        return this.actors[actor.id];
     }
 
     addView(view/*, actorId */) {

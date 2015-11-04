@@ -10,19 +10,82 @@ let TYPES = {
         game: 'game'
     };
 
+function defineGetter(obj, name, fn) {
+    Object.defineProperty(obj, name, {
+        configurable: false,
+        writeable: false,
+        enumerable: true,
+        get: fn
+    });
+}
+
 export default class Process {
-    construct() {
-        this.isDead = false;
-        this.isActive = true;
-        this.isPaused = false;
-        this.isInitialized = false;
+    constructor() {
+        this.stateManager = StateMachine.create({
+            initial: 'uninitialized', // created but not running
+            events: [
+                { name: 'removed' }, // removed from the process list, but not destroyed (a process that is already running is parented to another process
+                { name: 'running' }, // initialized and running
+                { name: 'paused' }, // initialized but paused
+                { name: 'succeeded' }, // completed successfully
+                { name: 'failed' }, // failed to complete
+                { name: 'aborted' } // aborted. may not have started
+            ]
+        });
+
+        defineGetter(this, 'state', function () {
+            return this.stateManager.current;
+        });
+
+        defineGetter(this, 'isAlive', function () {
+            return ['running', 'paused'].indexOf(this.stateManager.current) > -1;
+        });
+
+        defineGetter(this, 'isDead', function () {
+            return ['succeeded', 'failed', 'aborted'].indexOf(this.stateManager.current) > -1;
+        });
+
+        defineGetter(this, 'isRemoved', function () {
+            return this.stateManager.current === 'removed';
+        });
+
+        defineGetter(this, 'isRemoved', function () {
+            return this.stateManager.current === 'removed';
+        });
+
+        defineGetter(this, 'isPaused', function () {
+            return this.stateManager.current === 'paused';
+        });
+
         this.next = null;
+        this.child = null;
         this.flags = 0;
     }
 
-    onUpdate(/* deltaTime */) {}
+    onUpdate(deltaMs) {}
 
-    onInitialize() {}
+    onInitialize() {
+        this.stateManager.running();
+    }
+
+    onSuccess() {}
+
+    onFail() {}
+
+    onAbort() {}
+
+    // functions for ending the process
+    succeed() {}
+    fail() {}
+
+    // pause
+    pause() {}
+    unpause() {}
+
+    // child functions
+    attachChild(child) {}
+    removeChild() {}
+    peekChild() {}
 
     kill() {
         this.isDead = true;

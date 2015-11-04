@@ -12,30 +12,58 @@ export default class ProcessManager {
         }
     }
 
-    updateProcesses(deltaTime) {
+    updateProcesses(deltaMs) {
         let i = this.processes.length,
-            process;
+            process,
+            successCount = 0,
+            failureCount = 0;
 
+        // this shit will break when a process dies, because this is blindly iterating
+        // through a list that can potentially change length
         while (i--) {
-            process = this.process[i];
+            process = this.processes[i];
+
+            if (process.state === 'uninitialized') {
+                process.onInit();
+            }
+
+            if (process.state === 'running') {
+                process.onUpdate(deltaMs);
+            }
 
             if (process.isDead) {
-                if (process.next) {
-                    this.attach(process.next);
-                    process.next = null;
+                switch (process.state) {
+                    case 'succeeded':
+                        process.onSuccess();
+
+                        let child = process.removeChild();
+
+                        if (child) {
+                            this.attach(child);
+                        } else {
+                            // a process only counts towards success if the whole chain is completed
+                            successCount++;
+                        }
+
+                        break;
+                    case 'failed':
+                        process.onFail();
+                        failureCount++;
+                        break;
+                    case 'aborted':
+                        process.onAbort();
+                        failureCount++;
+                        break;
                 }
 
                 this.detach(process);
-            } else if (process.isActive && !process.isPaused) {
-                if (!process.isInitialized) {
-                    process.onInitialize();
-                    process.isInitialized = true;
-                }
-
-                process.onUpdate(deltaTime);
             }
         }
+
+        return ((successCount << 16) | failureCount);
     }
+
+    abortAllProcesses(immediate) {}
 
     deleteAllProcesses() {
         while (this.processes.length) {
