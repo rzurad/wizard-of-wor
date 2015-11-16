@@ -55,6 +55,20 @@ export default class WizardApplication {
     }
 
 
+    // the windows analog of this is the message pump handler. really in our world, we'll just needed it
+    // as the entry point for browser level events. due to the nature of windows, all the message translation
+    // happens here. it might make more sense down the line for each view to be responsible for intercepting
+    // browser events it cares about, but for now, lets mimic the GCC4 code as much as possible and refactor
+    // it to be more browser-centric later
+    msgProc(e) {
+        // if e is from a mouse or keyboard event (input device)
+            // TODO: if a view consumes a message, then that message should not get sent to any other view.
+            // make sure this happens at some point. you know if a view completely consumed the event by
+            // `onMsgProc` returning true
+            this.game.gameViews.forEach(function (view) {
+                view.onMsgProc(e);
+            });
+    }
 
     // Methods
     // -------
