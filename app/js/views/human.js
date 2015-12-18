@@ -150,7 +150,32 @@ export default class HumanView extends BaseView {
         this.screenElements.pop();
     }
 
-    onMessageProcess(msg) { console.warn('`onMessageProcess` does not do anything yet', msg); }
+    onMsgProc(msg) {
+        // iterating backwards is important here, same reason DOM events capture and bubble the way they do
+        for (var i = this.screenElements.length - 1; i >= 0; i--) {
+            if (this.screenElements[i].isVisible()) {
+                if (this.screenElements[i].onMsgProc(msg)) {
+                    return true;
+                }
+            }
+        }
+
+        let result = false;
+
+        // this is where we turn system keyboard events into commands to the KeyboardHandler
+        // and MouseHandler.
+        // such as:
+        //
+        // switch (msg.blah) {
+        //  case KEYDOWN: result = this.keyboardHandler.onKeyDown(msg); break;
+        //  ...
+        //  default: result = false;
+        //  }
+        //
+        //  return false;
+        //
+        //  an example of something that implements the IKeyboardHanlder and IMouseHandler is on page 281
+    }
 
     onUpdate(elapsedTime, deltaTime) {
         this.processManager.updateProcesses(deltaTime);
