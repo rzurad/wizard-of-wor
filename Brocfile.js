@@ -5,12 +5,12 @@ var compileES6 = require('broccoli-babel-transpiler'),
     compileLess = require('broccoli-less-single'),
     unwatchedTree = require('broccoli-unwatched-tree'),
 
-    sourceTree = 'app',
+    sourceTree = 'src',
     js, jsVendor, index, assets;
 
 jsVendor = mergeTrees([
     unwatchedTree('bower_components'),
-    unwatchedTree('vendor')
+    unwatchedTree('lib')
 ]);
 
 jsVendor = concat(jsVendor, {
@@ -34,7 +34,7 @@ jsVendor = concat(jsVendor, {
     outputFile: '/assets/vendor.js',
 });
 
-js = compileES6(sourceTree + '/js', {
+js = compileES6(sourceTree, {
     browserPolyfill: true,
     stage: 0,
     moduleIds: true,
@@ -46,17 +46,17 @@ js = concat(js, {
     inputFiles: ['**/*.js']
 });
 
-css = compileLess([sourceTree], 'styles/base.less', 'assets/wizard.css');
+css = compileLess([sourceTree], 'game/ui/less/base.less', '/assets/wizard.css');
 
-index = pickFiles(sourceTree, {
+index = pickFiles(sourceTree + '/game', {
     srcDir: '',
-    files: ['index.html'],
+    files: ['index.html', 'player-options.json'],
     destDir: ''
 });
 
-assets = pickFiles(sourceTree, {
+assets = pickFiles('.', {
     srcDir: 'assets',
-    destDir: 'assets'
+    destDir: '/assets'
 });
 
 module.exports = mergeTrees([index, css, jsVendor, js, assets]);

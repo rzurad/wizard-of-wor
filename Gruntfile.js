@@ -26,7 +26,7 @@ module.exports = function (grunt) {
 
         docco: {
             debug: {
-                src: ['app/js/**/*.js'],
+                src: ['src/**/*.js'],
                 options: {
                     output: 'dist/docs/'
                 }

@@ -1,0 +1,15 @@
+{
+    "whitelist": ["renderer", "soundEffectsVolume", "musicVolume", "screenWidth", "screenHeight"],
+    "renderer": "WebGL",
+    "screenWidth": 320,
+    "screenHeight": 240,
+    "runFullSpeed": false,
+    "soundEffectsVolume": 1,
+    "musicVolume": 1,
+    "expectedPlayers": 1,
+    "listenPort": -1,
+    "numAIs": 0,
+    "maxAIs": 0,
+    "useDevelopmentDirectories": false,
+    "localStorageKey": "wizard"
+}
