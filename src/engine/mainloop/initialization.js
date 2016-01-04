@@ -66,6 +66,8 @@ export function parseQueryString() {
     return qs;
 }
 
+// TODO: pretty sure that with the current architecture, it's impossible for an inherited app
+// to override the whitelist :-/
 export class GameOptions {
     constructor() {
         this.whitelist = [

@@ -14,6 +14,7 @@ export default function fiddle(AppClass, width, height) {
     RSVP.on('error', RSVP.onerrordefault);
 
     // Initialize the Stats helper that will show us FPS and frame render times
+    //TODO: should this Stat code be moved somewhere else?
     let stats = new Stats();
 
     stats.domElement.style.position = 'absolute';
