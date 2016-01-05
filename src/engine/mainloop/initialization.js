@@ -2,9 +2,10 @@
 // specific features. Other files can then import the results and examine
 // the environment to make decisions based upon the environment they're being
 // run in.
-let isBrowser = typeof window !== 'undefined';
+let isBrowser = typeof window !== 'undefined',
+    detector;
 
-export var detector = {
+detector = {
     // Detect if the browser supports WebGL
     webGL: (function () {
         if (!isBrowser) {
@@ -46,7 +47,7 @@ export var detector = {
 // wether or not we can run the game in a minimum working state.
 detector.isEnvSane = !isBrowser || isBrowser && (detector.webGL || detector.canvas);
 
-export function parseQueryString() {
+function parseQueryString() {
     let qs = {};
 
     if (detector.browser && window.location.search.length) {
@@ -66,8 +67,6 @@ export function parseQueryString() {
     return qs;
 }
 
-// TODO: pretty sure that with the current architecture, it's impossible for an inherited app
-// to override the whitelist :-/
 export class GameOptions {
     constructor() {
         this.whitelist = [
@@ -112,61 +111,73 @@ export class GameOptions {
     //  - Local Storage
     //  - Values from the "player-options.json" file, which is loaded at runtime
     init(jsonUrl) {
-        let types = {
-                number: Number,
-                string: function () {},
-                boolean: function (v) { return v === 'true'; }
-            },
-            overrides = {},
-            qs = parseQueryString()
-
-        this.whitelist.forEach(function (key) {
-            let value;
-
-            // When you read in from querystrings or localStorage, unfortunately all of the
-            // values get converted to strings, so we'll run the value through a converter
-            // function stored in `types` and keyed off of the object's answer to `typeof`.
-            if (qs[key] !== void 0) {
-                value = types[typeof this[key]](qs[key]);
-            } else if (detector.localStorage && this.localStorageKey) {
-                let item = localStorage.getItem(this.localStorageKey + key);
-
-                if (item !== null) {
-                    value = types[typeof this[key]](item);
-                }
-            }
-
-            if (typeof value !== 'undefined') {
-                // Make sure that if there is an override option for the `renderer`, it
-                // is a valid value, otherwise just keep the default.
-                if (key === 'renderer' && !(value in { Canvas: 0, WebGL: 0 })) {
-                    console.warn(`Ignoring unrecongnized value passed to 'renderer' option: ${overrides.renderer}`);
-
-                    return;
-                }
-
-                overrides[key] = value;
-            }
-        }, this);
-
         let instance = this;
 
+        function getLocalOverrides() {
+            let types = {
+                    number: Number,
+                    string: function () {},
+                    boolean: function (v) { return v === 'true'; }
+                },
+                overrides = {},
+                qs = parseQueryString();
+
+            instance.whitelist.forEach(function (key) {
+                let value;
+
+                // When you read in from querystrings or localStorage, unfortunately all of the
+                // values get converted to strings, so we'll run the value through a converter
+                // function stored in `types` and keyed off of the object's answer to `typeof`.
+                if (qs[key] !== void 0) {
+                    value = types[typeof instance[key]](qs[key]);
+                } else if (detector.localStorage && instance.localStorageKey) {
+                    let item = localStorage.getItem(instance.localStorageKey + key);
+
+                    if (item !== null) {
+                        value = types[typeof instance[key]](item);
+                    }
+                }
+
+                if (typeof value !== 'undefined') {
+                    // Make sure that if there is an override option for the `renderer`, it
+                    // is a valid value, otherwise just keep the default.
+                    if (key === 'renderer' && !(value in { Canvas: 0, WebGL: 0 })) {
+                        console.warn(`Ignoring unrecongnized value passed to 'renderer' option: ${overrides.renderer}`);
+
+                        return;
+                    }
+
+                    overrides[key] = value;
+                }
+            });
+
+            return overrides;
+        }
+
+        function merge(data, overrides) {
+            data = $.extend({}, data, overrides);
+
+            Object.keys(data).forEach(function (key) {
+                instance[key] = data[key];
+            });
+        }
+
         return new RSVP.Promise(function (resolve, reject) {
-            function merge(data = {}) {
-                data = $.extend({}, data, overrides);
-
-                Object.keys(data).forEach(function (key) {
-                    instance[key] = data[key];
-                });
-
-                resolve();
-            }
-
             if (!jsonUrl) {
-                merge();
+                merge({}, getLocalOverrides());
+                resolve();
             } else {
                 $.getJSON(jsonUrl).done(function (data) {
-                    merge(data);
+                    if (data.whitelist) {
+                        if (typeof data.whitelist.forEach === 'function') {
+                            instance.whitelist = data.whitelist;
+                        }
+
+                        delete data.whitelist;
+                    }
+
+                    merge(data, getLocalOverrides());
+                    resolve();
                 }).fail(function () {
                     reject(arguments[2]);
                 });

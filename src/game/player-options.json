@@ -1,5 +1,5 @@
 {
-    "whitelist": ["renderer", "soundEffectsVolume", "musicVolume", "screenWidth", "screenHeight"],
+    "whitelist": ["soundEffectsVolume", "musicVolume", "screenWidth", "screenHeight"],
     "renderer": "WebGL",
     "screenWidth": 320,
     "screenHeight": 240,

@@ -30,10 +30,14 @@ grunt docco
 
 Train of thought:
 ```
-**Wizard Application Layer**
-- No opportunity for a FiddleApplication subclass to change the GameOptions' `whitelist` property
 - fiddleApplication.initInstance
-- fiddleApplication.onUpdateGame
+- fiddleApplication._registerEngineEvents
+- EventManager class
+- EventFactory class
+- DestroyActorEvent class
+- RequestNewActorEvent class
+- NetworkPlayerActorAssignmentEvent class
+- fiddleApplication.onUpdateGame <-- ALSO: investigate why this is static in C++
 - wizardApplication.createGameAndView
 - wizardApplication.registerGameEvents
 ```

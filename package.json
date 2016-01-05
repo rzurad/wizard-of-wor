@@ -9,7 +9,6 @@
     "broccoli": "0.16.8",
     "broccoli-babel-transpiler": "5.4.5",
     "broccoli-concat": "0.0.13",
-    "broccoli-funnel": "^1.0.1",
     "broccoli-less-single": "0.5.0",
     "broccoli-merge-trees": "0.2.3",
     "broccoli-static-compiler": "0.2.2",
