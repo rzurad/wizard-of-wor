@@ -34,9 +34,6 @@ Train of thought:
 - fiddleApplication._registerEngineEvents
 - EventManager class
 - EventFactory class
-- DestroyActorEvent class
-- RequestNewActorEvent class
-- NetworkPlayerActorAssignmentEvent class
 - fiddleApplication.onUpdateGame <-- ALSO: investigate why this is static in C++
 - wizardApplication.createGameAndView
 - wizardApplication.registerGameEvents

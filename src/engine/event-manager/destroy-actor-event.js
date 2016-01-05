@@ -1,14 +1,14 @@
+// Sent when actors are destroyed
 import BaseEventData from './base-event-data';
 import { INVALID_ACTOR_ID } from '../actors/actor';
 
-const EVENT_TYPE = 0x58e5605a;
+const EVENT_TYPE = 0x1eb24ec4;
 
-export default class MoveActorEvent extends BaseEventData {
-    constructor(actorId = INVALID_ACTOR_ID, matrix) {
+export default class DestroyActorEvent extends BaseEventData {
+    constructor(actorId = INVALID_ACTOR_ID) {
         super();
 
         this._actorId = actorId;
-        this._matrix = matrix;
     }
 
     get eventType() {
@@ -16,14 +16,10 @@ export default class MoveActorEvent extends BaseEventData {
     }
 
     get name() {
-        return MoveActorEvent.name;
+        return DestroyActorEvent.name;
     }
 
     get actorId() {
         return this._actorId;
-    }
-
-    get matrix() {
-        return this._matrix;
     }
 }

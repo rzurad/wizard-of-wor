@@ -34,12 +34,10 @@ export default class FiddleApplication {
         // EvtData_Environment_Loaded
         // EvtData_New_Actor
         // EvtData_Move_Actor
+        // EvtData_Destroy_Actor
+        // EvtData_Request_New_Actor
+        // EvtData_Network_Player_Actor_Assignment
 
-        /*
-        EvtData_Destroy_Actor
-        EvtData_Request_New_Actor
-        EvtData_Network_Player_Actor_Assignment
-        */
         console.warn('`fiddleApplication._registerEngineEvents` method not implemented!');
     }
 
