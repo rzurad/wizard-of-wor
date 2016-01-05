@@ -1,4 +1,4 @@
-import { GameOptions } from '../mainloop/initialization';
+import { GameOptions } from './game-options';
 
 export default class FiddleApplication {
     constructor() {
