@@ -1,6 +1,6 @@
 // Sent when actors are destroyed
 import BaseEventData from './base-event-data';
-import { INVALID_ACTOR_ID } from '../actors/actor';
+import { INVALID_ACTOR_ID } from '../../actors/actor';
 
 const EVENT_TYPE = 0x1eb24ec4;
 

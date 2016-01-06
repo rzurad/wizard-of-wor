@@ -1,6 +1,6 @@
 // Sent by the server to the clients when a newtwork view is assigned a player number
 import BaseEventData from './base-event-data';
-import { INVALID_ACTOR_ID } from '../actors/actor';
+import { INVALID_ACTOR_ID } from '../../actors/actor';
 
 const EVENT_TYPE = 0xd862771c;
 

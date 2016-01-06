@@ -1,12 +1,12 @@
 import { GameOptions } from './game-options';
 import eventFactory from '../event-manager/event-factory';
 
-import EnvironmentLoadedEvent from '../event-manager/environment-loaded-event';
-import NewActorEvent from '../event-manager/new-actor-event';
-import MoveActorEvent from '../event-manager/move-actor-event';
-import DestroyActorEvent from '../event-manager/destroy-actor-event';
-import RequestNewActorEvent from '../event-manager/request-new-actor-event';
-import NetworkPlayerActorAssignmentEvent from '../event-manager/network-player-actor-assignment-event';
+import EnvironmentLoadedEvent from '../event-manager/events/environment-loaded-event';
+import NewActorEvent from '../event-manager/events/new-actor-event';
+import MoveActorEvent from '../event-manager/events/move-actor-event';
+import DestroyActorEvent from '../event-manager/events/destroy-actor-event';
+import RequestNewActorEvent from '../event-manager/events/request-new-actor-event';
+import NetworkPlayerActorAssignmentEvent from '../event-manager/events/network-player-actor-assignment-event';
 
 export default class FiddleApplication {
     constructor() {
@@ -47,8 +47,6 @@ export default class FiddleApplication {
         ].forEach(function (constructor) {
             eventFactory.register(constructor);
         });
-
-        console.log(eventFactory);
     }
 
     registerGameEvents() {

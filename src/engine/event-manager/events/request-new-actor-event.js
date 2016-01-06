@@ -2,8 +2,8 @@
 // resources. It is also sent from the server game logic to client logics AFTER it has created a
 // new actor. The logics will all follow suit to stay in sync.
 import BaseEventData from './base-event-data';
-import { INVALID_ACTOR_ID } from '../actors/actor';
-import { INVALID_GAME_VIEW_ID } from '../fiddle/game-view';
+import { INVALID_ACTOR_ID } from '../../actors/actor';
+import { INVALID_GAME_VIEW_ID } from '../../fiddle/game-view';
 
 const EVENT_TYPE = 0xa2e6aadc;
 

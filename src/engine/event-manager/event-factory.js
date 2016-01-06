@@ -1,7 +1,5 @@
 import GenericObjectFactory from '../utilities/generic-object-factory';
 
-class EventFactory extends GenericObjectFactory {};
-
-let eventFactory = new EventFactory();
+let eventFactory = new GenericObjectFactory();
 
 export default eventFactory;
