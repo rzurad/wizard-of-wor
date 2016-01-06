@@ -34,5 +34,4 @@ Train of thought:
 - EventManager class
 - fiddleApplication.onUpdateGame <-- ALSO: investigate why this is static in C++
 - wizardApplication.createGameAndView
-- wizardApplication.registerGameEvents
 ```
