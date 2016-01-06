@@ -44,7 +44,7 @@ export default function fiddle(AppClass, width, height) {
         //      DeviceDestroyed
         //      FrameRender
 
-        if (app.initInstance()) {
+        app.initInstance().then(() => {
             requestAnimationFrame(function main() {
                 //TODO: handle game pauses and shutdown requests (what about `onbeforeunload`?)
 
@@ -55,9 +55,9 @@ export default function fiddle(AppClass, width, height) {
 
                 requestAnimationFrame(main);
             });
-        } else {
-            console.error("Game App class' `initInstance` function did not return `true`!", AppClass);
-        }
+        }).catch((reason) => {
+            console.error("Game App class' `initInstance` rejected!", reason, AppClass);
+        });
     }).catch(function (reason) {
         console.error('Could not initialize game options:', reason);
     });
