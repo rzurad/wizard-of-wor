@@ -31,7 +31,9 @@ grunt docco
 Train of thought:
 ```
 - fiddleApplication.initInstance
-- fiddleApplication.loadStrings
+- ResourceCache class
+    - Should the string table be loaded through the ResourceCache?
+- Set up the Renderer
 - fiddleApplication.onUpdateGame <-- ALSO: investigate why this is static in C++
 - wizardApplication.createGameAndView
 ```
