@@ -4,7 +4,7 @@ import BaseEventData from './base-event-data';
 const EVENT_TYPE = 0x5ef4a6e2;
 
 export default class EnvironmentLoadedEvent extends BaseEventData {
-    get eventType() {
+    static get eventType() {
         return EVENT_TYPE;
     }
 }

@@ -1,4 +1,8 @@
 export default class BaseEventData {
+    static get eventType() {
+        console.error('`baseEventData.eventType` getter must be overriden in subclass!');
+    }
+
     constructor(timestamp = 0) {
         this._timestamp = 0;
     }
@@ -17,9 +21,5 @@ export default class BaseEventData {
 
     get name() {
         return BaseEventData.name;
-    }
-
-    get eventType() {
-        console.error('`baseEventData.eventType` getter must be overriden in subclass!');
     }
 }

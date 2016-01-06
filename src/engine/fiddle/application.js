@@ -1,4 +1,12 @@
 import { GameOptions } from './game-options';
+import eventFactory from '../event-manager/event-factory';
+
+import EnvironmentLoadedEvent from '../event-manager/environment-loaded-event';
+import NewActorEvent from '../event-manager/new-actor-event';
+import MoveActorEvent from '../event-manager/move-actor-event';
+import DestroyActorEvent from '../event-manager/destroy-actor-event';
+import RequestNewActorEvent from '../event-manager/request-new-actor-event';
+import NetworkPlayerActorAssignmentEvent from '../event-manager/network-player-actor-assignment-event';
 
 export default class FiddleApplication {
     constructor() {
@@ -29,16 +37,18 @@ export default class FiddleApplication {
     }
 
     _registerEngineEvents() {
-        // g_eventFactory.Register<EvtData_Environment_Loaded>(EvtData_Environment_Loaded::sk_EventType)
+        [
+            EnvironmentLoadedEvent,
+            NewActorEvent,
+            MoveActorEvent,
+            DestroyActorEvent,
+            RequestNewActorEvent,
+            NetworkPlayerActorAssignmentEvent
+        ].forEach(function (constructor) {
+            eventFactory.register(constructor);
+        });
 
-        // EvtData_Environment_Loaded
-        // EvtData_New_Actor
-        // EvtData_Move_Actor
-        // EvtData_Destroy_Actor
-        // EvtData_Request_New_Actor
-        // EvtData_Network_Player_Actor_Assignment
-
-        console.warn('`fiddleApplication._registerEngineEvents` method not implemented!');
+        console.log(eventFactory);
     }
 
     registerGameEvents() {
@@ -56,6 +66,19 @@ export default class FiddleApplication {
         this._registerEngineEvents();
         this.registerGameEvents();
 
+        //TODO: create resource loaders
+        //TODO: register resource loaders
+
+        //TODO: load string table
+        //TODO: load the Lua State manager (or whatever instead because no lua
+
+        //TODO: load the preinit file
+
+        //TODO: Register function exported from C++
+
+        //TODO: Create the event manager
+
+        //TODO: Create and setup the rendering context/window
         console.warn('`fiddleApplication.initInstance` method not implemented!');
 
         return true;

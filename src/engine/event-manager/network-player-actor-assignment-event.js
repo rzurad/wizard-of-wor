@@ -12,7 +12,7 @@ export default class NetworkPlayerActorAssignmentEvent extends BaseEventData {
         this._socketId = socketId;
     }
 
-    get eventType() {
+    static get eventType() {
         return EVENT_TYPE;
     }
 

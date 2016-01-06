@@ -11,7 +11,7 @@ export default class MoveActorEvent extends BaseEventData {
         this._matrix = matrix;
     }
 
-    get eventType() {
+    static get eventType() {
         return EVENT_TYPE;
     }
 

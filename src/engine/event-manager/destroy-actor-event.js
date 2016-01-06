@@ -11,7 +11,7 @@ export default class DestroyActorEvent extends BaseEventData {
         this._actorId = actorId;
     }
 
-    get eventType() {
+    static get eventType() {
         return EVENT_TYPE;
     }
 

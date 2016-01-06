@@ -23,7 +23,7 @@ export default class RequestNewActorEvent extends BaseEventData {
         this._viewId = viewId;
     }
 
-    get eventType() {
+    static get eventType() {
         return EVENT_TYPE;
     }
 

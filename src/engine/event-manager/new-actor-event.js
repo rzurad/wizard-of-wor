@@ -17,7 +17,7 @@ export default class NewActorEvent extends BaseEventData {
         return NewActorEvent.name;
     }
 
-    get eventType() {
+    static get eventType() {
         return EVENT_TYPE;
     }
 

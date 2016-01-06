@@ -31,9 +31,7 @@ grunt docco
 Train of thought:
 ```
 - fiddleApplication.initInstance
-- fiddleApplication._registerEngineEvents
 - EventManager class
-- EventFactory class
 - fiddleApplication.onUpdateGame <-- ALSO: investigate why this is static in C++
 - wizardApplication.createGameAndView
 - wizardApplication.registerGameEvents
