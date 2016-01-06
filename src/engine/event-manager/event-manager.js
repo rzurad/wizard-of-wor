@@ -25,3 +25,5 @@ export default class EventManager {
         console.warn('`eventManager.update` method not implemented!');
     }
 }
+
+export var eventManager = new EventManager();

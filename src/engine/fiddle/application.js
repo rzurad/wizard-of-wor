@@ -1,5 +1,6 @@
 import { GameOptions } from './game-options';
 import eventFactory from '../event-manager/event-factory';
+import eventManager from '../event-manager/event-manager';
 
 import EnvironmentLoadedEvent from '../event-manager/events/environment-loaded-event';
 import NewActorEvent from '../event-manager/events/new-actor-event';
@@ -53,7 +54,17 @@ export default class FiddleApplication {
         console.error('`registerGameEvents` must be implemented by a FiddleApplication subclass!');
     }
 
+    loadStrings(language) {
+        return new RSVP.Promise((resolve, reject) => {
+            console.warn('`fiddleApplication.loadStrings` method not implemented!');
+
+            resolve();
+        });
+    }
+
     initInstance(width, height) {
+        console.warn('`fiddleApplication.initInstance` method not implemented!');
+
         // this is where you would normally check for things like:
         //  "Is there enough system ram to play this game?"
         //  "Is there enough storage space to play this game?"
@@ -67,18 +78,20 @@ export default class FiddleApplication {
         //TODO: create resource loaders
         //TODO: register resource loaders
 
-        //TODO: load string table
-        //TODO: load the Lua State manager (or whatever instead because no lua
+        return this.loadStrings('english').then(() => {
+            //TODO: load the Lua State manager (or whatever instead because no lua)
 
-        //TODO: load the preinit file
+            //TODO: load the preinit file
 
-        //TODO: Register function exported from C++
+            //TODO: Register function exported from C++
 
-        //TODO: Create the event manager
+            //TODO: I hate the fact that this is an instance export, essentially mimicing
+            //the C++ global. I have no doubt that this can be turned into something significantly
+            //more JavaScript friendly once I see how this thing is actually used throughout the
+            //GCC4 architecture (like... why do they need a member variable and a global pointer?)
+            this.eventManager = eventManager;
 
-        //TODO: Create and setup the rendering context/window
-        console.warn('`fiddleApplication.initInstance` method not implemented!');
-
-        return true;
+            //TODO: Create and setup the rendering context/window
+        });
     }
 }

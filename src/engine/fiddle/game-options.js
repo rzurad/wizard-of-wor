@@ -98,6 +98,10 @@ export class GameOptions {
         this.maxAIs = 4;
 
         // Resource Cache options
+        //TODO: `useDevelopmentResources` can probably be removed, since in the C++ source
+        //it is only used when determining use the `DevelopmentResourceZipFile` or the
+        //`ResourceZipFile` for the `IResource *zipFile` that is given to the `ResourceCache`
+        //during `fiddleApplication.initInstance`
         this.useDevelopmentResources = false;
 
         // What key should options to stored under in localstorage

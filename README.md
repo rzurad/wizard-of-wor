@@ -31,7 +31,15 @@ grunt docco
 Train of thought:
 ```
 - fiddleApplication.initInstance
-- EventManager class
+- fiddleApplication.loadStrings
 - fiddleApplication.onUpdateGame <-- ALSO: investigate why this is static in C++
 - wizardApplication.createGameAndView
+```
+
+Make more JS friendly:
+```
+- C++ initialization is taylored for synchronous file loading:
+    - load 'player-options.json'/options file
+    - load 'english.json'/string table file
+- instance exports for `eventManager` and `eventFactory` are mimicing C++ globals.
 ```
