@@ -74,7 +74,8 @@ export class GameOptions {
             'soundEffectsVolume',
             'musicVolume',
             'screenWidth',
-            'screenHeight'
+            'screenHeight',
+            'language'
         ];
 
         // Level options
@@ -89,6 +90,9 @@ export class GameOptions {
         // Sound options
         this.soundEffectsVolume = 1;
         this.musicVolume = 1;
+
+        // Language options
+        this.language = 'en';
 
         // Multiplayer options
         this.gameHost = 'fiddle-1337';

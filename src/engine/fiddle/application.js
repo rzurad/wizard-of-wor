@@ -23,6 +23,7 @@ export default class FiddleApplication {
 
         this.eventManager = null;
         this.resCache = null;
+        this._textResource = null;
 
         this.networkEventForwarder = null;
         this.baseSocketManager = null;
@@ -30,6 +31,14 @@ export default class FiddleApplication {
         this.quitRequested = false;
         this.quitting = false;
         this.hasModalDialog = 0;
+    }
+
+    getGameTitle() {
+        if (!this._textResource) {
+            throw new Error('String table has not been initialized!');
+        }
+
+        return this._textResource.TITLE;
     }
 
     //TODO: In C++, this is a static function!
@@ -56,9 +65,15 @@ export default class FiddleApplication {
 
     loadStrings(language) {
         return new RSVP.Promise((resolve, reject) => {
-            console.warn('`fiddleApplication.loadStrings` method not implemented!');
+            let url = `./assets/strings/${language}.json`;
 
-            resolve();
+            $.getJSON(url).done((data) => {
+                this._textResource = data;
+
+                resolve();
+            }).fail(function () {
+                reject(`Failed to load string table! ${url}`);
+            });
         });
     }
 
@@ -78,7 +93,9 @@ export default class FiddleApplication {
         //TODO: create resource loaders
         //TODO: register resource loaders
 
-        return this.loadStrings('english').then(() => {
+        return this.loadStrings(this.options.language).then(() => {
+            $('title').text(this.getGameTitle());
+
             //TODO: load the Lua State manager (or whatever instead because no lua)
 
             //TODO: load the preinit file

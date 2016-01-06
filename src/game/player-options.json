@@ -1,5 +1,5 @@
 {
-    "whitelist": ["soundEffectsVolume", "musicVolume", "screenWidth", "screenHeight"],
+    "whitelist": ["soundEffectsVolume", "musicVolume", "screenWidth", "screenHeight", "language"],
     "renderer": "WebGL",
     "screenWidth": 320,
     "screenHeight": 240,
@@ -7,6 +7,7 @@
     "soundEffectsVolume": 1,
     "musicVolume": 1,
     "expectedPlayers": 1,
+    "language": "en",
     "listenPort": -1,
     "numAIs": 0,
     "maxAIs": 0,
