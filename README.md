@@ -34,7 +34,7 @@ Train of thought:
 - ResourceCache class
     - Should the string table be loaded through the ResourceCache?
 - Set up the Renderer
-- fiddleApplication.onUpdateGame <-- ALSO: investigate why this is static in C++
+- fiddleApplication.onFrameRender
 - wizardApplication.createGameAndView
 ```
 

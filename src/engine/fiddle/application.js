@@ -1,13 +1,7 @@
 import { GameOptions } from './game-options';
 import eventFactory from '../event-manager/event-factory';
 import eventManager from '../event-manager/event-manager';
-
-import EnvironmentLoadedEvent from '../event-manager/events/environment-loaded-event';
-import NewActorEvent from '../event-manager/events/new-actor-event';
-import MoveActorEvent from '../event-manager/events/move-actor-event';
-import DestroyActorEvent from '../event-manager/events/destroy-actor-event';
-import RequestNewActorEvent from '../event-manager/events/request-new-actor-event';
-import NetworkPlayerActorAssignmentEvent from '../event-manager/events/network-player-actor-assignment-event';
+import * as events from '../event-manager/events';
 
 export default class FiddleApplication {
     constructor() {
@@ -41,19 +35,42 @@ export default class FiddleApplication {
         return this._textResource.TITLE;
     }
 
-    //TODO: In C++, this is a static function!
+    onFrameRender(time, elapsedTime) {
+        console.warn('`fiddleApplication.onFrameRender` method not implemented!');
+    }
+
     onUpdateGame(time, elapsedTime) {
-        console.warn('`fiddleApplication.onUpdateGame` method not implemented!');
+        if (this.hasModalDialog) {
+            return;
+        }
+
+        if (this.quitting) {
+            //TODO: example uses PostMessage to send a WM_CLOSE to the application, I'm assuming
+            //so the quit logic will be handled by the message pump handlers. Until I know for sure...
+            console.warn('`fiddleApplication.onUpdateGame` does not know what to do when `this.qutting` is true!');
+        }
+
+        if (this.game) {
+            // tell the event manager to process for 20 ms
+            eventManager.update(20);
+
+            if (this.baseSocketManager) {
+                // pause for 0 ms
+                this.baseSocketManager.doSelect(0);
+            }
+
+            this.game.onUpdate(time, elapsedTime);
+        }
     }
 
     _registerEngineEvents() {
         [
-            EnvironmentLoadedEvent,
-            NewActorEvent,
-            MoveActorEvent,
-            DestroyActorEvent,
-            RequestNewActorEvent,
-            NetworkPlayerActorAssignmentEvent
+            events.EnvironmentLoadedEvent,
+            events.NewActorEvent,
+            events.MoveActorEvent,
+            events.DestroyActorEvent,
+            events.RequestNewActorEvent,
+            events.NetworkPlayerActorAssignmentEvent
         ].forEach(function (constructor) {
             eventFactory.register(constructor);
         });
@@ -97,9 +114,7 @@ export default class FiddleApplication {
             $('title').text(this.getGameTitle());
 
             //TODO: load the Lua State manager (or whatever instead because no lua)
-
             //TODO: load the preinit file
-
             //TODO: Register function exported from C++
 
             //TODO: I hate the fact that this is an instance export, essentially mimicing
@@ -109,6 +124,13 @@ export default class FiddleApplication {
             this.eventManager = eventManager;
 
             //TODO: Create and setup the rendering context/window
+
+            this.game = this.createGameAndView();
+
+            //TODO: Preload files (*.ogg, *.dds, *.jpg, *sdkmesh)
+            //TODO: CheckForJoystick
+
+            this.isRunning = true;
         });
     }
 }

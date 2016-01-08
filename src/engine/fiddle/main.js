@@ -42,7 +42,6 @@ export default function fiddle(AppClass, width, height) {
         //      DeviceReset
         //      DeviceLost
         //      DeviceDestroyed
-        //      FrameRender
 
         app.initInstance().then(() => {
             requestAnimationFrame(function main() {
@@ -52,6 +51,9 @@ export default function fiddle(AppClass, width, height) {
                     deltaTime = clock.getDelta();
 
                 app.onUpdateGame(deltaTime, elapsedTime);
+
+                //TODO: if rendering is not paused, then
+                app.onFrameRender(deltaTime, elapsedTime);
 
                 requestAnimationFrame(main);
             });
