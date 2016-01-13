@@ -1,9 +1,21 @@
+import ProcessManager from '../processing/process-manager';
+
+class LevelManager {
+    constructor() {
+        this._levels = [];
+    }
+
+    initialize(levels) {
+        this._levels = levels;
+    }
+}
+
 export default class BaseGameLogic {
     constructor() {
         this.lastActorId = 0;
         this.lifetime = 0;
         this.processManager = new ProcessManager();
-        this.random = new Random();
+        this.random = new Math.seedrandom();
         this.proxy = false;
         this.renderDiagnostics = false;
         this.expectedPlayers = 0;
