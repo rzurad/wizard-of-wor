@@ -1,9 +1,17 @@
 import FiddleApplication from '../engine/fiddle/application';
 import eventFactory from '../engine/event-manager/event-factory';
+import WizardLogic from './wizard-logic';
 
 export default class WizardApplication extends FiddleApplication {
     createGameAndView() {
-        console.warn('`wizardApplication.createGameAndView` method not implemented!');
+        let game = new WizardLogic();
+
+        game.init();
+        game.addView(new MainMenuView());
+
+        this.game = game;
+
+        return game;
     }
 
     registerGameEvents() {

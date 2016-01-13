@@ -11,10 +11,12 @@ export default class FiddleApplication {
         this.rcDesktop = { bottom: 0, left: 0, right: 0, top: 0 };
         this.screenSize = { width: 0, height: 0 };
         this.colorDepth = 32;
+        this._viewportSelector = '#game';
         
         this.isRunning = false;
         this.isEditorRunning = false;
 
+        this.renderer = null;
         this.eventManager = null;
         this.resCache = null;
         this._textResource = null;
@@ -97,13 +99,6 @@ export default class FiddleApplication {
     initInstance(width, height) {
         console.warn('`fiddleApplication.initInstance` method not implemented!');
 
-        // this is where you would normally check for things like:
-        //  "Is there enough system ram to play this game?"
-        //  "Is there enough storage space to play this game?"
-        //  "Is the CPU powerful enough to play this game?"
-        // but since we're in a browser and cant' tell such things, we'll settle for just leaving this comment
-        // here saying this is where we would normally do this, but can't, so we wont.
-
         this._registerEngineEvents();
         this.registerGameEvents();
 
@@ -111,8 +106,6 @@ export default class FiddleApplication {
         //TODO: register resource loaders
 
         return this.loadStrings(this.options.language).then(() => {
-            $('title').text(this.getGameTitle());
-
             //TODO: load the Lua State manager (or whatever instead because no lua)
             //TODO: load the preinit file
             //TODO: Register function exported from C++
@@ -124,6 +117,21 @@ export default class FiddleApplication {
             this.eventManager = eventManager;
 
             //TODO: Create and setup the rendering context/window
+            $('title').text(this.getGameTitle());
+
+            this.screenSize.width = this.width;
+            this.screenSize.height = this.height;
+
+            if (detector.WebGL && this.options.renderer === 'WebGL') {
+                this.renderer = new THREE.WebGLRenderer({ antialias: this.options.antialias || false });
+            } else {
+                this.renderer = new THREE.CanvasRenderer();
+            }
+
+            if (this.renderer) {
+                this.renderer.setSize(this.width, this.height);
+                this._$viewport = $(this.viewportSelector);
+            }
 
             this.game = this.createGameAndView();
 
