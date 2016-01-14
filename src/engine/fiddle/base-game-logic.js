@@ -1,4 +1,5 @@
 import ProcessManager from '../processing/process-manager';
+import ActorFactory from '../actors/actor-factory';
 import eventFactory from '../event-manager/event-factory';
 import * as events from '../event-manager/events';
 import { PhysCollisionEvent } from '../physics/physics-event-listener';
@@ -9,6 +10,7 @@ class LevelManager {
     }
 
     initialize(levels) {
+        console.warn('`levelManager.initialize` method not implemented!');
         this._levels = levels;
     }
 }
