@@ -1,4 +1,7 @@
 import ProcessManager from '../processing/process-manager';
+import eventFactory from '../event-manager/event-factory';
+import * as events from '../event-manager/events';
+import { PhysCollisionEvent } from '../physics/physics-event-listener';
 
 class LevelManager {
     constructor() {
@@ -30,6 +33,16 @@ export default class BaseGameLogic {
 
         this.levelManager.initialize(/* globalApp.resCache.match('world\\*.xml') */);
         this.registerEngineScriptEvents();
+    }
+
+    registerEngineScriptEvents() {
+        [
+            events.RequestDestroyActorEvent,
+            events.PlaySoundEvent,
+            PhysCollisionEvent
+        ].forEach(function (constructor) {
+            eventFactory.register(constructor);
+        });
     }
 
     init() {

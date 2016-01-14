@@ -199,3 +199,47 @@ export class RequestNewActorEvent extends BaseEventData {
         return this._viewId;
     }
 }
+
+const REQUEST_DESTROY_ACTOR_EVENT_TYPE = 0x348abb8f;
+
+export class RequestDestroyActorEvent extends BaseEventData {
+    constructor(actorId = INVALID_ACTOR_ID) {
+        super();
+
+        this._actorId;
+    }
+
+    static get eventType() {
+        return REQUEST_DESTROY_ACTOR_EVENT_TYPE;
+    }
+
+    get name() {
+        return RequestDestroyActorEvent.name;
+    }
+
+    get actorId() {
+        return this._actorId;
+    }
+}
+
+const PLAY_SOUND_EVENT_TYPE = 0xb568570f;
+
+export class PlaySoundEvent extends BaseEventData {
+    constructor(soundResource) {
+        super();
+
+        this._soundResource = soundResource;
+    }
+
+    static get eventType() {
+        return PLAY_SOUND_EVENT_TYPE;
+    }
+
+    get name() {
+        return PlaySoundEvent.name;
+    }
+
+    get soundResource() {
+        return this._soundResource;
+    }
+}
