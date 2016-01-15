@@ -1,8 +1,10 @@
 import ProcessManager from '../processing/process-manager';
 import ActorFactory from '../actors/actor-factory';
 import eventFactory from '../event-manager/event-factory';
+import eventManager from '../event-manager/event-manager';
 import * as events from '../event-manager/events';
 import { PhysCollisionEvent } from '../physics/physics-event-listener';
+import PathingGraph from '../ai/pathing-graph';
 
 class LevelManager {
     constructor() {
@@ -43,13 +45,13 @@ export default class BaseGameLogic {
             events.PlaySoundEvent,
             PhysCollisionEvent
         ].forEach(function (constructor) {
-            eventFactory.register(constructor);
+            eventFactory.register(constructor, constructor.eventType);
         });
     }
 
     init() {
         this.actorFactory = this.createActorFactory();
-        this.pathingGraph.reset(this.createPathingGraph());
+        this.pathingGraph = this.createPathingGraph();
 
         eventManager.addListener(makeDelegate(this, this.requestDestroyActorDelegate), RequestDestroyActorEvent);
 
@@ -58,6 +60,10 @@ export default class BaseGameLogic {
 
     createActorFactory() {
         return new ActorFactory();
+    }
+
+    createPathingGraph() {
+        return new PathingGraph();
     }
 
     addView(view, actorId = INVALID_ACTOR_ID) {

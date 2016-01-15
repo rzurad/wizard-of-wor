@@ -23,7 +23,7 @@ export default class BaseEventData {
     }
 
     get name() {
-        return BaseEventData.name;
+        return 'BaseEventData';
     }
 }
 
@@ -44,7 +44,7 @@ export class DestroyActorEvent extends BaseEventData {
     }
 
     get name() {
-        return DestroyActorEvent.name;
+        return 'DestroyActorEvent';
     }
 
     get actorId() {
@@ -80,7 +80,7 @@ export class MoveActorEvent extends BaseEventData {
     }
 
     get name() {
-        return MoveActorEvent.name;
+        return 'MoveActorEvent';
     }
 
     get actorId() {
@@ -110,7 +110,7 @@ export class NetworkPlayerActorAssignmentEvent extends BaseEventData {
     }
 
     get name() {
-        return NetworkPlayerActorAssignmentEvent.name;
+        return 'NetworkPlayerActorAssignmentEvent';
     }
 
     get actorId() {
@@ -136,7 +136,7 @@ export class NewActorEvent extends BaseEventData {
     }
 
     get name() {
-        return NewActorEvent.name;
+        return 'NewActorEvent';
     }
 
     static get eventType() {
@@ -180,7 +180,7 @@ export class RequestNewActorEvent extends BaseEventData {
     }
 
     get name() {
-        return RequestNewActorEvent.name;
+        return 'RequestNewActorEvent';
     }
 
     get actorResource() {
@@ -214,7 +214,7 @@ export class RequestDestroyActorEvent extends BaseEventData {
     }
 
     get name() {
-        return RequestDestroyActorEvent.name;
+        return 'RequestDestroyActorEvent';
     }
 
     get actorId() {
@@ -236,7 +236,7 @@ export class PlaySoundEvent extends BaseEventData {
     }
 
     get name() {
-        return PlaySoundEvent.name;
+        return 'PlaySoundEvent';
     }
 
     get soundResource() {

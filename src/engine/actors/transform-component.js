@@ -1,11 +1,13 @@
 import ActorComponent from './actor-component';
 
-export default TransformComponent extends ActorComponent {
+export default class TransformComponent extends ActorComponent {
     static get name() {
-        return TransformComponent.name;
+        return 'TransformComponent';
     }
 
     constructor() {
+        super();
+
         this._transform = new THREE.Matrix4();
     }
 

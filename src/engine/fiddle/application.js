@@ -75,7 +75,7 @@ export default class FiddleApplication {
             events.RequestNewActorEvent,
             events.NetworkPlayerActorAssignmentEvent
         ].forEach(function (constructor) {
-            eventFactory.register(constructor);
+            eventFactory.register(constructor, constructor.eventType);
         });
     }
 

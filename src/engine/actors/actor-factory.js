@@ -1,12 +1,17 @@
 import { INVALID_ACTOR_ID } from './actor';
 import GenericObjectFactory from '../utilities/generic-object-factory';
+import TransformComponent from './transform-component';
+import AudioComponent from './audio-component';
 
 export default class ActorFactory {
     constructor() {
         this._lastActorId = INVALID_ACTOR_ID;
         this._componentFactory = new GenericObjectFactory();
 
-        console.warn('`ActorFactory` constructor not implemented!');
+        //TODO: Missing Components: MeshRender, SphereRender, Physics, TeapotRender, GridRender,
+        //               LightRender, SkyRender, BaseScript
+        this._componentFactory.register(TransformComponent, TransformComponent.name);
+        this._componentFactory.register(AudioComponent, AudioComponent.name);
     }
 
     createActor(actorResource, overrides, initialTransform, serversActorId) {
