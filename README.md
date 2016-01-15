@@ -28,20 +28,11 @@ grunt build
 grunt docco
 ```
 
-Train of thought:
-```
-- fiddleApplication.initInstance
-- ResourceCache class
-    - Should the string table be loaded through the ResourceCache?
-- Set up the Renderer
-- fiddleApplication.onFrameRender
-- wizardApplication.createGameAndView
-```
-
 Make more JS friendly:
 ```
-- C++ initialization is taylored for synchronous file loading:
+- C++ initialization is tailored for synchronous file loading:
     - load 'player-options.json'/options file
     - load 'english.json'/string table file
+- resource cache is designed for filesystems/zip files, not xhr requests
 - instance exports for `eventManager` and `eventFactory` are mimicing C++ globals.
 ```

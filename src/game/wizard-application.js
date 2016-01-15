@@ -1,6 +1,7 @@
 import FiddleApplication from '../engine/fiddle/application';
 import eventFactory from '../engine/event-manager/event-factory';
 import WizardLogic from './wizard-logic';
+import MainMenuView from './main-menu-view';
 
 export default class WizardApplication extends FiddleApplication {
     createGameAndView() {

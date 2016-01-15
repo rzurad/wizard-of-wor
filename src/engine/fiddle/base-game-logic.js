@@ -1,7 +1,8 @@
 import ProcessManager from '../processing/process-manager';
 import ActorFactory from '../actors/actor-factory';
+import { INVALID_ACTOR_ID } from '../actors/actor';
 import eventFactory from '../event-manager/event-factory';
-import eventManager from '../event-manager/event-manager';
+import { eventManager } from '../event-manager/event-manager';
 import * as events from '../event-manager/events';
 import { PhysCollisionEvent } from '../physics/physics-event-listener';
 import PathingGraph from '../ai/pathing-graph';
@@ -35,6 +36,8 @@ export default class BaseGameLogic {
         this.actorFactory = null;
         this.levelManager = new LevelManager();
 
+        console.warn('`BaseGameLogic` constructor needs the resource cache to load XML!');
+
         this.levelManager.initialize(/* globalApp.resCache.match('world\\*.xml') */);
         this.registerEngineScriptEvents();
     }
@@ -53,7 +56,7 @@ export default class BaseGameLogic {
         this.actorFactory = this.createActorFactory();
         this.pathingGraph = this.createPathingGraph();
 
-        eventManager.addListener(makeDelegate(this, this.requestDestroyActorDelegate), RequestDestroyActorEvent);
+        eventManager.addListener(events.RequestDestroyActorEvent, this.requestDestroyActorDelegate.bind(this));
 
         return true;
     }
@@ -66,7 +69,15 @@ export default class BaseGameLogic {
         return new PathingGraph();
     }
 
+    destroyActor(actorId) {
+        console.warn('`baseGameLogic.destroyActor` method not implemented!');
+    }
+
     addView(view, actorId = INVALID_ACTOR_ID) {
         console.error('`baseGameLogic.addView` must be implemented by subclass!');
+    }
+
+    requestDestroyActorDelegate(e) {
+        this.destroyActor(e.actorId);
     }
 }
