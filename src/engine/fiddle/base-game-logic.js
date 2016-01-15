@@ -18,8 +18,12 @@ class LevelManager {
     }
 }
 
+let viewIdCounter = 0;
+
 export default class BaseGameLogic {
     constructor() {
+        this._gameViews = [];
+
         this.lastActorId = 0;
         this.lifetime = 0;
         this.processManager = new ProcessManager();
@@ -74,7 +78,12 @@ export default class BaseGameLogic {
     }
 
     addView(view, actorId = INVALID_ACTOR_ID) {
-        console.error('`baseGameLogic.addView` must be implemented by subclass!');
+        let viewId = ++viewIdCounter;
+
+        this._gameViews.push(view);
+
+        view.onAttach(viewId, actorId);
+        view.onRestore();
     }
 
     requestDestroyActorDelegate(e) {

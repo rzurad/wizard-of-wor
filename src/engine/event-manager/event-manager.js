@@ -1,12 +1,27 @@
 const INFINITE = 0xffffffff;
 
 export default class EventManager {
+    constructor() {
+        this._activeQueue = 0;
+        this._eventListeners = {};
+    }
+
     addListener(delegate, type) {
-        console.warn('`eventManager.addListener` method not implemented!');
+        // shift into the list so that we can iterate backwards when triggering to
+        // account for delegates that can remove themselves
+        (this._eventListeners[type] = this._eventListeners[type] || []).shift(delegate);
     }
 
     removeListener(delegate, type) {
-        console.warn('`eventManager.removeListener` method not implemented!');
+        let list = this._eventListeners[type];
+
+        if (list) {
+            list.splice(list.indexOf(delegate), 1);
+
+            return true;
+        }
+
+        return false;
     }
 
     triggerEvent(event) {
