@@ -20,6 +20,17 @@ class LevelManager {
 
 let viewIdCounter = 0;
 
+export const BASE_GAME_STATE = {
+    INVALID: 0,
+    INITIALIZING: 1,
+    MAIN_MENU: 2,
+    WAITING_FOR_PLAYERS: 3,
+    LOADING_GAME_ENVIRONMENT: 4,
+    WAITING_FOR_PLAYERS_TO_LOAD_ENVIRONMENT: 5,
+    SPAWNING_PLAYERS_ACTORS: 6,
+    RUNNING: 7
+};
+
 export default class BaseGameLogic {
     constructor() {
         this._gameViews = [];

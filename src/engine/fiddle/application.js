@@ -1,7 +1,7 @@
 import { GameOptions } from './game-options';
 import detector from '../utilities/detector';
 import eventFactory from '../event-manager/event-factory';
-import eventManager from '../event-manager/event-manager';
+import { eventManager } from '../event-manager/event-manager';
 import * as events from '../event-manager/events';
 
 export default class FiddleApplication {
