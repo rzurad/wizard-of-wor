@@ -43,6 +43,8 @@ export default class FiddleApplication {
     }
 
     onUpdateGame(time, elapsedTime) {
+        console.log('========== Application.onUpdateGame ==========');
+
         if (this.hasModalDialog) {
             return;
         }

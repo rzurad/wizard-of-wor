@@ -35,25 +35,27 @@ export default class BaseGameLogic {
     constructor() {
         this._gameViews = [];
 
-        this.lastActorId = 0;
-        this.lifetime = 0;
-        this.processManager = new ProcessManager();
-        this.random = new Math.seedrandom();
-        this.proxy = false;
-        this.renderDiagnostics = false;
-        this.expectedPlayers = 0;
-        this.expectedRemotePlayers = 0;
-        this.expectedAI = 0;
-        this.humanPlayersAttached = 0;
-        this.AIPlayersAttached = 0;
-        this.humanGamesLoaded = 0;
-        this.pathingGraph = null;
-        this.actorFactory = null;
-        this.levelManager = new LevelManager();
+        this._lastActorId = 0;
+        this._lifetime = 0;
+        this._processManager = new ProcessManager();
+        this._random = new Math.seedrandom();
+        this._state = BASE_GAME_STATE.INITIALIZING;
+        this._proxy = false;
+        this._renderDiagnostics = false;
+        this._expectedPlayers = 0;
+        this._expectedRemotePlayers = 0;
+        this._expectedAI = 0;
+        this._humanPlayersAttached = 0;
+        this._AIPlayersAttached = 0;
+        this._humanGamesLoaded = 0;
+        this._pathingGraph = null;
+        this._actorFactory = null;
+        this._physics = null;
+        this._levelManager = new LevelManager();
 
         console.warn('`BaseGameLogic` constructor needs the resource cache to load XML!');
 
-        this.levelManager.initialize(/* globalApp.resCache.match('world\\*.xml') */);
+        this._levelManager.initialize(/* globalApp.resCache.match('world\\*.xml') */);
         this.registerEngineScriptEvents();
     }
 
@@ -68,7 +70,7 @@ export default class BaseGameLogic {
     }
 
     init() {
-        this.actorFactory = this.createActorFactory();
+        this.actorFactory = this._createActorFactory();
         this.pathingGraph = this.createPathingGraph();
 
         eventManager.addListener(events.RequestDestroyActorEvent, this.requestDestroyActorDelegate.bind(this));
@@ -76,7 +78,7 @@ export default class BaseGameLogic {
         return true;
     }
 
-    createActorFactory() {
+    _createActorFactory() {
         return new ActorFactory();
     }
 
@@ -91,7 +93,7 @@ export default class BaseGameLogic {
     addView(view, actorId = INVALID_ACTOR_ID) {
         let viewId = ++viewIdCounter;
 
-        this._gameViews.push(view);
+        this._gameViews.shift(view);
 
         view.onAttach(viewId, actorId);
         view.onRestore();
@@ -99,5 +101,59 @@ export default class BaseGameLogic {
 
     requestDestroyActorDelegate(e) {
         this.destroyActor(e.actorId);
+    }
+
+    onUpdate(time, elapsedTime) {
+        let deltaMilliseconds = elapsedTime * 1000;
+
+        this._lifetime += elapsedTime;
+
+        switch (this._state) {
+            case BASE_GAME_STATE.INITIALIZING:
+                this.changeState(BASE_GAME_STATE.MAIN_MENU);
+
+                break;
+            case BASE_GAME_STATE.MAIN_MENU:
+            case BASE_GAME_STATE.LOADING_GAME_ENVIRONMENT:
+                break;
+            case BASE_GAME_STATE.WAITING_FOR_PLAYERS_TO_LOAD_ENVIRONMENT:
+                if (this._expectedPlayers + this._expectedRemotePlayers <= this._humanGamesLoaded) {
+                    this.changeState(BASE_GAME_STATE.SPAWNING_PLAYERS_ACTORS);
+                }
+
+                break;
+            case BASE_GAME_STATE.SPAWNING_PLAYERS_ACTORS:
+                this.changeState(BASE_GAME_STATE.RUNNING);
+
+                break;
+            case BASE_GAME_STATE.WAITING_FOR_PLAYERS:
+                if (this._expectedPlayers + this._expectedRemotePlayers === this._humanPlayersAttached) {
+                    console.error(
+                        'the base game logic needs to get the game options, which live on the app!',
+                        'https://github.com/rzurad/gamecode4/blob/master/Source/GCC4/GameCode4/BaseGameLogic.cpp#L357'
+                    );
+                }
+
+                break;
+
+            case BASE_GAME_STATE.RUNNING:
+                this._processManager.updateProcesses(deltaMilliseconds);
+
+                if (this._physics && !this._proxy) {
+                    this._physics.onUpdate(elapsedTime);
+                    this._physics.syncVisibleScene();
+                }
+
+                break;
+            default:
+                console.error('`BaseGameLogic.onUpdate`: unrecognized state!', this._state);
+        }
+
+        console.warn('`BaseGameLogic.onUpdate` needs to update the game views!');
+        console.warn('`BaseGameLogic.onUpdate` needs to update the actors!');
+    }
+
+    changeState(newState) {
+        console.warn('`BaseGameLogic.changeState` method not implemented!');
     }
 }
