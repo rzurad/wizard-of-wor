@@ -50,6 +50,7 @@ export default class BaseGameLogic {
         this._humanGamesLoaded = 0;
         this._pathingGraph = null;
         this._actorFactory = null;
+        this._actors = {};
         this._physics = null;
         this._levelManager = new LevelManager();
 
@@ -149,8 +150,13 @@ export default class BaseGameLogic {
                 console.error('`BaseGameLogic.onUpdate`: unrecognized state!', this._state);
         }
 
-        console.warn('`BaseGameLogic.onUpdate` needs to update the game views!');
-        console.warn('`BaseGameLogic.onUpdate` needs to update the actors!');
+        for (let i = this._gameViews.length - 1; i >= 0; i--) {
+            this._gameViews[i].onUpdate(deltaMilliseconds);
+        }
+
+        Object.keys(this._actors).forEach((key) => {
+            this._actors[key].update(deltaMilliseconds);
+        });
     }
 
     changeState(newState) {
