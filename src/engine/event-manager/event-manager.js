@@ -1,8 +1,10 @@
 const INFINITE = 0xffffffff;
+const NUM_QUEUES = 2;
 
 export default class EventManager {
     constructor() {
         this._activeQueue = 0;
+        this._queues = new Array(NUM_QUEUES).fill([]);
         this._eventListeners = {};
     }
 
@@ -36,8 +38,19 @@ export default class EventManager {
         console.warn('`eventManager.abortEvent` method not implemented!');
     }
 
-    update(maxMillis = INFINITE) {
-        console.warn('`eventManager.update` method not implemented!');
+    update(/* maxMillis = INFINITE */) {
+        let queueToProcess = this._activeQueue;
+
+        this._activeQueue = (this._activeQueue + 1) % NUM_QUEUES;
+
+        while (this._queues[queueToProcess].length) {
+            let event = this._queues[queueToProcess].unshift(),
+                listeners = this._eventListeners[event.eventType];
+
+            for (let i = listeners.length - 1; i >= 0; i--) {
+                listeners[i](event);
+            }
+        }
     }
 }
 

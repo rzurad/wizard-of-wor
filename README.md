@@ -35,4 +35,5 @@ Make more JS friendly:
     - load 'english.json'/string table file
 - resource cache is designed for filesystems/zip files, not xhr requests
 - instance exports for `eventManager` and `eventFactory` are mimicing C++ globals.
+- EventManager.update no longer has a timeout, and there is no real-time event queue
 ```

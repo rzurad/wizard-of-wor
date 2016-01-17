@@ -39,7 +39,13 @@ export default class FiddleApplication {
     }
 
     onFrameRender(time, elapsedTime) {
-        console.warn('`fiddleApplication.onFrameRender` method not implemented!');
+        let views = this.game._gameViews;
+
+        for (let i = views.length - 1; i >= 0; i--) {
+            views[i].onRender(time, elapsedTime);
+        }
+
+        this.game.renderDiagnostics();
     }
 
     onUpdateGame(time, elapsedTime) {
@@ -56,8 +62,7 @@ export default class FiddleApplication {
         }
 
         if (this.game) {
-            // tell the event manager to process for 20 ms
-            eventManager.update(20);
+            eventManager.update(/* 20 */);
 
             if (this.baseSocketManager) {
                 // pause for 0 ms

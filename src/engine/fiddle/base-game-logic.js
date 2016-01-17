@@ -100,6 +100,12 @@ export default class BaseGameLogic {
         view.onRestore();
     }
 
+    renderDiagnostics() {
+        if (this._renderDiagnostics) {
+            this._physics.renderDiagnostics();
+        }
+    }
+
     requestDestroyActorDelegate(e) {
         this.destroyActor(e.actorId);
     }
