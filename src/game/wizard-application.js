@@ -4,6 +4,12 @@ import WizardLogic from './wizard-logic';
 import MainMenuView from './main-menu-view';
 
 export default class WizardApplication extends FiddleApplication {
+    constructor() {
+        super();
+
+        this._viewportSelector = '#container';
+    }
+
     createGameAndView() {
         let game = new WizardLogic();
 

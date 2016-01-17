@@ -49,8 +49,6 @@ export default class FiddleApplication {
     }
 
     onUpdateGame(time, elapsedTime) {
-        console.log('========== Application.onUpdateGame ==========');
-
         if (this.hasModalDialog) {
             return;
         }
@@ -105,46 +103,43 @@ export default class FiddleApplication {
     }
 
     initInstance(width, height) {
-        console.warn('`fiddleApplication.initInstance` method not implemented!');
-
         this._registerEngineEvents();
         this.registerGameEvents();
 
+        console.warn('`FiddleApplication.initInstance` needs to initialize the Resource Cache');
         //TODO: create resource loaders
         //TODO: register resource loaders
 
         return this.loadStrings(this.options.language).then(() => {
+            console.warn('`FiddleApplication.initInstance` needs to figure out the deal with the Lua Manager logic');
             //TODO: load the Lua State manager (or whatever instead because no lua)
             //TODO: load the preinit file
             //TODO: Register function exported from C++
 
-            //TODO: I hate the fact that this is an instance export, essentially mimicing
-            //the C++ global. I have no doubt that this can be turned into something significantly
-            //more JavaScript friendly once I see how this thing is actually used throughout the
-            //GCC4 architecture (like... why do they need a member variable and a global pointer?)
             this.eventManager = eventManager;
 
-            //TODO: Create and setup the rendering context/window
             $('title').text(this.getGameTitle());
 
             this.screenSize.width = this.width;
             this.screenSize.height = this.height;
 
             if (detector.WebGL && this.options.renderer === 'WebGL') {
-                this.renderer = new THREE.WebGLRenderer({ antialias: this.options.antialias || false });
+                this.renderer = new PIXI.WebGLRenderer(this.width, this.height, {});
             } else {
-                this.renderer = new THREE.CanvasRenderer();
+                this.renderer = new PIXI.CanvasRenderer(this.width, this.height, {});
             }
 
             if (this.renderer) {
-                this.renderer.setSize(this.width, this.height);
-                this._$viewport = $(this.viewportSelector);
+                this._$viewport = $(this._viewportSelector);
+                this._$viewport.append(this.renderer.view);
             }
 
             this.game = this.createGameAndView();
 
+            console.warn('`FiddleApplication.initInstance` needs to preload all resources');
             //TODO: Preload files (*.ogg, *.dds, *.jpg, *sdkmesh)
             //TODO: CheckForJoystick
+            console.warn('`FiddleApplication.initInstance` needs to figure out what to do with input');
 
             this.isRunning = true;
         });

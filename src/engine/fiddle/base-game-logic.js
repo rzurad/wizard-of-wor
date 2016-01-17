@@ -21,14 +21,14 @@ class LevelManager {
 let viewIdCounter = 0;
 
 export const BASE_GAME_STATE = {
-    INVALID: 0,
-    INITIALIZING: 1,
-    MAIN_MENU: 2,
-    WAITING_FOR_PLAYERS: 3,
-    LOADING_GAME_ENVIRONMENT: 4,
-    WAITING_FOR_PLAYERS_TO_LOAD_ENVIRONMENT: 5,
-    SPAWNING_PLAYERS_ACTORS: 6,
-    RUNNING: 7
+    INVALID: 'invalid',
+    INITIALIZING: 'initializing',
+    MAIN_MENU: 'main_menu',
+    WAITING_FOR_PLAYERS: 'waiting_for_players',
+    LOADING_GAME_ENVIRONMENT: 'loading_game_environment',
+    WAITING_FOR_PLAYERS_TO_LOAD_ENVIRONMENT: 'waiting_for_players_to_load_environment',
+    SPAWNING_PLAYERS_ACTORS: 'spawning_players_actors',
+    RUNNING: 'running'
 };
 
 export default class BaseGameLogic {
@@ -166,6 +166,12 @@ export default class BaseGameLogic {
     }
 
     changeState(newState) {
-        console.warn('`BaseGameLogic.changeState` method not implemented!');
+        if (newState === BASE_GAME_STATE.WAITING_FOR_PLAYERS) {
+            console.warn('`BaseGameLogic.changeState` is not set up to handle WAITING_FOR_PLAYERS');
+        } else if (newState === BASE_GAME_STATE.LOADING_GAME_ENVIRONMENT) {
+            console.warn('`BaseGameLogic.changeState` is not set up to handle LOADING_GAME_ENVIRONMENT');
+        }
+
+        this._state = newState;
     }
 }

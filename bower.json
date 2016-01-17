@@ -7,7 +7,7 @@
     "jquery": "2.1.4",
     "rsvp": "3.1.0",
     "seedrandom": "2.4.2",
-    "three.js": "threejs#r73",
-    "javascript-state-machine": "2.3.5"
+    "javascript-state-machine": "2.3.5",
+    "pixi.js": "~3.0.9"
   }
 }

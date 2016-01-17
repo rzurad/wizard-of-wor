@@ -20,13 +20,10 @@ jsVendor = concat(jsVendor, {
         'jquery/dist/jquery.js',
         'rsvp/rsvp.js',
         'javascript-state-machine/state-machine.js',
-        'three.js/build/three.js',
+        'pixi.js/bin/pixi.js',
         'stats.js/build/stats.min.js',
 
         // vendor
-        'OrbitControls.js',
-        'THREEx.FullScreen.js',
-        'THREEx.WindowResize.js',
 
         // glue
         'requirejs/require.js'

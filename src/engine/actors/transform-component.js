@@ -8,7 +8,8 @@ export default class TransformComponent extends ActorComponent {
     constructor() {
         super();
 
-        this._transform = new THREE.Matrix4();
+        console.warn('`TransformComponent` does nothing at the moment!');
+        this._transform = null;
     }
 
     getTransform() {

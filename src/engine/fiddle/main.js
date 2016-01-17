@@ -1,9 +1,9 @@
-/* globals THREE, RSVP, Stats */
+import Clock from '../utilities/clock';
+/* globals RSVP, Stats */
 
 export default function fiddle(AppClass, width, height) {
-    // Create a new [Clock](http://threejs.org/docs/#Reference/Core/Clock) that will be the heartbeat
-    // of the game.
-    let clock = new THREE.Clock(true);
+    // Create a new Clock that will be the heartbeat of the game.
+    let clock = new Clock(true);
 
     // Set up the default error handler for [RSVP](https://github.com/tildeio/rsvp.js)
     RSVP.onerrordefault = function (error) {
