@@ -44,4 +44,16 @@ export default class HumanView {
     onRestore() {
         console.warn('`HumanView.onRestore` method not implemented!');
     }
+
+    onUpdate(deltaMs) {
+        console.warn('`HumanView.onUpdate` method not implemented!');
+    }
+
+    onRender(time, elapsedTime) {
+        console.warn('`HumanView.onRender` method not implemented!');
+    }
+
+    pushElement(element) {
+        console.warn('`HumanView.pushElement` method not implemented!');
+    }
 }

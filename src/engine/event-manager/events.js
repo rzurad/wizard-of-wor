@@ -243,3 +243,15 @@ export class PlaySoundEvent extends BaseEventData {
         return this._soundResource;
     }
 }
+
+const REQUEST_START_GAME_TYPE = 0xb1fcc22c;
+
+export class RequestStartGameEvent extends BaseEventData {
+    static get eventType() {
+        return REQUEST_START_GAME_TYPE;
+    }
+
+    get name() {
+        return 'RequestStartGameEvent';
+    }
+}

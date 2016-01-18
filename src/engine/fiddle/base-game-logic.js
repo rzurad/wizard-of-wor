@@ -94,7 +94,7 @@ export default class BaseGameLogic {
     addView(view, actorId = INVALID_ACTOR_ID) {
         let viewId = ++viewIdCounter;
 
-        this._gameViews.shift(view);
+        this._gameViews.unshift(view);
 
         view.onAttach(viewId, actorId);
         view.onRestore();
