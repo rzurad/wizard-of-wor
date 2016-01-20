@@ -2,6 +2,8 @@ import ProcessManager from '../processing/process-manager';
 import { INVALID_GAME_VIEW_ID } from '../fiddle/game-view';
 import { INVALID_ACTOR_ID } from '../actors/actor';
 import { BASE_GAME_STATE } from '../fiddle/base-game-logic';
+import { PlaySoundEvent } from '../event-manager/events';
+import { eventManager } from '../event-manager/event-manager';
 
 export default class HumanView {
     constructor(renderer) {
@@ -16,6 +18,7 @@ export default class HumanView {
         this._registerAllDelegates();
 
         this._baseGameState = BASE_GAME_STATE.INITIALIZING;
+        this.screenElements = [];
 
         if (renderer) {
             this.scene = new ScreenElementScene(renderer);
@@ -27,7 +30,7 @@ export default class HumanView {
     }
 
     _registerAllDelegates() {
-        console.warn('`HumanView._registerAllDelegates` method not implemented!');
+        eventManager.addListener(this.onPlaySound, PlaySoundEvent.eventType);
     }
 
     initAudio() {
@@ -36,17 +39,27 @@ export default class HumanView {
         console.warn('`HumanView.initAudio` method not implemented!');
     }
 
+    onPlaySound(e) {
+        console.warn('`HumanView.onPlaySound` method not implemented!');
+    }
+
     onAttach(viewId, actorId) {
         this._actorId = actorId;
         this._viewId = viewId;
     }
 
     onRestore() {
-        console.warn('`HumanView.onRestore` method not implemented!');
+        this.screenElements.forEach(function (screen) {
+            screen.onRestore();
+        });
     }
 
     onUpdate(deltaMs) {
-        console.warn('`HumanView.onUpdate` method not implemented!');
+        this._processManager.updateProcesses(deltaMs);
+
+        this.screenElements.forEach(function (screen) {
+            screen.onUpdate(deltaMs);
+        });
     }
 
     onRender(time, elapsedTime) {
@@ -54,6 +67,10 @@ export default class HumanView {
     }
 
     pushElement(element) {
-        console.warn('`HumanView.pushElement` method not implemented!');
+        this.screenElements.push(element);
+    }
+
+    removeElement(element) {
+        this.screenElements.splice(this.screenElements.indexOf(element), 1);
     }
 }

@@ -6,4 +6,12 @@ export default class MainMenuUI extends BaseUI {
 
         console.warn('`MainMenuUI` constructor not implemented');
     }
+
+    onRestore() {
+        console.warn('`MainMenuUI.onRestore` method not implemented');
+    }
+
+    onUpdate(deltaMs) {
+        console.warn('`MainMenuUI.onUpdate` method not implemented');
+    }
 }
