@@ -1,13 +1,25 @@
 export default class BaseUI {
     constructor() {
-        console.warn('`BaseUI` constructor not implemented');
+        this._posX = 0;
+        this._posY = 0;
+        this._width = 100;
+        this._height = 100;
+        this._isVisible = true;
+    }
+
+    get isVisible() {
+        return this._isVisible;
+    }
+
+    set isVisible(visible) {
+        this._isVisible = !!visible;
     }
 
     onRestore() {
-        console.warn('`BaseUI.onRestore` method not implemented');
+        throw new Error('`BaseUI.onRestore` must be defined by subclass!');
     }
 
     onUpdate(deltaMs) {
-        console.war('`BaseUI.onUpdate` method not implemented');
+        throw new Error('`BaseUI.onUpdate` must be defined by subclass!');
     }
 }
