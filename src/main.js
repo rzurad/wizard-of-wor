@@ -7,23 +7,42 @@
     function setup() {
         app = new PIXI.Application();
 
-        PIXI.loader.add('../assets/worrior-one.json').load(function () {
+        var anim;
+
+        PIXI.loader.add('../assets/sprite.json').load(function () {
             var frames = [
                     PIXI.Texture.fromFrame('WorriorOne-Walk1'),
                     PIXI.Texture.fromFrame('WorriorOne-Walk2'),
-                    PIXI.Texture.fromFrame('WorriorOne-Walk3')
+                    PIXI.Texture.fromFrame('WorriorOne-Walk3'),
+                    PIXI.Texture.fromFrame('WorriorOne-Fire1'),
+                    PIXI.Texture.fromFrame('WorriorOne-Fire2')
                 ],
-                anim = new PIXI.extras.AnimatedSprite(frames);
+
+                twoframes = [
+                    PIXI.Texture.fromFrame('WorriorTwo-Walk1'),
+                    PIXI.Texture.fromFrame('WorriorTwo-Walk2'),
+                    PIXI.Texture.fromFrame('WorriorTwo-Walk3')
+                ];
+
+            anim = new PIXI.extras.AnimatedSprite(twoframes);
 
             anim.x = app.renderer.width / 2;
             anim.y = app.renderer.height / 2;
             anim.anchor.set(0.5);
-            anim.animationSpeed = 0.5;
+            anim.animationSpeed = 0.33;
             anim.play();
 
             app.stage.addChild(anim);
             document.body.appendChild(app.view);
             startGameLoop();
+        });
+
+        window.addEventListener('keydown', function (e) {
+            
+        });
+
+        window.addEventListener('keyup', function (e) {
+
         });
     }
 

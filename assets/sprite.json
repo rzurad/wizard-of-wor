@@ -1,0 +1,89 @@
+{
+    "frames": {
+        "WorriorOne-Walk1": {
+            "frame": { "x": 0, "y": 0, "w": 72, "h": 72 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 72, "h": 72 },
+            "sourceSize": { "w": 72, "h": 72 }
+        },
+
+        "WorriorOne-Walk2": {
+            "frame": { "x": 72, "y": 0, "w": 72, "h": 72 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 72, "h": 72 },
+            "sourceSize": { "w": 72, "h": 72 }
+        },
+
+        "WorriorOne-Walk3": {
+            "frame": { "x": 144, "y": 0, "w": 72, "h": 72 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 72, "h": 72 },
+            "sourceSize": { "w": 72, "h": 72 }
+        },
+
+        "WorriorOne-Fire1": {
+            "frame": { "x": 216, "y": 0, "w": 72, "h": 72 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 72, "h": 72 },
+            "sourceSize": { "w": 72, "h": 72 }
+        },
+
+        "WorriorOne-Fire2": {
+            "frame": { "x": 288, "y": 0, "w": 72, "h": 72 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 72, "h": 72 },
+            "sourceSize": { "w": 72, "h": 72 }
+        },
+
+        "WorriorTwo-Walk1": {
+            "frame": { "x": 0, "y": 72, "w": 72, "h": 72 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 72, "h": 72 },
+            "sourceSize": { "w": 72, "h": 72 }
+        },
+
+        "WorriorTwo-Walk2": {
+            "frame": { "x": 72, "y": 72, "w": 72, "h": 72 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 72, "h": 72 },
+            "sourceSize": { "w": 72, "h": 72 }
+        },
+
+        "WorriorTwo-Walk3": {
+            "frame": { "x": 144, "y": 72, "w": 72, "h": 72 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 72, "h": 72 },
+            "sourceSize": { "w": 72, "h": 72 }
+        },
+
+        "WorriorTwo-Fire1": {
+            "frame": { "x": 216, "y": 72, "w": 72, "h": 72 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 72, "h": 72 },
+            "sourceSize": { "w": 72, "h": 72 }
+        },
+
+        "WorriorTwo-Fire2": {
+            "frame": { "x": 288, "y": 72, "w": 72, "h": 72 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 72, "h": 72 },
+            "sourceSize": { "w": 72, "h": 72 }
+        }
+    },
+
+    "meta": {
+        "image": "sprite.png",
+        "size": { "w": 360, "h": 144 },
+        "scale": 1
+    }
+}
