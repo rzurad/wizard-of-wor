@@ -1,0 +1,33 @@
+{
+    "frames": {
+        "WorriorOne-Walk1": {
+            "frame": { "x": 0, "y": 0, "w": 72, "h": 72 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 72, "h": 72 },
+            "sourceSize": { "w": 72, "h": 72 }
+        },
+
+        "WorriorOne-Walk2": {
+            "frame": { "x": 72, "y": 0, "w": 72, "h": 72 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 72, "h": 72 },
+            "sourceSize": { "w": 72, "h": 72 }
+        },
+
+        "WorriorOne-Walk3": {
+            "frame": { "x": 144, "y": 0, "w": 72, "h": 72 },
+            "rotated": false,
+            "trimmed": true,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 72, "h": 72 },
+            "sourceSize": { "w": 72, "h": 72 }
+        }
+    },
+
+    "meta": {
+        "image": "worrior-one.png",
+        "size": { "w": 360, "h": 72 },
+        "scale": 1
+    }
+}

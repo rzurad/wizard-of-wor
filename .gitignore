@@ -1,0 +1,6 @@
+*.swp
+docs
+bower_components
+dist
+tmp
+node_modules
