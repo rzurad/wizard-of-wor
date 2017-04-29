@@ -12,10 +12,14 @@
             RIGHT: 1
         };
 
-    var cells = [5, 3, 3, 7, 7, 3, 13, 3, 7, 10, 13, 3, 11, 7, 14, 5, 11, 7, 5, 10, 13, 14, 5, 15, 12, 5, 10, 13, 14, 12, 9, 11, 3, 10, 9, 11];
+    var cells = [
+            5, 3, 3, 7, 7, 3, 13, 3, 7, 10, 13, 3, 11, 7, 14, 5, 11,
+            7, 5, 10, 13, 14, 5, 15, 12, 5, 10, 13, 14, 12, 9, 11, 3, 10, 9, 11
+        ];
 
     function Board() {
-        this._cells = [];
+        this.cells = [];
+        this.container = new PIXI.Container();
 
         // TODO: Spawn board sprite
     }
@@ -57,8 +61,8 @@
                 index += direction;
             }
 
-            // TODO: make sure the Cell's sprite is added as a part of the board's PIXI Container
-            app.stage.addChild(cell.sprite);
+            this.container.addChild(cell.sprite);
+            this.cells.push(cell);
 
             count++;
         }
@@ -72,18 +76,16 @@
     }
 
 
-    var app;
-
     function setup() {
-        // TODO: smell
-        app = new PIXI.Application({
-            width: 720,
-            height: 480
-        });
+        var app = new PIXI.Application({
+                width: 720,
+                height: 480
+            });
 
         var board = new Board();
 
         board.load(cells);
+        app.stage.addChild(board.container);
 
         document.body.appendChild(app.view);
     }
