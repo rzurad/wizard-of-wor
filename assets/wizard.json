@@ -2,16 +2,16 @@
 
 "board.png":
 {
-	"frame": {"x":0,"y":0,"w":468,"h":265},
+	"frame": {"x":0,"y":0,"w":468,"h":256},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":468,"h":265},
-	"sourceSize": {"w":468,"h":265},
+	"spriteSourceSize": {"x":0,"y":0,"w":468,"h":256},
+	"sourceSize": {"w":468,"h":256},
 	"pivot": {"x":0.5,"y":0.5}
 },
 "burwor.walk1.png":
 {
-	"frame": {"x":0,"y":265,"w":24,"h":24},
+	"frame": {"x":0,"y":256,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -20,7 +20,7 @@
 },
 "burwor.walk2.png":
 {
-	"frame": {"x":24,"y":265,"w":24,"h":24},
+	"frame": {"x":24,"y":256,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -29,7 +29,7 @@
 },
 "burwor.walk3.png":
 {
-	"frame": {"x":48,"y":265,"w":24,"h":24},
+	"frame": {"x":48,"y":256,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -38,7 +38,7 @@
 },
 "cell.config0.png":
 {
-	"frame": {"x":72,"y":265,"w":36,"h":36},
+	"frame": {"x":72,"y":256,"w":36,"h":36},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":36},
@@ -47,7 +47,7 @@
 },
 "cell.config1.png":
 {
-	"frame": {"x":108,"y":265,"w":36,"h":36},
+	"frame": {"x":108,"y":256,"w":36,"h":36},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":36},
@@ -56,7 +56,7 @@
 },
 "cell.config2.png":
 {
-	"frame": {"x":144,"y":265,"w":36,"h":36},
+	"frame": {"x":144,"y":256,"w":36,"h":36},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":36},
@@ -65,7 +65,7 @@
 },
 "cell.config3.png":
 {
-	"frame": {"x":180,"y":265,"w":36,"h":36},
+	"frame": {"x":180,"y":256,"w":36,"h":36},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":36},
@@ -74,7 +74,7 @@
 },
 "cell.config4.png":
 {
-	"frame": {"x":216,"y":265,"w":36,"h":36},
+	"frame": {"x":216,"y":256,"w":36,"h":36},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":36},
@@ -83,7 +83,7 @@
 },
 "cell.config5.png":
 {
-	"frame": {"x":252,"y":265,"w":36,"h":36},
+	"frame": {"x":252,"y":256,"w":36,"h":36},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":36},
@@ -92,7 +92,7 @@
 },
 "cell.config6.png":
 {
-	"frame": {"x":288,"y":265,"w":36,"h":36},
+	"frame": {"x":288,"y":256,"w":36,"h":36},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":36},
@@ -101,7 +101,7 @@
 },
 "cell.config7.png":
 {
-	"frame": {"x":324,"y":265,"w":36,"h":36},
+	"frame": {"x":324,"y":256,"w":36,"h":36},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":36},
@@ -110,7 +110,7 @@
 },
 "cell.config8.png":
 {
-	"frame": {"x":360,"y":265,"w":36,"h":36},
+	"frame": {"x":360,"y":256,"w":36,"h":36},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":36},
@@ -119,7 +119,7 @@
 },
 "cell.config9.png":
 {
-	"frame": {"x":396,"y":265,"w":36,"h":36},
+	"frame": {"x":396,"y":256,"w":36,"h":36},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":36},
@@ -128,7 +128,7 @@
 },
 "cell.config10.png":
 {
-	"frame": {"x":432,"y":265,"w":36,"h":36},
+	"frame": {"x":432,"y":256,"w":36,"h":36},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":36},
@@ -137,7 +137,7 @@
 },
 "cell.config11.png":
 {
-	"frame": {"x":0,"y":301,"w":36,"h":36},
+	"frame": {"x":0,"y":292,"w":36,"h":36},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":36},
@@ -146,7 +146,7 @@
 },
 "cell.config12.png":
 {
-	"frame": {"x":36,"y":301,"w":36,"h":36},
+	"frame": {"x":36,"y":292,"w":36,"h":36},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":36},
@@ -155,7 +155,7 @@
 },
 "cell.config13.png":
 {
-	"frame": {"x":72,"y":301,"w":36,"h":36},
+	"frame": {"x":72,"y":292,"w":36,"h":36},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":36},
@@ -164,7 +164,7 @@
 },
 "cell.config14.png":
 {
-	"frame": {"x":108,"y":301,"w":36,"h":36},
+	"frame": {"x":108,"y":292,"w":36,"h":36},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":36},
@@ -173,7 +173,7 @@
 },
 "cell.config15.png":
 {
-	"frame": {"x":144,"y":301,"w":36,"h":36},
+	"frame": {"x":144,"y":292,"w":36,"h":36},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":36,"h":36},
@@ -182,7 +182,7 @@
 },
 "death1.png":
 {
-	"frame": {"x":180,"y":301,"w":24,"h":24},
+	"frame": {"x":180,"y":292,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -191,7 +191,7 @@
 },
 "death2.png":
 {
-	"frame": {"x":204,"y":301,"w":24,"h":24},
+	"frame": {"x":204,"y":292,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -200,7 +200,7 @@
 },
 "death3.png":
 {
-	"frame": {"x":228,"y":301,"w":24,"h":24},
+	"frame": {"x":228,"y":292,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -209,7 +209,7 @@
 },
 "death4.png":
 {
-	"frame": {"x":252,"y":301,"w":24,"h":24},
+	"frame": {"x":252,"y":292,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -218,7 +218,7 @@
 },
 "garwor.walk1.png":
 {
-	"frame": {"x":276,"y":301,"w":24,"h":24},
+	"frame": {"x":276,"y":292,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -227,7 +227,7 @@
 },
 "garwor.walk2.png":
 {
-	"frame": {"x":300,"y":301,"w":24,"h":24},
+	"frame": {"x":300,"y":292,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -236,7 +236,7 @@
 },
 "garwor.walk3.png":
 {
-	"frame": {"x":324,"y":301,"w":24,"h":24},
+	"frame": {"x":324,"y":292,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -245,7 +245,7 @@
 },
 "thorwor.walk1.png":
 {
-	"frame": {"x":348,"y":301,"w":24,"h":24},
+	"frame": {"x":348,"y":292,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -254,7 +254,7 @@
 },
 "thorwor.walk2.png":
 {
-	"frame": {"x":372,"y":301,"w":24,"h":24},
+	"frame": {"x":372,"y":292,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -263,7 +263,7 @@
 },
 "thorwor.walk3.png":
 {
-	"frame": {"x":396,"y":301,"w":24,"h":24},
+	"frame": {"x":396,"y":292,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -272,7 +272,7 @@
 },
 "warluk.walk1.png":
 {
-	"frame": {"x":420,"y":301,"w":24,"h":24},
+	"frame": {"x":420,"y":292,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -281,7 +281,7 @@
 },
 "warluk.walk2.png":
 {
-	"frame": {"x":444,"y":301,"w":24,"h":24},
+	"frame": {"x":444,"y":292,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -290,7 +290,7 @@
 },
 "warluk.walk3.png":
 {
-	"frame": {"x":0,"y":337,"w":24,"h":24},
+	"frame": {"x":0,"y":328,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -299,7 +299,7 @@
 },
 "wizard.walk1.png":
 {
-	"frame": {"x":24,"y":337,"w":24,"h":24},
+	"frame": {"x":24,"y":328,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -308,7 +308,7 @@
 },
 "wizard.walk2.png":
 {
-	"frame": {"x":48,"y":337,"w":24,"h":24},
+	"frame": {"x":48,"y":328,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -317,7 +317,7 @@
 },
 "wizard.walk3.png":
 {
-	"frame": {"x":72,"y":337,"w":24,"h":24},
+	"frame": {"x":72,"y":328,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -326,7 +326,7 @@
 },
 "worrior-one.fire1.png":
 {
-	"frame": {"x":96,"y":337,"w":24,"h":24},
+	"frame": {"x":96,"y":328,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -335,7 +335,7 @@
 },
 "worrior-one.fire2.png":
 {
-	"frame": {"x":120,"y":337,"w":24,"h":24},
+	"frame": {"x":120,"y":328,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -344,7 +344,7 @@
 },
 "worrior-one.walk1.png":
 {
-	"frame": {"x":144,"y":337,"w":24,"h":24},
+	"frame": {"x":144,"y":328,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -353,7 +353,7 @@
 },
 "worrior-one.walk2.png":
 {
-	"frame": {"x":168,"y":337,"w":24,"h":24},
+	"frame": {"x":168,"y":328,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -362,7 +362,7 @@
 },
 "worrior-one.walk3.png":
 {
-	"frame": {"x":192,"y":337,"w":24,"h":24},
+	"frame": {"x":192,"y":328,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -371,7 +371,7 @@
 },
 "worrior-two.fire1.png":
 {
-	"frame": {"x":216,"y":337,"w":24,"h":24},
+	"frame": {"x":216,"y":328,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -380,7 +380,7 @@
 },
 "worrior-two.fire2.png":
 {
-	"frame": {"x":240,"y":337,"w":24,"h":24},
+	"frame": {"x":240,"y":328,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -389,7 +389,7 @@
 },
 "worrior-two.walk1.png":
 {
-	"frame": {"x":264,"y":337,"w":24,"h":24},
+	"frame": {"x":264,"y":328,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -398,7 +398,7 @@
 },
 "worrior-two.walk2.png":
 {
-	"frame": {"x":288,"y":337,"w":24,"h":24},
+	"frame": {"x":288,"y":328,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -407,7 +407,7 @@
 },
 "worrior-two.walk3.png":
 {
-	"frame": {"x":312,"y":337,"w":24,"h":24},
+	"frame": {"x":312,"y":328,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
@@ -419,8 +419,8 @@
 	"version": "1.0",
 	"image": "wizard.png",
 	"format": "RGBA8888",
-	"size": {"w":468,"h":361},
+	"size": {"w":468,"h":352},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:ec3af712b1af9cbcbf527da5387baa08:42af1244fae473f42d81db26023f9ef8:c2f03393673973d4565620d8409bf6df$"
+	"smartupdate": "$TexturePacker:SmartUpdate:bd612796def2593d5ec85d7d4c90a0f1:0e49d8549eafcd3c7d95b53f856f9f4d:c2f03393673973d4565620d8409bf6df$"
 }
 }
