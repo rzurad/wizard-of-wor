@@ -30,6 +30,7 @@
         this.container = new PIXI.Container();
         this.container.pivot.set(12, 12);
         this.speed = 2;
+        this.direction = NAV_DIRECTION.RIGHT;
         this.cell = null;
     }
 
@@ -56,35 +57,60 @@
     };
 
     Actor.prototype.move = function (direction) {
-        if (this.current === 'idle') {
-            this.startmoving();
-        }
+        var _move = function (direction) {
+                if (this.current === 'idle') {
+                    this.startmoving();
+                }
 
-        switch (direction) {
-            case NAV_DIRECTION.UP:
-                this.container.y -= this.speed;
-                this.container.rotation = -(Math.PI / 2);
-                this.container.scale.set(1, 1);
+                switch (direction) {
+                    case NAV_DIRECTION.UP:
+                        this.container.y -= this.speed;
+                        this.container.rotation = -(Math.PI / 2);
+                        this.container.scale.set(1, 1);
 
-                break;
-            case NAV_DIRECTION.DOWN:
-                this.container.y += this.speed;
-                this.container.rotation = Math.PI / 2;
-                this.container.scale.set(1, -1);
-                
-                break;
-            case NAV_DIRECTION.LEFT:
-                this.container.x -= this.speed;
-                this.container.rotation = Math.PI;
-                this.container.scale.set(1, -1);
-                
-                break;
-            case NAV_DIRECTION.RIGHT:
-                this.container.x += this.speed;
-                this.container.rotation = 0;
-                this.container.scale.set(1, 1);
+                        break;
+                    case NAV_DIRECTION.DOWN:
+                        this.container.y += this.speed;
+                        this.container.rotation = Math.PI / 2;
+                        this.container.scale.set(1, -1);
+                        
+                        break;
+                    case NAV_DIRECTION.LEFT:
+                        this.container.x -= this.speed;
+                        this.container.rotation = Math.PI;
+                        this.container.scale.set(1, -1);
+                        
+                        break;
+                    case NAV_DIRECTION.RIGHT:
+                        this.container.x += this.speed;
+                        this.container.rotation = 0;
+                        this.container.scale.set(1, 1);
 
-                break;
+                        break;
+                }
+            }.bind(this);
+
+        if (this.cell.sprite.x === this.container.x && this.cell.sprite.y === this.container.y) {
+            if (this.cell.hasNeighbor(direction)) {
+                // TODO: would this move result in traveling through the portal?
+
+                this.direction = direction;
+                _move(direction);
+            }
+        } else {
+            if (direction === this.direction) {
+                _move(direction);
+
+                // TODO: Did this move result in the actor leaving their current cell?
+            } else {
+                if ((this.container.y - this.cell.sprite.y !== 0 && direction > NAV_DIRECTION.LEFT) || (this.container.x - this.cell.sprite.x && direction <= NAV_DIRECTION.LEFT)) {
+                    this.direction = direction;
+                } else {
+                    this.direction = direction <= NAV_DIRECTION.LEFT ? (this.container.x - this.cell.sprite.x > 0 ? NAV_DIRECTION.LEFT : NAV_DIRECTION.RIGHT) : (this.container.y - this.cell.sprite.y > 0 ? NAV_DIRECTION.UP : NAV_DIRECTION.DOWN);
+                }
+
+                _move(this.direction);
+            }
         }
     };
 
@@ -188,6 +214,10 @@
         this.sprite.y = y;
         this.sprite.pivot.set(18, 18);
     }
+
+    Cell.prototype.hasNeighbor = function (direction) {
+        return (this.config & direction) === direction
+    };
 
 
 
