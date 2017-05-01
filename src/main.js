@@ -18,27 +18,92 @@
         ];
 
 
+    var ACTOR_STATES = {
+            IDLE: 'IDLE',
+            MOVING: 'MOVING',
+            FIRING: 'FIRING',
+            DIEING: 'DIEING'
+        };
+
+    function Actor() {
+        this.sprites = {};
+        this.container = new PIXI.Container();
+        this.container.pivot.set(12, 12);
+        this.speed = 2;
+        this.cell = null;
+    }
+
+    Actor.prototype.onstartmoving = function (event, from, to) {
+        this.sprites.moving.play();
+    };
+
+    Actor.prototype.onstopmoving = function (event, from, to) {
+        this.sprites.moving.stop();
+    };
+
+    Actor.prototype.onbeforestartup = function (event, from, to) {
+        this.container.addChild(this.sprites.moving);
+    };
+
+    Actor.prototype.move = function (direction) {
+        if (this.current === 'idle') {
+            this.startmoving();
+        }
+
+        switch (direction) {
+            case NAV_DIRECTION.UP:
+                this.container.y -= this.speed;
+                this.container.rotation = -(Math.PI / 2);
+                this.container.scale.set(1, 1);
+
+                break;
+            case NAV_DIRECTION.DOWN:
+                this.container.y += this.speed;
+                this.container.rotation = Math.PI / 2;
+                this.container.scale.set(1, -1);
+                
+                break;
+            case NAV_DIRECTION.LEFT:
+                this.container.x -= this.speed;
+                this.container.rotation = Math.PI;
+                this.container.scale.set(1, -1);
+                
+                break;
+            case NAV_DIRECTION.RIGHT:
+                this.container.x += this.speed;
+                this.container.rotation = 0;
+                this.container.scale.set(1, 1);
+
+                break;
+        }
+    };
+
+    StateMachine.create({
+        target: Actor.prototype,
+        events: [
+            { name: 'startup', from: 'none', to: 'idle' },
+            { name: 'startmoving', from: 'idle', to: 'moving' },
+            { name: 'stopmoving', from: 'moving', to: 'idle' },
+        ]
+    });
+
+
 
     function Player() {
-        this.sprite = new PIXI.extras.AnimatedSprite([
+        Actor.apply(this, arguments);
+
+        this.sprites.moving = new PIXI.extras.AnimatedSprite([
             PIXI.Texture.fromFrame('worrior-one.walk1.png'),
             PIXI.Texture.fromFrame('worrior-one.walk2.png'),
             PIXI.Texture.fromFrame('worrior-one.walk3.png')
         ]);
 
-        this.sprite.anchor.set(0.5);
-        this.state = 'IDLE';
-        this.speed = 3;
+        this.sprites.moving.animationSpeed = 0.25;
+        this.sprites.idle = this.sprites.moving;
+        this.startup();
     }
 
-    Player.prototype.move = function (direction) {
-        switch (direction) {
-            case NAV_DIRECTION.UP: this.sprite.y -= this.speed; break;
-            case NAV_DIRECTION.DOWN: this.sprite.y += this.speed; break;
-            case NAV_DIRECTION.LEFT: this.sprite.x -= this.speed; break;
-            case NAV_DIRECTION.RIGHT: this.sprite.x += this.speed; break;
-        }
-    };
+    Object.setPrototypeOf(Player.prototype, Actor.prototype);
 
 
 
@@ -50,7 +115,7 @@
     }
 
     Board.prototype.spawnActor = function (actor) {
-        this.container.children[1].addChild(actor.sprite);
+        this.container.children[1].addChild(actor.container);
     };
 
     Board.prototype.load = function (dungeon) {
@@ -124,12 +189,10 @@
     }
 
     KeyboardInput.prototype.onKeyDown = function (e) {
-        e.preventDefault();
         this.keysPressed[e.code] = true;
     };
 
     KeyboardInput.prototype.onKeyUp = function (e) {
-        e.preventDefault();
         delete this.keysPressed[e.code];
     };
 
@@ -141,6 +204,8 @@
 
 
     function setup() {
+        PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+
         var app = new PIXI.Application({
                 width: 500,
                 height: 350
@@ -165,6 +230,10 @@
         app.input = new KeyboardInput();
 
         app.processInput = function () {
+            if (player.can('stopmoving') && !Object.keys(this.input.keysPressed).length) {
+                player.stopmoving();
+            }
+
             Object.keys(this.input.keysPressed).forEach(function (code) {
                 switch (code) {
                     case 'ArrowLeft': player.move(NAV_DIRECTION.LEFT); break;

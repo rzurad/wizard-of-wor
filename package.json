@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "javascript-state-machine": "^2.4.0",
     "pixi.js": "^4.5.1"
   }
 }
