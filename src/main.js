@@ -33,6 +33,16 @@
         this.cell = null;
     }
 
+    Actor.prototype.setCell = function (cell) {
+        this.cell = cell;
+    };
+
+    Actor.prototype.warpToCell = function (cell) {
+        this.setCell(cell);
+        this.container.x = cell.sprite.x;
+        this.container.y = cell.sprite.y;
+    };
+
     Actor.prototype.onstartmoving = function (event, from, to) {
         this.sprites.moving.play();
     };
@@ -115,6 +125,7 @@
     }
 
     Board.prototype.spawnActor = function (actor) {
+        actor.warpToCell(this.cells[5]);
         this.container.children[1].addChild(actor.container);
     };
 
@@ -131,7 +142,7 @@
             direction = 1,
             count = 0,
             xPosition = 0,
-            yPosition = 0,
+            yPosition = 18,
             cellsContainer = new PIXI.Container(),
             cell, config;
 
@@ -139,7 +150,7 @@
         cellsContainer.y = 2;
 
         while (index < dungeon.length) {
-            xPosition = (count % BOARD_WIDTH) * CELL_WIDTH;
+            xPosition = ((count % BOARD_WIDTH) * CELL_WIDTH) + 18;
             config = dungeon[index];
 
             if (direction < 0) {
@@ -175,6 +186,7 @@
         this.sprite = new PIXI.Sprite(PIXI.Texture.fromFrame('cell.config' + config + '.png'));
         this.sprite.x = x;
         this.sprite.y = y;
+        this.sprite.pivot.set(18, 18);
     }
 
 
