@@ -32,8 +32,7 @@ set -e
 npm run build
 git checkout --orphan gh-pages
 git reset --hard
-git checkout $current_branch test/
-git add test dist
+git add dist
 git commit -m "$1"
 git push -f origin gh-pages:gh-pages
 git checkout $current_branch
