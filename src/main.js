@@ -1,3 +1,6 @@
+import StateMachine from 'javascript-state-machine/state-machine';
+const PIXI = require('pixi.js');
+
 (function () {
     "use strict";
 
