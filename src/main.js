@@ -6,6 +6,8 @@
         WALL_WIDTH = 4,
         BOARD_WIDTH = 11,
         BOARD_HEIGHT = 6,
+        LEFT_PORTAL_INDEX = 22,
+        RIGHT_PORTAL_INDEX = 32,
         NAV_DIRECTION = {
             UP: 8,
             DOWN: 4,
@@ -129,7 +131,13 @@
         if (cellX === actorX && cellY === actorY) {
             // can the actor move in the direction requested?
             if (this.cell.hasNeighbor(direction)) {
-                // TODO: would this move result in traveling through the portal?
+                if (this.cell instanceof PortalCell && this.cell.direction === direction) {
+                    // this.warpToCell(direction === NAV_DIRECTION.LEFT ? RIGHT_PORTAL_INDEX : LEFT_PORTAL_INDEX);
+                    // TODO: shit...
+                    console.log('portal');
+
+                    return;
+                }
 
                 this.direction = direction;
                 _move(direction);
@@ -267,7 +275,14 @@
                 config = _invert(config);
             }
 
-            cell = new Cell(config, xPosition, yPosition);
+            if (count === LEFT_PORTAL_INDEX) {
+                cell = new PortalCell(config, xPosition, yPosition, NAV_DIRECTION.LEFT);
+            } else if (count === RIGHT_PORTAL_INDEX) {
+                cell = new PortalCell(config, xPosition, yPosition, NAV_DIRECTION.RIGHT);
+            } else {
+                cell = new Cell(config, xPosition, yPosition);
+            }
+
             cell.index = count;
             cell.getNeighbor = _getNeighbor;
 
@@ -305,6 +320,25 @@
     Cell.prototype.hasNeighbor = function (direction) {
         return (this.config & direction) === direction
     };
+
+
+
+    function PortalCell(config, x, y, direction) {
+        Cell.apply(this, arguments);
+
+        this.direction = direction;
+        this.isOpen = false;
+    }
+
+    PortalCell.prototype.open = function () {
+        this.isOpen = true;
+    }
+
+    PortalCell.prototype.close = function () {
+        this.isOpen = false;
+    }
+
+    Object.setPrototypeOf(PortalCell.prototype, Cell.prototype);
 
 
 
