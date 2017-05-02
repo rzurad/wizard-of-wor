@@ -430,7 +430,7 @@ const PIXI = require('pixi.js');
 
 
 
-    PIXI.loader.add('../assets/wizard.json').load(function () {
+    PIXI.loader.add('assets/wizard.json').load(function () {
         var app = setup();
 
         (function gameLoop() {
