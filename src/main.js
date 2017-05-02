@@ -3,6 +3,7 @@
 
     var CELL_WIDTH = 36,
         CELL_HEIGHT = 36,
+        WALL_WIDTH = 4,
         BOARD_WIDTH = 11,
         BOARD_HEIGHT = 6,
         NAV_DIRECTION = {
@@ -12,10 +13,39 @@
             RIGHT: 1
         };
 
-    var cells = [
-            5, 3, 3, 7, 7, 3, 13, 3, 7, 10, 13, 3, 11, 7, 14, 5, 11,
-            7, 5, 10, 13, 14, 5, 15, 12, 5, 10, 13, 14, 12, 9, 11, 3, 10, 9, 11
-        ];
+    var dungeons = {
+            worrior: [
+                [5, 3, 3, 7, 7, 3, 13, 3, 7, 10, 13, 3, 11, 7, 14, 5, 11, 7, 5, 10, 13, 14, 5, 15, 12, 5, 10, 13, 14, 12, 9, 11, 3, 10, 9, 11],
+                [5, 6, 5, 3, 7, 3, 12, 13, 15, 3, 15, 3, 11, 14, 13, 6, 9, 7, 5, 14, 9, 14, 5, 11, 12, 13, 7, 15, 11, 7, 9, 11, 10, 9, 3, 11],
+                [5, 3, 3, 6, 5, 7, 12, 5, 3, 11, 14, 12, 11, 14, 5, 7, 11, 15, 5, 14, 12, 13, 3, 11, 12, 13, 15, 15, 3, 7, 9, 11, 10, 9, 3, 11],
+                [5, 6, 5, 3, 7, 3, 12, 13, 10, 5, 15, 3, 11, 15, 7, 14, 13, 3, 5, 14, 12, 12, 13, 7, 12, 12, 13, 15, 10, 12, 9, 11, 10, 9, 3, 11],
+                [5, 3, 6, 5, 3, 7, 13, 3, 15, 15, 7, 15, 11, 7, 10, 12, 12, 12, 5, 10, 5, 14, 13, 15, 13, 3, 10, 13, 14, 12, 9, 3, 3, 10, 9, 11],
+                [5, 7, 7, 7, 7, 7, 12, 12, 12, 12, 12, 12, 11, 15, 14, 9, 14, 12, 5, 14, 9, 7, 15, 15, 12, 13, 6, 13, 10, 12, 9, 10, 9, 11, 3, 11],
+                [5, 3, 7, 7, 3, 7, 12, 5, 11, 14, 5, 11, 11, 14, 5, 15, 15, 3, 5, 11, 14, 12, 9, 7, 13, 3, 14, 13, 7, 11, 9, 3, 11, 10, 9, 3],
+                [5, 6, 5, 3, 7, 3, 12, 9, 14, 5, 11, 7, 11, 3, 14, 9, 6, 12, 5, 7, 11, 3, 14, 12, 12, 13, 7, 7, 15, 11, 9, 10, 9, 10, 9, 3],
+                [5, 3, 6, 5, 3, 7, 12, 5, 15, 11, 3, 15, 15, 10, 13, 3, 6, 12, 13, 3, 14, 5, 11, 15, 12, 5, 11, 15, 6, 12, 9, 11, 3, 10, 9, 11],
+                [5, 3, 6, 5, 3, 7, 12, 5, 11, 15, 3, 15, 11, 14, 5, 15, 6, 12, 5, 11, 14, 12, 12, 12, 13, 3, 15, 10, 13, 15, 9, 3, 11, 3, 10, 8],
+                [5, 3, 6, 5, 7, 3, 13, 3, 14, 12, 9, 7, 11, 6, 13, 15, 7, 11, 5, 11, 10, 12, 13, 3, 13, 3, 7, 15, 15, 3, 9, 3, 11, 10, 9, 3],
+                [5, 3, 6, 5, 3, 7, 13, 3, 11, 14, 5, 11, 11, 7, 7, 15, 15, 7, 5, 10, 12, 12, 12, 12, 13, 3, 15, 14, 9, 15, 9, 3, 10, 9, 3, 11],
+                [5, 3, 6, 5, 3, 7, 13, 3, 11, 15, 6, 12, 11, 7, 3, 14, 13, 15, 5, 11, 6, 13, 10, 12, 13, 3, 14, 13, 7, 11, 9, 3, 11, 10, 9, 3]
+            ],
+
+            worlord: [
+                [5, 7, 3, 7, 7, 7, 13, 14, 5, 11, 10, 12, 15, 10, 12, 5, 7, 15, 13, 7, 11, 10, 13, 15, 13, 14, 5, 7, 15, 15, 9, 11, 11, 11, 11, 11],
+                [5, 3, 7, 7, 3, 7, 13, 6, 9, 15, 7, 11, 15, 15, 7, 11, 15, 7, 13, 15, 15, 6, 9, 15, 13, 14, 13, 15, 6, 12, 9, 11, 11, 11, 11, 11],
+                [5, 7, 7, 7, 3, 7, 13, 10, 9, 15, 6, 12, 15, 6, 5, 10, 9, 15, 12, 9, 15, 6, 5, 15, 13, 6, 13, 15, 15, 15, 9, 11, 11, 11, 11, 11],
+                [5, 3, 7, 7, 7, 7, 13, 6, 9, 15, 10, 12, 15, 15, 7, 14, 5, 15, 13, 15, 10, 13, 11, 15, 13, 10, 5, 15, 6, 12, 9, 3, 11, 11, 11, 11],
+                [5, 7, 7, 7, 7, 7, 12, 13, 14, 12, 13, 15, 14, 12, 13, 14, 12, 12, 13, 14, 12, 13, 14, 12, 13, 15, 14, 12, 13, 15, 9, 11, 11, 11, 11, 11],
+                [5, 7, 7, 7, 7, 7, 12, 9, 15, 10, 13, 15, 15, 6, 13, 7, 14, 12, 13, 11, 14, 9, 14, 12, 12, 5, 15, 6, 13, 15, 9, 11, 11, 11, 11, 11],
+                [5, 7, 7, 7, 3, 7, 13, 15, 15, 10, 5, 15, 15, 15, 10, 5, 15, 15, 13, 10, 5, 15, 10, 12, 13, 7, 15, 10, 5, 15, 9, 11, 11, 3, 11, 11],
+                [5, 3, 7, 7, 7, 7, 13, 6, 9, 15, 10, 12, 15, 15, 6, 12, 5, 15, 13, 15, 10, 12, 9, 15, 13, 10, 5, 15, 6, 12, 9, 3, 11, 11, 11, 11],
+                [5, 3, 7, 7, 7, 3, 13, 7, 11, 14, 13, 3, 14, 13, 7, 11, 15, 7, 12, 13, 11, 7, 15, 11, 13, 11, 7, 14, 13, 3, 9, 3, 11, 11, 11, 3]
+            ],
+
+            arena: [5, 3, 7, 7, 3, 7, 13, 3, 10, 13, 7, 15, 15, 3, 7, 15, 15, 15, 13, 6, 9, 15, 11, 11, 12, 13, 7, 15, 7, 3, 9, 10, 9, 10, 9, 3],
+            pit: [5, 7, 7, 7, 7, 7, 13, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 13, 15, 15, 15, 15, 15, 13, 15, 15, 15, 15, 15, 9, 11, 11, 11, 11, 11]
+        };
+
 
 
     var ACTOR_STATES = {
@@ -90,23 +120,62 @@
                 }
             }.bind(this);
 
-        if (this.cell.sprite.x === this.container.x && this.cell.sprite.y === this.container.y) {
+        var cellX = this.cell.sprite.x,
+            cellY = this.cell.sprite.y,
+            actorX = this.container.x,
+            actorY = this.container.y;
+
+        // is the actor at the origin of the cell?
+        if (cellX === actorX && cellY === actorY) {
+            // can the actor move in the direction requested?
             if (this.cell.hasNeighbor(direction)) {
                 // TODO: would this move result in traveling through the portal?
 
                 this.direction = direction;
                 _move(direction);
+            // the actor can not move in the requested direction. Stop the "moving" animation
+            } else if (this.can('stopmoving')) {
+                this.stopmoving();
             }
+        // the actor is not at the origin of the cell they occupy
         } else {
+            // is the actor already facing the requested direction?
             if (direction === this.direction) {
                 _move(direction);
 
-                // TODO: Did this move result in the actor leaving their current cell?
+                var distanceFromCenter = Math.sqrt(
+                        Math.pow(this.container.x - this.cell.sprite.x, 2) + 
+                        Math.pow(this.container.y - this.cell.sprite.y, 2)
+                    );
+
+                // Did this move result in the actor leaving their current cell?
+                if (distanceFromCenter >= CELL_WIDTH / 2) {
+                    this.cell = this.cell.getNeighbor(direction);
+                }
             } else {
-                if ((this.container.y - this.cell.sprite.y !== 0 && direction > NAV_DIRECTION.LEFT) || (this.container.x - this.cell.sprite.x && direction <= NAV_DIRECTION.LEFT)) {
+                // requested direction is valid and is the inverse of the current direction,
+                // so just invert the direction
+                var yOffset = actorY - cellY,
+                    xOffset = actorX - cellX;
+
+                if ((yOffset !== 0 && direction > NAV_DIRECTION.LEFT) || (xOffset && direction <= NAV_DIRECTION.LEFT)) {
                     this.direction = direction;
                 } else {
-                    this.direction = direction <= NAV_DIRECTION.LEFT ? (this.container.x - this.cell.sprite.x > 0 ? NAV_DIRECTION.LEFT : NAV_DIRECTION.RIGHT) : (this.container.y - this.cell.sprite.y > 0 ? NAV_DIRECTION.UP : NAV_DIRECTION.DOWN);
+                    // requested direction is of a different axis than the current one, which requires that the actor
+                    // move back to the origin of the current cell before the direction axis can be changed.
+                    if (this.direction <= NAV_DIRECTION.LEFT) {
+                        if (xOffset > 0) {
+                            this.direction = NAV_DIRECTION.LEFT;
+                        } else {
+                            this.direction = NAV_DIRECTION.RIGHT;
+                        }
+                    } else {
+                        if (yOffset > 0) {
+                            this.direction = NAV_DIRECTION.UP;
+                        } else {
+                            this.direction = NAV_DIRECTION.DOWN;
+                        }
+                    }
                 }
 
                 _move(this.direction);
@@ -168,15 +237,30 @@
             direction = 1,
             count = 0,
             xPosition = 0,
-            yPosition = 18,
+            yPosition = CELL_HEIGHT / 2,
             cellsContainer = new PIXI.Container(),
-            cell, config;
+            cell, config, board = this;
 
         cellsContainer.x = CELL_WIDTH;
-        cellsContainer.y = 2;
+        cellsContainer.y = WALL_WIDTH / 2;
+
+        function _getNeighbor(direction) {
+            var neighbor = null;
+
+            if (this.hasNeighbor(direction)) {
+                switch (direction) {
+                    case NAV_DIRECTION.UP: neighbor = board.cells[this.index - 11]; break;
+                    case NAV_DIRECTION.DOWN: neighbor = board.cells[this.index + 11]; break;
+                    case NAV_DIRECTION.LEFT: neighbor = board.cells[this.index - 1]; break;
+                    case NAV_DIRECTION.RIGHT: neighbor = board.cells[this.index + 1]; break;
+                }
+            }
+
+            return neighbor;
+        }
 
         while (index < dungeon.length) {
-            xPosition = ((count % BOARD_WIDTH) * CELL_WIDTH) + 18;
+            xPosition = ((count % BOARD_WIDTH) * CELL_WIDTH) + (CELL_WIDTH / 2);
             config = dungeon[index];
 
             if (direction < 0) {
@@ -184,6 +268,8 @@
             }
 
             cell = new Cell(config, xPosition, yPosition);
+            cell.index = count;
+            cell.getNeighbor = _getNeighbor;
 
             if ((index + direction) % BOARD_HEIGHT === 0 && direction > 0) {
                 direction *= -1;
@@ -212,7 +298,8 @@
         this.sprite = new PIXI.Sprite(PIXI.Texture.fromFrame('cell.config' + config + '.png'));
         this.sprite.x = x;
         this.sprite.y = y;
-        this.sprite.pivot.set(18, 18);
+        this.sprite.pivot.set(CELL_WIDTH / 2, CELL_HEIGHT / 2);
+        this.index = -1;
     }
 
     Cell.prototype.hasNeighbor = function (direction) {
@@ -221,24 +308,42 @@
 
 
 
-    function KeyboardInput() {
-        this.keysPressed = {};
-        this.onKeyDown = this.onKeyDown.bind(this);
-        this.onKeyUp = this.onKeyUp.bind(this);
+    function Input() {
+        var keyStack = [],
+            keysPressed = {},
+            moveKeys = {
+                ArrowLeft: NAV_DIRECTION.LEFT,
+                ArrowRight: NAV_DIRECTION.RIGHT,
+                ArrowUp: NAV_DIRECTION.UP,
+                ArrowDown: NAV_DIRECTION.DOWN
+            }
+
+        this.direction = 0;
+        this.firing = false;
+
+        this.onKeyDown = function (e) {
+            if (e.code in moveKeys && !keysPressed[e.code]) {
+                keyStack.push(e.code);
+                keysPressed[e.code] = true;
+
+                this.direction = moveKeys[e.code];
+            }
+        }.bind(this);
+
+        this.onKeyUp = function (e) {
+            if (e.code in moveKeys && keysPressed[e.code]) {
+                keyStack.splice(keyStack.indexOf(e.code), 1);
+                delete keysPressed[e.code];
+
+                this.direction = moveKeys[keyStack[keyStack.length - 1]] || 0;
+            }
+        }.bind(this);
 
         window.addEventListener('keydown', this.onKeyDown);
         window.addEventListener('keyup', this.onKeyUp);
     }
 
-    KeyboardInput.prototype.onKeyDown = function (e) {
-        this.keysPressed[e.code] = true;
-    };
-
-    KeyboardInput.prototype.onKeyUp = function (e) {
-        delete this.keysPressed[e.code];
-    };
-
-    KeyboardInput.prototype.destroy = function () {
+    Input.prototype.destroy = function () {
         window.removeEventListener('keydown', this.onKeyDown);
         window.removeEventListener('keyup', this.onKeyUp);
     };
@@ -255,9 +360,10 @@
 
         var board = new Board(),
             player = new Player(),
+            dungeon = (function (d) { return d[~~(Math.random() * d.length)]; }(dungeons.worrior)),
             container;
 
-        board.load(cells);
+        board.load(dungeon);
         board.spawnActor(player);
 
         container = board.container;
@@ -269,21 +375,16 @@
 
         app.board = board;
         app.player = player;
-        app.input = new KeyboardInput();
+        app.input = new Input();
 
         app.processInput = function () {
-            if (player.can('stopmoving') && !Object.keys(this.input.keysPressed).length) {
+            if (player.can('stopmoving') && !this.input.direction) {
                 player.stopmoving();
             }
 
-            Object.keys(this.input.keysPressed).forEach(function (code) {
-                switch (code) {
-                    case 'ArrowLeft': player.move(NAV_DIRECTION.LEFT); break;
-                    case 'ArrowRight': player.move(NAV_DIRECTION.RIGHT); break;
-                    case 'ArrowUp': player.move(NAV_DIRECTION.UP); break;
-                    case 'ArrowDown': player.move(NAV_DIRECTION.DOWN); break;
-                }
-            });
+            if (this.input.direction) {
+                player.move(this.input.direction);
+            }
         };
 
         return app;
