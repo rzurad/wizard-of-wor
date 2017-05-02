@@ -227,6 +227,7 @@ const PIXI = require('pixi.js');
         this.cells = [];
         this.container = new PIXI.Container();
         this.sprite = new PIXI.Sprite(PIXI.Texture.fromFrame('board.png'));
+        this.sprite.alpha = 0;
         this.container.addChild(this.sprite);
     }
 
