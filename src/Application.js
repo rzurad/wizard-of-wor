@@ -40,4 +40,8 @@ export default class Application extends PIXI.Application {
             this.player.move(this.input.direction);
         }
     }
+
+    onUpdateFrame() {
+        this.processInput();
+    }
 }

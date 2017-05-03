@@ -1,5 +1,6 @@
 import Cell from 'Cell';
 import PortalCell from 'PortalCell';
+import EventManager from 'EventManager';
 import { DIRECTIONS, CELL_SIZE } from 'consts';
 import 'pixi.js/dist/pixi';
 
@@ -25,10 +26,38 @@ export default class Dungeon {
 
         this.sprites = { board, leftPortal, rightPortal };
         this.isPortalOpen = true;
+        this.onPortalTrigger = this.onPortalTrigger.bind(this);
 
         this.container.addChild(this.sprites.board);
         this.container.addChild(this.sprites.leftPortal);
         this.container.addChild(this.sprites.rightPortal);
+
+        EventManager.global().on('Portal', this.onPortalTrigger);
+    }
+
+    destroy() {
+        EventManager.global().off('Portal', this.onPortalTrigger);
+    }
+
+    onPortalTrigger(e) {
+        if (!this.isPortalOpen) {
+            e.cancel();
+        } else {
+            let actor = e.data.actor;
+
+            switch (actor.cell.index) {
+                case LEFT_PORTAL_INDEX:
+                    actor.warpToCell(this.cells[RIGHT_PORTAL_INDEX]);
+                    break;
+                case RIGHT_PORTAL_INDEX:
+                    actor.warpToCell(this.cells[LEFT_PORTAL_INDEX]);
+                    break;
+                default:
+                    return;
+            }
+
+            this.closePortal();
+        }
     }
 
     openPortal() {
@@ -53,7 +82,7 @@ export default class Dungeon {
 
 	spawnActor(actor) {
         actor.warpToCell(this.cells[5]);
-        this.sprites.board.addChild(actor.container);
+        this.cellsContainer.addChild(actor.container);
 	}
 
     load(layout) {
@@ -127,6 +156,7 @@ export default class Dungeon {
             count++;
         }
 
+        this.cellsContainer = cellsContainer;
         this.container.addChild(cellsContainer);
     }
 }

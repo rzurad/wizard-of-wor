@@ -1,6 +1,7 @@
 import StateMachine from 'javascript-state-machine/state-machine';
 import PortalCell from 'PortalCell';
 import { DIRECTIONS, CELL_SIZE } from 'consts';
+import EventManager from 'EventManager';
 import 'pixi.js/dist/pixi';
 
 export default class Actor {
@@ -79,14 +80,11 @@ export default class Actor {
             // can the actor move in the direction requested?
             if (this.cell.hasNeighbor(direction)) {
                 if (this.cell instanceof PortalCell && this.cell.direction === direction) {
-                    // TODO: shit...
-                    console.log('portal');
-
-                    return;
+                    EventManager.global().trigger('Portal', { actor: this });
+                } else {
+                    this.direction = direction;
+                    _move(direction);
                 }
-
-                this.direction = direction;
-                _move(direction);
             // the actor can not move in the requested direction. Stop the "moving" animation
             } else if (this.can('stopmoving')) {
                 this.stopmoving();
