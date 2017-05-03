@@ -1,10 +1,13 @@
 import Dungeon from 'Dungeon';
+import EventManager from 'EventManager';
 import { DUNGEONS } from 'consts';
 import Player from 'Player';
 import Input from 'Input';
 import 'pixi.js/dist/pixi';
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+
+const PORTAL_COOLDOWN = 5000;
 
 export default class Application extends PIXI.Application {
     constructor(config) {
@@ -29,6 +32,17 @@ export default class Application extends PIXI.Application {
         this.board = board;
         this.player = player;
         this.input = new Input();
+
+        // this belongs in GameLogic
+        this.onPortalTrigger = this.onPortalTrigger.bind(this);
+
+        EventManager.global().on('Portal', this.onPortalTrigger);
+    }
+
+    onPortalTrigger(e) {
+        setTimeout(() => {
+            this.board.openPortal();
+        }, PORTAL_COOLDOWN);
     }
 
     processInput() {
