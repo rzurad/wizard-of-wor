@@ -269,6 +269,8 @@
             <key type="filename">cell.config7.png</key>
             <key type="filename">cell.config8.png</key>
             <key type="filename">cell.config9.png</key>
+            <key type="filename">portal-closed.png</key>
+            <key type="filename">portal-open.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -330,6 +332,8 @@
             <filename>wizard.walk1.png</filename>
             <filename>wizard.walk2.png</filename>
             <filename>wizard.walk3.png</filename>
+            <filename>portal-closed.png</filename>
+            <filename>portal-open.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

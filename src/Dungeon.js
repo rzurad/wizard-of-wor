@@ -13,14 +13,47 @@ export default class Dungeon {
     constructor() {
         this.cells = [];
         this.container = new PIXI.Container();
-        this.sprite = new PIXI.Sprite(PIXI.Texture.fromFrame('board.png'));
-        this.sprite.alpha = 0;
-        this.container.addChild(this.sprite);
+
+        const board = new PIXI.Sprite(PIXI.Texture.fromFrame('board.png'));
+        const leftPortal = new PIXI.Sprite(PIXI.Texture.fromFrame('portal-open.png'));
+        const rightPortal = new PIXI.Sprite(PIXI.Texture.fromFrame('portal-open.png'));
+
+        leftPortal.y = WALL_WIDTH / 2 + CELL_SIZE * 2;
+        rightPortal.y = leftPortal.y;
+        rightPortal.x = (BOARD_WIDTH + 2) * CELL_SIZE;
+        rightPortal.scale.set(-1, 1);
+
+        this.sprites = { board, leftPortal, rightPortal };
+        this.isPortalOpen = true;
+
+        this.container.addChild(this.sprites.board);
+        this.container.addChild(this.sprites.leftPortal);
+        this.container.addChild(this.sprites.rightPortal);
+    }
+
+    openPortal() {
+        if (!this.isPortalOpen) {
+            const texture = PIXI.Texture.fromFrame('portal-open.png');
+
+            this.isPortalOpen = true;
+            this.sprites.leftPortal.texture = texture;
+            this.sprites.rightPortal.texture = texture;
+        }
+    }
+
+    closePortal() {
+        if (this.isPortalOpen) {
+            const texture = PIXI.Texture.fromFrame('portal-closed.png');
+
+            this.isPortalOpen = false;
+            this.sprites.leftPortal.texture = texture;
+            this.sprites.rightPortal.texture = texture;
+        }
     }
 
 	spawnActor(actor) {
         actor.warpToCell(this.cells[5]);
-        this.container.children[1].addChild(actor.container);
+        this.sprites.board.addChild(actor.container);
 	}
 
     load(layout) {
