@@ -9,7 +9,8 @@ import 'pixi.js/dist/pixi';
 
         (function gameLoop() {
             requestAnimationFrame(gameLoop);
-            app.onUpdateFrame();
+            
+            app.onUpdateGame();
         }());
     });
 }());

@@ -1,61 +1,18 @@
-import Dungeon from 'Dungeon';
-import EventManager from 'EventManager';
-import { DUNGEONS } from 'consts';
-import Player from 'Player';
-import Input from 'Input';
 import 'pixi.js/dist/pixi';
+import GameLogic from 'GameLogic';
+import DungeonView from 'DungeonView';
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
-
-const PORTAL_COOLDOWN = 5000;
 
 export default class Application extends PIXI.Application {
     constructor(config) {
         super(config);
 
-        const board = new Dungeon();
-        const player = new Player();
-
-        board.load((function (d) {
-            return d[~~(Math.random() * d.length)];
-        }(DUNGEONS.WORRIOR)));
-        board.spawnActor(player);
-
-        const container = board.container;
-
-        container.x = this.renderer.view.width / 2;
-        container.y = this.renderer.view.height / 2;
-        container.pivot.set(container.width / 2, container.height / 2);
-        this.stage.addChild(container);
-        document.body.appendChild(this.view);
-
-        this.board = board;
-        this.player = player;
-        this.input = new Input();
-
-        // this belongs in GameLogic
-        this.onPortalTrigger = this.onPortalTrigger.bind(this);
-
-        EventManager.global().on('Portal', this.onPortalTrigger);
+        this.game = new GameLogic();
+        this.game.addView(new DungeonView());
     }
 
-    onPortalTrigger(e) {
-        setTimeout(() => {
-            this.board.openPortal();
-        }, PORTAL_COOLDOWN);
-    }
-
-    processInput() {
-        if (this.player.can('stopmoving') && !this.input.direction) {
-            this.player.stopmoving();
-        }
-
-        if (this.input.direction) {
-            this.player.move(this.input.direction);
-        }
-    }
-
-    onUpdateFrame() {
-        this.processInput();
+    onUpdateGame() {
+        this.game.onUpdate();
     }
 }

@@ -20,6 +20,7 @@ export default class Dungeon {
         const rightPortal = new PIXI.Sprite(PIXI.Texture.fromFrame('portal-open.png'));
 
         board.alpha = 0;
+
         leftPortal.y = WALL_WIDTH / 2 + CELL_SIZE * 2;
         rightPortal.y = leftPortal.y;
         rightPortal.x = (BOARD_WIDTH + 2) * CELL_SIZE;
