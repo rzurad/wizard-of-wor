@@ -9,6 +9,9 @@ const PORTAL_COOLDOWN = 5000;
 
 export default class GameLogic {
     constructor(config) {
+        this.views = [];
+        this.actors = {};
+
         const board = new Dungeon();
         const player = new Player();
 
