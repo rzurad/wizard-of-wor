@@ -17,19 +17,12 @@ export default class GameLogic {
         }(DUNGEONS.WORRIOR)));
         board.spawnActor(player);
 
-        const container = board.container;
-
-        container.x = this.renderer.view.width / 2;
-        container.y = this.renderer.view.height / 2;
-        container.pivot.set(container.width / 2, container.height / 2);
-        this.stage.addChild(container);
-        document.body.appendChild(this.view);
-
+        this.container = new PIXI.Container();
         this.board = board;
         this.player = player;
         this.input = new Input();
+        this.container.addChild(this.board.container);
 
-        // this belongs in GameLogic
         this.onPortalTrigger = this.onPortalTrigger.bind(this);
 
         EventManager.global().on('Portal', this.onPortalTrigger);
