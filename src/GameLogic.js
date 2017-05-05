@@ -21,10 +21,9 @@ export default class GameLogic {
         this.board = board;
         this.player = player;
         this.input = new Input();
-        this.container.addChild(this.board.container);
-
         this.onPortalTrigger = this.onPortalTrigger.bind(this);
 
+        this.container.addChild(this.board.container);
         EventManager.global().on('Portal', this.onPortalTrigger);
     }
 
