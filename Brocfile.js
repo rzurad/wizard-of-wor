@@ -1,16 +1,17 @@
 var compileES6 = require('broccoli-babel-transpiler'),
     concat = require('broccoli-concat'),
-    mergeTrees = require('broccoli-merge-trees'),
-    pickFiles = require('broccoli-static-compiler'),
+    MergeTrees = require('broccoli-merge-trees'),
+    Funnel = require('broccoli-funnel'),
     compileLess = require('broccoli-less-single'),
-    unwatchedTree = require('broccoli-unwatched-tree'),
+    WatchedDir = require('broccoli-source').WatchedDir,
+    UnwatchedDir = require('broccoli-source').UnwatchedDir,
 
     sourceTree = 'src',
     js, jsVendor, index, assets;
 
-jsVendor = mergeTrees([
-    unwatchedTree('bower_components'),
-    unwatchedTree('lib')
+jsVendor = new MergeTrees([
+    new UnwatchedDir('bower_components'),
+    new UnwatchedDir('lib')
 ]);
 
 jsVendor = concat(jsVendor, {
@@ -31,11 +32,11 @@ jsVendor = concat(jsVendor, {
     outputFile: '/assets/vendor.js',
 });
 
-js = compileES6(sourceTree, {
+js = compileES6(new WatchedDir(sourceTree), {
     browserPolyfill: true,
-    stage: 0,
-    moduleIds: true,
-    modules: 'amd'
+    plugins: ['babel-plugin-transform-es2015-modules-amd'],
+    presets: ['babel-preset-stage-0'],
+    moduleIds: true
 });
 
 js = concat(js, {
@@ -45,15 +46,15 @@ js = concat(js, {
 
 css = compileLess([sourceTree], 'game/ui/less/base.less', '/assets/wizard.css');
 
-index = pickFiles(sourceTree + '/game', {
+index = new Funnel(sourceTree + '/game', {
     srcDir: '',
     files: ['index.html', 'player-options.json'],
     destDir: ''
 });
 
-assets = pickFiles('.', {
+assets = new Funnel('.', {
     srcDir: 'assets',
     destDir: '/assets'
 });
 
-module.exports = mergeTrees([index, css, jsVendor, js, assets]);
+module.exports = new MergeTrees([index, css, jsVendor, js, assets]);

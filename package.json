@@ -2,21 +2,26 @@
   "name": "wizard",
   "private": true,
   "scripts": {
+    "build": "node_modules/.bin/grunt build",
     "test": "mocha"
   },
   "devDependencies": {
-    "babel": "^5.0.0",
-    "broccoli": "0.16.8",
-    "broccoli-babel-transpiler": "5.4.5",
-    "broccoli-concat": "0.0.13",
-    "broccoli-less-single": "0.5.0",
-    "broccoli-merge-trees": "0.2.3",
-    "broccoli-static-compiler": "0.2.2",
-    "broccoli-unwatched-tree": "0.1.1",
+    "babel": "6.23.0",
+    "babel-plugin-transform-es2015-modules-amd": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "bower": "^1.8.0",
+    "broccoli": "1.1.1",
+    "broccoli-babel-transpiler": "6.0.0",
+    "broccoli-cli": "1.0.0",
+    "broccoli-concat": "3.2.2",
+    "broccoli-funnel": "^1.2.0",
+    "broccoli-less-single": "0.6.4",
+    "broccoli-merge-trees": "2.0.0",
+    "broccoli-source": "^1.1.0",
     "chai": "3.4.0",
-    "grunt": "0.4.5",
-    "grunt-docco": "0.4.0",
-    "grunt-shell": "1.1.2",
+    "grunt": "1.0.1",
+    "grunt-docco": "0.5.0",
+    "grunt-shell": "2.1.0",
     "mocha": "2.3.3"
   }
 }

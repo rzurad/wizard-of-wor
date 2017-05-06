@@ -10,13 +10,13 @@ module.exports = function (grunt) {
             build: {
                 command: [
                     'rm -rf dist',
-                    'broccoli build dist',
-                    'grunt docco'
-                ].join('&&')
+                    './node_modules/.bin/broccoli build dist',
+                    './node_modules/.bin/grunt docco'
+                ].join(' && ')
             },
 
             serve: {
-                command: 'broccoli serve'
+                command: './node_modules/.bin/broccoli serve'
             },
 
             test: {
