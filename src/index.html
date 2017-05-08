@@ -3,8 +3,69 @@
     <head>
         <meta charset="utf-8">
         <title>The Incredible Wizard of Wor"</title>
+        <style>
+html {
+    height: 100%;
+}
+
+body {
+    background-color: #000;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+#game-container {
+    user-select: none;
+    width: 500px;
+    height: 350px;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#temp-loading {
+    font-family: 'Press Start 2P', serif;
+    text-transform: uppercase;
+    color: red;
+}
+
+.terminal-font {
+    font-family: 'Press Start 2P', cursive;
+}
+
+.getready {
+    text-align: center;
+    font-size: 68px;
+}
+
+.go {
+    text-align: center;
+    font-size: 172px;
+}
+
+.blue {
+    color: #5b93f3;
+}
+
+.yellow {
+    color: #cfce00;
+}
+        </style>
+        <link href="https://fonts.googleapis.com/css?family=UnifrakturCook:700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Pirata+One" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     </head>
     <body>
+        <div id="game-container">
+            <p id="temp-loading">Loading</p>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.js"></script>
         <script src="./wizard.js"></script>
     </body>
 </html>

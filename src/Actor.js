@@ -2,7 +2,6 @@ import StateMachine from 'javascript-state-machine/state-machine';
 import PortalCell from 'PortalCell';
 import { DIRECTIONS, CELL_SIZE } from 'consts';
 import EventManager from 'EventManager';
-import 'pixi.js/dist/pixi';
 
 export default class Actor {
     constructor() {

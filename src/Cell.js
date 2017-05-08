@@ -1,5 +1,4 @@
 import { CELL_SIZE } from 'consts';
-import 'pixi.js/dist/pixi';
 
 export default class Cell {
 	constructor(config, x, y) {

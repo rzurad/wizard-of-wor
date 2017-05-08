@@ -2,7 +2,6 @@ import Cell from 'Cell';
 import PortalCell from 'PortalCell';
 import EventManager from 'EventManager';
 import { DIRECTIONS, CELL_SIZE } from 'consts';
-import 'pixi.js/dist/pixi';
 
 const LEFT_PORTAL_INDEX = 22;
 const RIGHT_PORTAL_INDEX = 32;

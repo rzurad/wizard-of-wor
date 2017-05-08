@@ -1,5 +1,4 @@
 import Application from 'Application';
-import 'pixi.js/dist/pixi';
 
 (function () {
     "use strict";

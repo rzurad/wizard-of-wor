@@ -1,5 +1,4 @@
 import Actor from 'Actor';
-import 'pixi.js/dist/pixi';
 
 export default class Player extends Actor {
     constructor() {

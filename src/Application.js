@@ -1,61 +1,43 @@
-import Dungeon from 'Dungeon';
 import EventManager from 'EventManager';
-import { DUNGEONS } from 'consts';
-import Player from 'Player';
-import Input from 'Input';
-import 'pixi.js/dist/pixi';
+import GoView from 'GoView';
+import GetReadyView from 'GetReadyView';
+import DungeonView from 'DungeonView';
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
-const PORTAL_COOLDOWN = 5000;
-
-export default class Application extends PIXI.Application {
+export default class Application {
     constructor(config) {
-        super(config);
+        this.element = document.querySelector('#game-container');
+        this.onRequestViewChange = this.onRequestViewChange.bind(this);
 
-        const board = new Dungeon();
-        const player = new Player();
-
-        board.load((function (d) {
-            return d[~~(Math.random() * d.length)];
-        }(DUNGEONS.WORRIOR)));
-        board.spawnActor(player);
-
-        const container = board.container;
-
-        container.x = this.renderer.view.width / 2;
-        container.y = this.renderer.view.height / 2;
-        container.pivot.set(container.width / 2, container.height / 2);
-        this.stage.addChild(container);
-        document.body.appendChild(this.view);
-
-        this.board = board;
-        this.player = player;
-        this.input = new Input();
-
-        // this belongs in GameLogic
-        this.onPortalTrigger = this.onPortalTrigger.bind(this);
-
-        EventManager.global().on('Portal', this.onPortalTrigger);
+        EventManager.global().on('RequestViewChange', this.onRequestViewChange);
+        EventManager.global().trigger('RequestViewChange', 'GetReady');
     }
 
-    onPortalTrigger(e) {
-        setTimeout(() => {
-            this.board.openPortal();
-        }, PORTAL_COOLDOWN);
+    changeView(view) {
+        if (this.view) {
+            this.view.destroy();
+        }
+
+        this.view = view;
+        this.element.innerHTML = '';
+        this.element.appendChild(view.element);
     }
 
-    processInput() {
-        if (this.player.can('stopmoving') && !this.input.direction) {
-            this.player.stopmoving();
+    onRequestViewChange(event) {
+        let View;
+
+        switch (event.data) {
+            case 'GetReady': View = GetReadyView; break;
+            case 'Go': View = GoView; break;
+            case 'Dungeon': View = DungeonView; break;
+            default: throw new Error('unknown view: ' + name);
         }
 
-        if (this.input.direction) {
-            this.player.move(this.input.direction);
-        }
+        this.changeView(new View());
     }
 
     onUpdateFrame() {
-        this.processInput();
+        this.view.onUpdateFrame();
     }
 }
