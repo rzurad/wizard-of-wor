@@ -21,6 +21,10 @@ export default class Input {
 
                 this.direction = moveKeys[e.code];
             }
+
+            if (e.code === 'Space' && !this.firing) {
+                this.firing = true;
+            }
         }.bind(this);
 
         this.onKeyUp = function (e) {
@@ -29,6 +33,10 @@ export default class Input {
                 delete keysPressed[e.code];
 
                 this.direction = moveKeys[keyStack[keyStack.length - 1]] || 0;
+            }
+
+            if (e.code === 'Space' && this.firing) {
+                this.firing = false;
             }
         }.bind(this);
 

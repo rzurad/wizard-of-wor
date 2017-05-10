@@ -5,7 +5,9 @@ import EventManager from 'EventManager';
 
 export default class Actor {
     constructor() {
-        this.sprites = {};
+        this.sprites = {
+            moving: this.createMovingSprite()
+        };
         this.container = new PIXI.Container();
         this.container.pivot.set(12, 12);
         this.speed = 2;
@@ -27,12 +29,47 @@ export default class Actor {
         this.sprites.moving.play();
     }
 
-    onstopmoving(event, from, to) {
+    onleavemoving(event, from, to) {
         this.sprites.moving.stop();
     }
 
     onbeforestartup(event, from, to) {
         this.container.addChild(this.sprites.moving);
+    }
+
+    onstartfiring(event, from, to) {
+        const sprite = this.createFiringSprite();
+
+        if (sprite) {
+            if (this.sprites.firing) {
+                this.sprites.firing.destroy();
+            }
+            
+            this.sprites.firing = sprite;
+            this.container.removeChildren();
+            this.container.addChild(sprite);
+            sprite.onComplete = () => {
+                this.stopfiring();
+            };
+            sprite.play();
+            PIXI.sound.stopAll();
+            PIXI.sound.play('player-fire');
+        } else {
+            this.stopfiring();
+        }
+    }
+
+    onstopfiring(event, from, to) {
+        if (this.sprites.firing) {
+            this.container.removeChildren();
+            this.container.addChild(this.sprites.moving);
+        }
+    }   
+
+    fire() {
+        if (this.can('startfiring')) {
+            this.startfiring();
+        }
     }
 
     move(direction) {
@@ -68,6 +105,10 @@ export default class Actor {
                         break;
                 }
             }.bind(this);
+
+        if (this.current === 'firing') {
+            return false;
+        }
 
         var cellX = this.cell.sprite.x,
             cellY = this.cell.sprite.y,
@@ -135,12 +176,18 @@ export default class Actor {
     }
 }
 
+// none
+// idle
+// moving
+// firing
 StateMachine.create({
 	target: Actor.prototype,
 	events: [
 		{ name: 'startup', from: 'none', to: 'idle' },
 		{ name: 'startmoving', from: 'idle', to: 'moving' },
 		{ name: 'stopmoving', from: 'moving', to: 'idle' },
+        { name: 'startfiring', from: ['idle', 'moving'], to: 'firing' },
+        { name: 'stopfiring', from: 'firing', to: 'idle' }
 	]
 });
 

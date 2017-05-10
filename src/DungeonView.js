@@ -51,6 +51,10 @@ export default class DungeonView {
         if (this.input.direction) {
             this.player.move(this.input.direction);
         }
+
+        if (this.input.firing) {
+            this.player.fire();
+        }
     }
 
     destroy() {

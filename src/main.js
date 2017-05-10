@@ -38,7 +38,9 @@ import Application from 'Application';
     loadSounds([
         'assets/getready.m4a',
         'assets/go.m4a',
-        'assets/portal-trigger.m4a'
+        'assets/portal-trigger.m4a',
+        'assets/player-fire.m4a',
+        'assets/player-spawn.m4a'
     ], function () {
         loadTextures(startGame);
     });
