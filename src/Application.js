@@ -22,6 +22,7 @@ export default class Application {
         this.view = view;
         this.element.innerHTML = '';
         this.element.appendChild(view.element);
+        this.view.onAttach();
     }
 
     onRequestViewChange(event) {

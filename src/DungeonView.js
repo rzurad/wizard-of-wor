@@ -35,6 +35,8 @@ export default class DungeonView {
         EventManager.global().on('Portal', this.onPortalTrigger);
     }
 
+    onAttach() {}
+
     onPortalTrigger(e) {
         setTimeout(() => {
             this.board.openPortal();

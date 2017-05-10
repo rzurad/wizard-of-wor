@@ -12,6 +12,7 @@ export default class GetReadyView {
         const element = document.createElement('div');
         element.innerHTML = this.template;
         this.element = element;
+        this.timeoutId;
         this.onKeyDown = this.onKeyDown.bind(this);
 
         window.addEventListener('keydown', this.onKeyDown);
@@ -19,12 +20,23 @@ export default class GetReadyView {
     }
 
     onKeyDown(e) {
-        EventManager.global().trigger('RequestViewChange', 'Go');
+        this.requestViewChange();
     }
 
     destroy() {
         window.removeEventListener('keydown', this.onKeyDown);
         window.removeEventListener('click', this.onKeyDown);
+    }
+
+    requestViewChange() {
+        PIXI.sound.stopAll();
+        clearTimeout(this.timeoutId);
+        EventManager.global().trigger('RequestViewChange', 'Go');
+    }
+
+    onAttach() {
+        this.timeoutId = setTimeout(this.requestViewChange.bind(this), 3210); 
+        PIXI.sound.play('getready');
     }
 
     onUpdateFrame() {}

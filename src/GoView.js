@@ -11,6 +11,7 @@ export default class GoView {
         const element = document.createElement('div');
         element.innerHTML = this.template;
         this.element = element;
+        this.timeoutId;
         this.onKeyDown = this.onKeyDown.bind(this);
 
         window.addEventListener('keydown', this.onKeyDown);
@@ -18,7 +19,18 @@ export default class GoView {
     }
 
     onKeyDown(e) {
+        this.requestViewChange();
+    }
+
+    requestViewChange() {
+        PIXI.sound.stopAll();
+        clearTimeout(this.timeoutId);
         EventManager.global().trigger('RequestViewChange', 'Dungeon');
+    }
+
+    onAttach() {
+        this.timeoutId = setTimeout(this.requestViewChange.bind(this), 1810);
+        PIXI.sound.play('go');
     }
 
     destroy() {

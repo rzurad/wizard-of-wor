@@ -73,6 +73,7 @@ export default class Dungeon {
     closePortal() {
         if (this.isPortalOpen) {
             const texture = PIXI.Texture.fromFrame('portal-closed.png');
+            PIXI.sound.play('portal-trigger');
 
             this.isPortalOpen = false;
             this.sprites.leftPortal.texture = texture;
