@@ -1,4 +1,5 @@
 import Application from 'Application';
+import 'pixi-sound/dist/pixi-sound';
 
 (function () {
     "use strict";
