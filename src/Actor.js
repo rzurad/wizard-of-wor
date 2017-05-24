@@ -67,9 +67,18 @@ export default class Actor {
     }   
 
     fire() {
+        if (this.is('firing')) {
+            return;
+        }
+
         if (this.can('startfiring')) {
             this.startfiring();
         }
+
+        EventManager.global().trigger('FireProjectile', {
+            parent: this,
+            direction: this.direction
+        });
     }
 
     move(direction) {

@@ -4,8 +4,6 @@ import Input from 'Input';
 import Dungeon from 'Dungeon';
 import { DUNGEONS } from 'consts';
 
-const PORTAL_COOLDOWN = 5000;
-
 export default class DungeonView {
     constructor() {
         const app = new PIXI.Application({ width: 500, height: 350 });
@@ -29,19 +27,9 @@ export default class DungeonView {
         this.player = player;
         this.input = new Input();
         this.element = app.view;
-
-        // this belongs in GameLogic
-        this.onPortalTrigger = this.onPortalTrigger.bind(this)
-        EventManager.global().on('Portal', this.onPortalTrigger);
     }
 
     onAttach() {}
-
-    onPortalTrigger(e) {
-        setTimeout(() => {
-            this.board.openPortal();
-        }, PORTAL_COOLDOWN);
-    }
 
     processInput() {
         if (this.player.can('stopmoving') && !this.input.direction) {
@@ -58,7 +46,6 @@ export default class DungeonView {
     }
 
     destroy() {
-        EventManager.global().off('Portal', this.onPortalTrigger);
         this.input.destroy();
     }
 

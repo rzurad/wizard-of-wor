@@ -3,6 +3,7 @@ import PortalCell from 'PortalCell';
 import EventManager from 'EventManager';
 import { DIRECTIONS, CELL_SIZE } from 'consts';
 
+const PORTAL_COOLDOWN = 5000;
 const LEFT_PORTAL_INDEX = 22;
 const RIGHT_PORTAL_INDEX = 32;
 const WALL_WIDTH = 4;
@@ -33,10 +34,20 @@ export default class Dungeon {
         this.container.addChild(this.sprites.rightPortal);
 
         EventManager.global().on('Portal', this.onPortalTrigger);
+        EventManager.global().on('FireProjectile', this.onFireProjectile);
     }
 
     destroy() {
         EventManager.global().off('Portal', this.onPortalTrigger);
+        EventManager.global().off('FireProjectile', this.onFireProjectile);
+
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId);
+        }
+    }
+
+    onFireProjectile(e) {
+        console.log('boom');
     }
 
     onPortalTrigger(e) {
@@ -57,6 +68,11 @@ export default class Dungeon {
             }
 
             this.closePortal();
+
+            this.timeoutId = setTimeout(() => {
+                this.timeoutId = null;
+                this.openPortal();
+            }, PORTAL_COOLDOWN);
         }
     }
 
