@@ -1,6 +1,7 @@
 import EventManager from 'EventManager';
 import GoView from 'GoView';
 import GetReadyView from 'GetReadyView';
+import GameLogic from 'GameLogic';
 import DungeonView from 'DungeonView';
 
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
@@ -11,6 +12,10 @@ export default class Application {
         this.onRequestViewChange = this.onRequestViewChange.bind(this);
 
         EventManager.global().on('RequestViewChange', this.onRequestViewChange);
+
+        this.game = new GameLogic();
+        this.player = new Player(); 
+
         EventManager.global().trigger('RequestViewChange', 'GetReady');
     }
 

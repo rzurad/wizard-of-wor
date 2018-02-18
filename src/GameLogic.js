@@ -10,7 +10,7 @@ const WALL_WIDTH = 4;
 const BOARD_HEIGHT = 6;
 const BOARD_WIDTH = 11;
 
-export default class Dungeon {
+export default class GameLogic {
     constructor() {
         this.cells = [];
         this.container = new PIXI.Container();

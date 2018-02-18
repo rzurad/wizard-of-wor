@@ -1,14 +1,13 @@
 import EventManager from 'EventManager';
 import Player from 'Player';
 import Input from 'Input';
-import Dungeon from 'Dungeon';
 import { DUNGEONS } from 'consts';
 
 export default class DungeonView {
-    constructor() {
+    constructor(game) {
         const app = new PIXI.Application({ width: 500, height: 350 });
 
-        const board = new Dungeon();
+        const board = new GameLogic();
         const player = new Player();
 
         board.load((function (d) {
